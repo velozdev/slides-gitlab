@@ -1,0 +1,1373 @@
+1:"$Sreact.fragment"
+2:I[1063,[],""]
+3:I[1483,[],""]
+4:I[1450,["741","static/chunks/741-aa8ecf12c3577a37.js","950","static/chunks/950-7a07ecfccc75fc2d.js","883","static/chunks/app/slides/%5Bslug%5D/page-0a0dc33d6021bf58.js"],"default"]
+10:I[5125,[],"OutletBoundary"]
+13:I[5125,[],"ViewportBoundary"]
+15:I[5125,[],"MetadataBoundary"]
+17:I[1954,[],""]
+:HL["/slides-gitlab/_next/static/css/7f2bac3a49a607b0.css","style"]
+5:Tccb,# **Module 1: GitLab Foundations & UI Navigation**
+
+## **Tuning Our Instruments Before the Symphony**
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+# **Unlocking Your Potential**
+
+## **Most teams use about 20% of GitLab's capabilities.**
+
+Today, we start unlocking the other 80%.
+
+*(Graphic: A visual of an iceberg, with the small tip labeled "What most teams use" and the large submerged part labeled "What we'll unlock today.")*
+
+# **GitLab is Three Tools in One**
+
+## **The Integrated DevOps Platform**
+
+A three-column layout with icons for each section.
+
+| Source Code Management | CI/CD Platform | Project Management Suite |
+| :---- | :---- | :---- |
+| Your Git repositories. This is where your code lives. | Automated testing and deployment. We'll touch on this on Day 3\. | This is where we'll spend most of our time. The "Plan" capabilities are your secret weapon for Scrum. |
+
+Export to Sheets
+
+# **A Seamless Flow**
+
+## **From Idea to Production**
+
+* Your user stories become issues.  
+* Issues connect to code changes.  
+* Code changes trigger deployments.
+
+*(Graphic: A simple flow diagram: `Issue Icon` \-\> `Code Branch Icon` \-\> `Pipeline Icon` \-\> `Rocket Icon`)*
+
+# **UI Navigation: Your Mission Control**
+
+## **The Project Dashboard**
+
+* Shows activity across all your projects.  
+* Think of it as your personal news feed for all GitLab activity.  
+* **Key Concept:** The left sidebar is context-sensitive; it changes based on whether you're in a Group or a Project.
+
+*(Graphic: A screenshot of the GitLab project dashboard with the left sidebar highlighted.)*
+
+# **Key Sidebar Exploration**
+
+## **Your Toolkit for Planning & Execution**
+
+A visual list of key sidebar items with brief descriptions.
+
+* **Issues:** Your backlog, tasks, and user stories.  
+* **Boards:** Your visual workflow (Kanban).  
+* **Epics:** Your themes and initiatives (the big picture).  
+* **Milestones:** Your sprints, releases, and time boxes.  
+* **Roadmaps:** Strategic visualization over time.  
+* **Merge Requests:** Where code review happens.  
+* **Repository:** Your actual code files and Git history.
+
+# **Groups vs. Projects**
+
+## **Understanding the Hierarchy**
+
+This hierarchy matters because permissions and features work differently at each level.
+
+**Groups**
+
+* Your team, department, or organization.  
+* *Analogy: A Folder*
+
+**Projects**
+
+* Individual repositories or work streams.  
+* *Analogy: Files inside the folder*
+
+*(Graphic: An icon of a folder labeled "Group" containing three file icons labeled "Project.")*
+
+# **Example Hierarchy**
+
+## **How It Looks in Practice**
+
+**Group: 'Marketing Team'**
+
+* Project: 'Website'  
+* Project: 'Campaign Management'  
+* Project: 'Analytics Dashboard'
+
+**Group: 'Engineering'**
+
+* Project: 'Frontend App'  
+* Project: 'Backend API'  
+* Project: 'Mobile App'
+
+# **Activity: Time to Explore**
+
+## **Navigation Practice**
+
+* It's your turn to explore the GitLab UI.  
+* The goal is to get comfortable clicking around and seeing what's there.  
+* Think of this as a scavenger hunt. Don't worry about understanding everything yet.
+6:T13e0,# **Module 2: Mastering Issue Management & Integrated Time Tracking**
+
+## **The Backbone of Your Scrum Workflow**
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+
+# **Today's Goals**
+
+* **Create rich, structured issues** that actually help your team
+* **Track time** without additional tools or spreadsheets
+* **Build relationships** between issues to show dependencies
+* Use  
+   **advanced features** that most teams don't even know exist
+
+# **Beyond a Title & Description**
+
+## **Moving from a simple task to a shared understanding.**
+
+A great issue is more than just a title. It's a "contract" that contains everything needed to get the work done. We can achieve this with structured markdown.
+
+*(Graphic: A simple text title on the left, transforming into a structured document icon on the right.)*
+
+# **Anatomy of a Rich Issue**
+
+Example: "Implement User Authentication" 6
+
+* **User Story:** As a \[user\], I want \[action\], so that \[benefit\].
+* **Business Value:** Why are we building this?
+* **Acceptance Criteria:** A checklist of what "done" looks like.
+* **Technical Notes:** Guidance for the developer.
+* **Definition of Done:** Team-wide quality checklist.
+
+*(Graphic: A screenshot or well-formatted text block showing the different sections of the example issue.)*
+
+# **Adding Rich Metadata**
+
+## **Context at a Glance**
+
+Use the sidebar to add crucial context to every issue.
+
+* **(Icon) Assignees:** Assign multiple people for pair programming or collaboration.
+* **(Icon) Milestone:** Connect the issue to a sprint or release.
+* **(Icon) Due Date:** Set a clear deadline.
+* **(Icon) Labels:** Categorize the work (e.g., bug, feature, backend).
+* **(Icon) Weight:** Estimate effort using story points.
+
+# **Task Lists: Your Interactive Checklist**
+
+## **Two pieces of magic in one feature.**
+
+1. **Live Progress Tracking:** GitLab automatically tracks the completion percentage as you check items off.
+2. **Create Linked Issues:** Convert any task list item into its own issue with a single click, automatically linking it back to the original story.
+
+*(Graphic: A before/after animation showing a task being checked off and the progress bar updating, then another task turning into a linked issue.)*
+
+# **Issue Relationships: Visualizing Dependencies**
+
+See what's blocking progress instantly.
+
+| Relationship | Purpose |
+| :---- | :---- |
+| **Related to** | A general connection; these issues are similar but not dependent. |
+| **Blocks** | This issue must be finished before the other one can start. |
+| **Blocked by** | This issue cannot start until the other one is finished. |
+
+*(Graphic: A simple diagram showing three issue icons connected by these three relationship types.)*
+
+# **Issue Templates: Work Smarter**
+
+Ensure consistency and save time.
+
+* Create reusable templates for common issue types like bug reports or user stories.
+* When anyone creates a new issue, they can select a template to pre-fill the description with the required structure.
+
+*(Graphic: A screenshot showing the "Choose a template" dropdown in the new issue view.)*
+
+# **Integrated Time Tracking**
+
+## **Ditch the Spreadsheets**
+
+* GitLab's time tracking is built right into issues.
+* It connects directly to your workflow and generates reports automatically.
+* No more separate systems or manual data entry.
+
+# **Time Tracking with Quick Actions**
+
+Use slash commands in comments to log time.
+
+To Estimate Time:
+
+/estimate 2d 4h 30m
+
+To Log Time Spent:
+
+/spend 2h Working on login validation
+
+To Correct Time:
+
+/spend \-30m
+
+*(Graphic: A screenshot of a comment box in GitLab with an example slash command being typed.)*
+
+# **Where Does the Data Go? Time Reports**
+
+## **Visualize your team's effort.**
+
+* **Issue List View:** See Time Estimate vs. Time Spent for every issue.
+* **Milestone Reports:** Get a roll-up of all time tracked for an entire sprint.
+* **User Reports:** Understand team capacity and velocity.
+
+*(Graphic: A collage of small screenshots showing these different reporting views.)*
+
+# **Time Tracking Best Practices**
+
+Use data for learning, not for punishment. 36
+
+| DO ✅ | DON'T ❌ |
+| :---- | :---- |
+| Estimate during sprint planning. 37 | Get obsessed with perfect accuracy. |
+| Log time daily. 39 | Use it for performance reviews without context. |
+| Be consistent with granularity. 41 | Force people to account for every minute. |
+| Focus on patterns, not individuals. 43 | Ignore the data; if you don't use it, don't collect it. |
+
+# **Module Recap**
+
+## **Key Concepts Mastered**
+
+* ✅  **Rich Issue Creation:** Using markdown, templates, and structured content.  
+* ✅  **Advanced Features:** Understanding relationships, assignees, due dates, and weights.
+* ✅  **Integrated Time Tracking:** Estimation, logging, and reporting without external tools.
+* ✅  **Team Conventions:** The importance of consistency for making features work.
+
+# **Questions?**
+7:T14ec,# **Module 3: Strategic Labeling & Powerful Filtering**
+
+## **From Sticky Notes to a Structured Database**
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+
+# **Today's Goals**
+
+* **Design label systems** that actually help instead of confuse.  
+* **Find any work in seconds** using advanced filtering.  
+* **Create saved searches** that replace your daily manual hunting.  
+* **Set up label automation** that works while you sleep.
+
+# **The Common Challenge: Label Chaos**
+
+*(Graphic: A word cloud or a messy pile of digital "sticky notes" with conflicting and inconsistent labels.)*
+
+**Labels often become a source of confusion:**
+
+* Inconsistent naming (e.g.,  
+   `bug`, `Bug`).  
+* Duplicates (e.g.,  
+   `high priority`, `high-priority`, `urgent`).  
+* Conflicting Information (e.g., an issue labeled both  
+   `high priority` and `low priority`).
+
+# **The Solution: Scoped Labels**
+
+## **Bringing Structure with `scope::value`**
+
+Scoped labels solve this with a simple concept: categories with values. Instead of random tags, you have structured data.
+
+* `Priority::High`  
+* `Team::Frontend`  
+* `Type::Bug`  
+* `Workflow::Ready`
+
+*(Graphic: A simple animation showing messy labels being sorted into clean, colored, scoped labels.)*
+
+# **How Scoped Labels Work**
+
+## **One Value Per Scope**
+
+The magic of scoped labels is that GitLab ensures
+
+**only ONE label per scope can be applied** to an issue.
+
+An issue **CANNOT** have both:
+
+* `Priority::High`  
+* `Priority::Low`
+
+This enforces consistency and turns your labels into a reliable database.
+
+# **Building a Label System**
+
+## **A Live Demo Preview**
+
+We will create a complete system with four key scopes, using color for instant visual scanning.
+
+| Scope | Example Values (with colors) |  |
+| :---- | :---- | :---- |
+| **Workflow** |  | `workflow::backlog` (gray), `workflow::in-progress` (orange), `workflow::done` (green) |
+| **Priority** |  | `priority::critical` (red), `priority::medium` (yellow), `priority::low` (light green) |
+| **Team** |  | `team::frontend` (pink), `team::backend` (indigo), `team::qa` (purple) |
+| **Type** |  | `type::bug` (red), `type::feature` (blue), `type::enhancement` (orange) |
+
+Export to Sheets
+
+# **Group vs. Project Labels**
+
+## **Where you create labels matters.**
+
+* **Group Labels:** Available to all projects in the group.  
+   **Best for core, consistent labels** like Workflow, Priority, and Team.  
+* **Project Labels:** Only available in the specific project.  
+   **Best for project-specific needs** like Components or Releases.
+
+*(Graphic: A diagram showing a large "Group" folder containing smaller "Project" files, with common labels defined at the Group level and specific labels at the Project level.)*
+
+# **Unleash the Power of Search**
+
+## **From Scrolling to Asking Questions**
+
+With a good label system, you can stop scrolling and start asking GitLab complex questions like:
+
+* "Show me all high priority bugs assigned to the frontend team."  
+* "What's blocking our current sprint?"  
+* "Find everything due this week that's not yet started."
+
+# **Advanced Search Syntax**
+
+## **Your "Cheat Sheet"**
+
+Combine keywords to find exactly what you need.
+
+| Keyword | Example |  |
+| :---- | :---- | :---- |
+| `label:` |  | `label:priority::high` |
+| `assignee:` |  | `assignee:@me` |
+| `milestone:` |  | `milestone:"Current Sprint"` |
+| `not` |  | `not label:workflow::done` |
+| `due_date:` |  | `due_date:overdue` |
+
+Export to Sheets
+
+# **Example: A Real-World Search**
+
+## **"My Sprint Focus"**
+
+This query finds all high-priority work assigned to me in the current sprint that is not yet done.
+
+`label:priority::high assignee:@me milestone:"Current Sprint" not label:workflow::done`
+
+*(Graphic: Break down the search query into visual blocks, explaining what each part does.)*
+
+# **Save Time with Automation**
+
+## **Saved Searches & Subscriptions**
+
+**Saved Searches**
+
+* Save complex queries so you never have to retype them.  
+* Build a personal dashboard of one-click reports like 'My Current Work' or 'Overdue Items'.
+
+**Label Subscriptions**
+
+* Get notified automatically when a specific label is added to an issue.  
+* Perfect for QA teams subscribing to  
+   `workflow::ready-for-testing`.
+
+# **Best Practices for Label Governance**
+
+## **Keep Your System Clean and Useful**
+
+| DO ✅ | DON'T ❌ |
+| :---- | :---- |
+| Use consistent naming conventions. | Create too many one-off labels. |
+| Document your system in a wiki. | Use colors randomly. |
+| Start simple and evolve. | Let anyone create labels without discussion. |
+| Regularly clean up unused labels. | Duplicate features (e.g., a label for a milestone). |
+
+Export to Sheets
+
+# **Module Recap**
+
+## **Key Concepts Mastered**
+
+* **Scoped Labels:** You can create structured, hierarchical label systems that scale.  
+* **Advanced Search Syntax:** You can find any work in seconds using complex queries.  
+* **Saved Searches:** You've built a personal arsenal of searches that save time daily.  
+* **Label Subscriptions:** You know how to create automatic awareness systems.  
+* **Label Governance:** You understand how to maintain and evolve your system over time.
+
+# **Questions?**
+8:T15db,# **Module 4: Milestones for Timeboxing & Release Planning**
+
+## **From a Pile of Work to a Coordinated System**
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+
+# **Today's Goals**
+
+* **Create** sprint, release, and project milestones that drive your workflow.  
+* **Use** GitLab's burndown charts to track progress in real-time.  
+* **Build** milestone templates that save hours of sprint planning.  
+* **Connect** milestones to your broader release planning strategy.
+
+# **What is a Milestone?**
+
+## **A Time-Based Container for Your Work**
+
+* Milestones are more than just deadlines; they are flexible containers for different types of work cycles.  
+* They transform your sprints from intuition-based efforts into data-driven workflows.
+
+*(Graphic: An icon of a calendar or a clock with issues flowing into it.)*
+
+# **The Three Types of Milestones**
+
+From Daily Sprints to Strategic Projects
+
+| Sprint Milestones | Release Milestones | Project Milestones |  |  |  |
+| :---- | :---- | :---- | :---- | :---- | :---- |
+|  | **Duration:** 1-3 weeks |  | **Duration:** 4-8 weeks |  | **Duration:** 2-6 months |
+|  | **Purpose:** Deliver working software incrementally |  | **Purpose:** Deliver cohesive features to users |  | **Purpose:** Achieve strategic business objectives |
+|  | **Example Name:** 'Sprint 2024.01' |  | **Example Name:** 'Release v2.1.0' |  | **Example Name:** 'Mobile App Launch' |
+
+Export to Sheets
+
+# **The Milestone Hierarchy**
+
+## **A clear chain from daily work to strategic goals.**
+
+Project milestones contain release milestones, which contain sprint milestones.
+
+*(Graphic: A nested diagram showing a large "Project Milestone" box containing two "Release Milestone" boxes, with each of those containing three smaller "Sprint Milestone" boxes.)*
+
+# **Anatomy of a Sprint Milestone**
+
+## **Your Sprint Charter**
+
+A great milestone is more than just a title and a due date. It's a complete container with goals, capacity, and success criteria.
+
+* **Sprint Goal:** What are we trying to achieve?  
+* **Sprint Capacity:** How much work can we realistically do?  
+* **Success Criteria:** How do we know we were successful?  
+* **Sprint Schedule:** What are our key dates and meetings?  
+* **Definition of Done:** A reminder of our quality standards.
+
+# **Making Sprints Predictable**
+
+## **Capacity Planning & Burndown Charts**
+
+*(This is a transition slide to Part B of the module.)*
+
+# **Capacity Planning: The Formula**
+
+## **From Guesswork to a Data-Driven Estimate**
+
+**Formula:** `Team Size x Sprint Duration x Availability = Total Capacity`
+
+**Example:** 5 developers × 8 story points/sprint × 0.8 availability \= **32 story points** of capacity.
+
+# **Introducing: The Burndown Chart**
+
+## **Your Visual Progress Tracker**
+
+This chart shows three critical pieces of information:
+
+1. **Ideal Burndown (gray line):** The perfect path to completion.  
+2. **Actual Burndown (colored line):** Your team's real progress.  
+3. **Scope Changes (vertical jumps):** When work is added or removed.
+
+*(Graphic: A sample burndown chart with the three lines clearly labeled.)*
+
+# **Interpreting Burndown Patterns**
+
+## **From Healthy to Crisis at a Glance**
+
+| Healthy Patterns ✅ | Warning Signs ⚠️ | Crisis Indicators 🚨 |
+| :---- | :---- | :---- |
+| Actual line tracks close to ideal. | Flat lines (no progress). | Burndown line goes UP. |
+| Steady downward progress. | Actual line is consistently above ideal. | Massive gap between actual and ideal. |
+
+Export to Sheets
+
+# **Beyond Burndown: Other Health Metrics**
+
+## **A Complete Picture of Sprint Health**
+
+* **Completion Rate:** Percentage of committed stories completed.  
+* **On-Time Delivery:** Stories completed by their due dates.  
+* **Velocity Trending:** Story points completed per sprint over time.  
+* **Cycle Time:** Average time from 'In Progress' to 'Done'.
+
+# **Advanced Strategies**
+
+## **Release Planning & Automation**
+
+*(This is a transition slide to Part C of the module.)*
+
+# **Release Planning with Milestones**
+
+## **The Bigger Picture**
+
+Use a `Release Milestone` to group your sprints and track progress towards a major feature delivery.
+
+**Release Milestone Template:**
+
+* **Release Goal:** What is the overall objective?  
+* **Release Scope:** Which epics are included?  
+* **Quality Gates:** What are the exit criteria?  
+* **Release Schedule:** What are the key deployment dates?
+
+# **Power-User Tips for Milestones**
+
+## **Work Smarter, Not Harder**
+
+* **Bulk Issue Management:** Use issue boards to drag-and-drop issues between milestones.  
+* **Milestone Templates:** Save your detailed milestone descriptions as templates for reuse.  
+* **Integration with Labels:** Create powerful filters and saved searches like `milestone:current AND label:blocked`.  
+* **Group-Level Milestones:** Create milestones at the group level for organization-wide initiatives.
+
+# **Module Recap**
+
+## **Key Concepts Mastered**
+
+* **Milestone Types:** You understand sprint, release, and project milestones and how they nest.  
+* **Capacity Planning:** You can calculate realistic team capacity and track it in real-time.  
+* **Burndown Tracking:** You can read burndown charts and identify sprint health patterns.  
+* **Sprint Templates:** You have reusable templates that save hours of planning time.  
+* **Integration Strategy:** You see how milestones connect to broader release planning.
+
+# **Questions?**
+9:T121b,# **Module 5: Epics for Structuring Larger Initiatives**
+
+## **From Individual Tasks to Strategic Themes**
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+
+# **Today's Goals**
+
+* **Create epics** that connect business strategy to daily work.  
+* **Structure epic hierarchies** that make sense for your organization.  
+* **Use epic boards** to visualize strategic progress.  
+* **Connect epics to roadmaps** for stakeholder communication.  
+* **Track epic progress** across multiple teams and milestones.
+
+# **What is an Epic?**
+
+## **The Chapters in Your Product Story**
+
+If issues are the individual pages, epics are the chapters that group them together into a coherent story.
+
+* Epics are strategic themes or initiatives.  
+* They help you track progress on large features that span multiple sprints.  
+* They are containers for related issues that together deliver a meaningful business outcome.
+
+# **Epic vs. Issue**
+
+## **A Quick Comparison**
+
+A simple guideline: If it can be done in one sprint, it's likely an issue. If it takes multiple sprints to deliver a full experience, it's a great candidate for an epic.
+
+| Issues | Epics |
+| :---- | :---- |
+| Specific, actionable work items | Strategic themes or initiatives |
+| Completed in days or weeks | Completed over weeks or months |
+| Technical or task-focused | Business outcome-focused |
+| Assigned to individuals or small teams | Involve multiple people or teams |
+
+Export to Sheets
+
+# **The Epic Hierarchy**
+
+## **Tracking Progress at Every Level**
+
+GitLab supports nested epics, allowing you to connect high-level strategy directly to individual tasks.
+
+*(Graphic: A top-down flow chart showing the hierarchy)*
+
+* **Portfolio Epic** (e.g., 'Q1 2024 Digital Transformation')  
+  * **Program Epic** (e.g., 'Customer Portal Redesign')  
+    * **Feature Epic** (e.g., 'User Authentication System')  
+      * **Issue** (e.g., 'Implement OAuth login')
+
+# **Anatomy of an Epic**
+
+## **A Charter for Your Initiative**
+
+A well-structured epic acts as the single source of truth for a major initiative.
+
+Key Sections:
+
+* **Epic Overview:** What is this initiative and why does it matter?  
+* **Business Objectives:** What is the primary goal and how will success be measured?  
+* **Scope (In & Out):** What is explicitly included and excluded?  
+* **Success Criteria:** A checklist of what "done" looks like for the entire epic.  
+* **Dependencies:** What does this epic block, and what is it blocked by?  
+* **Stakeholders:** Who is the sponsor, owner, and lead?
+
+# **Epic Templates**
+
+## **Drive Consistency Across Your Organization**
+
+Just like with issues, you can create templates for your epics. This is crucial for ensuring every major initiative starts with the same strategic context and structure.
+
+*(Graphic: A screenshot showing the "Choose a template" dropdown in the new epic view.)*
+
+# **Visualizing Strategy: Epic Boards**
+
+## **Kanban for Your Initiatives**
+
+Epic boards are like issue boards but for visualizing strategic progress.
+
+They help you:
+
+* Track strategic initiatives at a glance.  
+* Visualize epic progress across different states (e.g., Backlog, In Progress, Done).  
+* Identify bottlenecks at the strategic level.
+
+# **Visualizing Timelines: Roadmaps**
+
+## **Communicating Your Plan Over Time**
+
+Roadmaps turn your epics into strategic communication tools.
+
+* They provide a high-level timeline view of your epics.  
+* They help you communicate strategic direction to stakeholders.  
+* They allow you to track progress against strategic goals.
+
+*(This is a preview of a premium feature that will be covered in more detail in Module 7.)*
+
+# **The Full Picture**
+
+## **How It All Connects**
+
+Each GitLab feature builds on the last to create a complete project management system.
+
+*(Graphic: A simple flow diagram)*
+
+`Issues` (Tasks) \-\>
+
+`Labels` (Organize) \-\>
+
+`Milestones` (Time-box) \-\>
+
+`Epics` (Theme) \-\>
+
+`Boards/Roadmaps` (Visualize)
+
+# **Module Recap**
+
+## **Key Concepts Mastered**
+
+* **Epic Structure:** You understand how epics differ from issues and when to use them.  
+* **Epic Hierarchy:** You can create nested epics that reflect your organizational structure.  
+* **Epic Templates:** You have a reusable structure for strategic consistency.  
+* **Epic Boards:** You can visualize strategic progress and identify bottlenecks.  
+* **Strategic Integration:** You can see how epics connect daily work to business objectives.
+
+# **Questions?**
+a:T1705,# **Module 6: Advanced Issue Board Configurations & Workflow Visualization**
+
+## **From Simple Task Lists to Powerful Command Centers**
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+
+# **Can You Answer These Questions Instantly?**
+
+* What's blocked and why?  
+* What's ready for the next team member?  
+* Who is overloaded and who has capacity?  
+* What's taking too long in each stage?
+
+*(Graphic: On the left, a simple, generic Kanban board with columns "To Do," "In Progress," "Done.")*
+
+# **The Problem: Generic Boards Tell a Vague Story**
+
+## **The Generic Board**
+
+A large, simple graphic showing three columns:
+
+* **To Do**  
+* **In Progress**  
+* **Done**
+
+**Caption below:** This gives a high-level view but doesn't map to your team's actual process.
+
+# **The Solution: Workflow-Specific Boards**
+
+## **Mirror Your Team's Real Process**
+
+A side-by-side comparison.
+
+**Left Side (Generic):**
+
+* To Do  
+* In Progress  
+* Done
+
+**Right Side (Software Dev Workflow):**
+
+* Backlog  
+* Ready for Development  
+* In Progress  
+* Code Review  
+* Testing  
+* Ready for Deploy  
+* Done
+
+**Key Takeaway:** Your board should be a mirror of your real process, not a generic template.
+
+# **Live Demo: Building Our Workflow Board**
+
+## **Live Demo**
+
+We will now build a "Development Workflow" board together.
+
+* **Focus Areas:**  
+  * Creating columns that match a real development process.  
+  * Using labels and milestones to filter each list.  
+  * Applying board-wide filters to create a focused view.
+
+*(Graphic: A large GitLab logo or a screenshot icon.)*
+
+# **A New Dimension: Swimlanes**
+
+## **Visualizing Work from Multiple Angles**
+
+* Think of swimlanes as horizontal slices across your workflow columns.  
+* They allow you to group your work by another dimension.
+
+*(Graphic: A simple diagram showing vertical columns for "Workflow" and horizontal rows cutting across them labeled "Swimlanes.")*
+
+# **Common Swimlane Dimensions**
+
+## **How Do You Want to Group Your Work?**
+
+* **By Epic:** See how each epic progresses through your workflow.  
+* **By Assignee:** Instantly see each team member's workload across all stages.  
+* **By Priority:** Track how high, medium, and low priority work is flowing.  
+* **By Team:** See how work moves between different functional teams (Frontend, Backend, QA).
+
+*(Icons beside each bullet point representing the concept.)*
+
+# **Example: Swimlanes by Epic**
+
+## **Strategic and Tactical View in One**
+
+**Key Insights Gained:**
+
+* Which epics are moving smoothly through development.  
+* Which epics are stalled in a specific stage like code review.  
+* Which epics are ready for deployment.
+
+*(Graphic: A screenshot or mock-up of a GitLab board with clear horizontal swimlanes labeled "Epic 1: User Authentication" and "Epic 2: Profile Redesign.")*
+
+# **Optimizing Flow with WIP Limits**
+
+## **Stop Starting, Start Finishing**
+
+* Work-in-Progress (WIP) limits prevent your team from starting too much work at once.  
+* The theory is simple:  
+   **Limited WIP \= Faster Flow**
+
+*(Graphic: An icon of a "Stop" sign or a "funnel" to represent limiting work.)*
+
+# **Why Limit WIP?**
+
+## **The Benefits of Focus**
+
+* **Reduces Context Switching:** Every additional task reduces overall efficiency.  
+* **Improves Quality:** Rushed work creates more bugs and rework.  
+* **Exposes Bottlenecks:** Limits clearly show where your workflow is getting stuck.  
+* **Prevents Burnout:** Overloaded teams are stressed and less effective.
+
+# **Setting WIP Limits in GitLab**
+
+## **A Conscious Decision**
+
+* When you exceed a WIP limit, GitLab shows a warning but does not block the action.  
+* This makes breaking the rule a conscious team decision, not an accident.
+
+*(Graphic: A screenshot of a board with numbers (e.g., 3/4) on top of the "In Progress" and "Code Review" columns, with one column highlighted in orange to show the warning.)*
+
+# **Specialized Boards: One Size Fits None**
+
+## **Different Views for Different Roles**
+
+* The same set of issues can be viewed through different boards, each tailored for a specific purpose or role.
+
+*(Graphic: A central icon representing "All Issues" with arrows pointing to smaller board icons labeled "Developer View," "QA View," and "PM View.")*
+
+# **Example: The Product Manager Board**
+
+## **View for Strategic Tracking**
+
+* **Columns:** Backlog, Sprint Ready, In Progress, Done  
+* **Swimlanes:** Epic  
+* **Filter:** `milestone: "Current Sprint"`  
+* **Purpose:** To track sprint progress and the status of major epics.
+
+*(Graphic: A mock-up of this specific board configuration.)*
+
+# **Activity: Build Your Board**
+
+## **Configure Your Team's Workflow Board**
+
+**Choose Your Challenge:**
+
+1. **Option 1:** Perfect Your Development Board  
+2. **Option 2:** Create a Role-Specific Board (QA, PM, etc.)  
+3. **Option 3:** Build a Specialized Purpose Board (Bug Triage, Sprint Planning)
+
+**You have 10 minutes to build and configure a board.**
+
+# **Module Recap**
+
+## **Key Concepts Mastered**
+
+* **Workflow-Specific Boards:** You can create columns that match real processes.  
+* **Swimlanes:** You can visualize multiple dimensions of work simultaneously.  
+* **WIP Limits:** You know how to prevent overload and optimize flow.  
+* **Specialized Views:** You can create role-specific and purpose-built boards.  
+* **Flow Optimization:** You understand how boards drive process improvement.
+
+# **Your Action Items**
+
+## **Putting It Into Practice**
+
+* **This Week:** Replace your generic boards with workflow-specific ones.  
+* **Next Week:** Implement WIP limits and train your team on flow principles.  
+* **This Month:** Create specialized boards for different roles and measure flow improvements.
+
+# **Questions?**
+b:Teae,# **Module 7: Roadmaps for Strategic Visualization**
+
+## **Communicating Your Plan with Confidence**
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+
+# **Connecting the Dots**
+
+## **From Tactical Execution to Strategic Vision**
+
+A visual flow diagram showing the progression of concepts learned so far: `Issues` (The What) \-\> `Boards` (The How) \-\> `Epics` (The Initiative) \-\> **`Roadmaps` (The When)**
+
+**Key Takeaway:** We know *what* we're working on. Now, let's communicate *when* it will be delivered.
+
+# **What is a Roadmap?**
+
+## **The "Big Picture" Timeline**
+
+* A roadmap is a dynamic, high-level timeline view of your epics.  
+* It answers key stakeholder questions about timing and delivery schedules.  
+* It transforms your detailed plans into an easy-to-understand visual story.
+
+*(Graphic: A simple, clean icon representing a timeline or a Gantt chart.)*
+
+# **Answering Stakeholder Questions**
+
+## **From "What's the Status?" to "Here's the Plan"**
+
+A list of questions that roadmaps help answer:
+
+* "What major initiatives are planned for Q3?"  
+* "When can we expect the 'Customer Portal Redesign' to be complete?"  
+* "Are there any overlaps in our upcoming feature releases?"
+
+*(Graphic: A speech bubble icon next to each question.)*
+
+# **The Anatomy of a GitLab Roadmap**
+
+## **Key Features of the Roadmap View**
+
+* **Timeline View:** Adjust between Weeks, Months, and Quarters.  
+* **Epic Bars:** Each bar represents an epic, with its length determined by start and due dates.  
+* **Progress Indicators:** See completion percentage directly on the epic bar.  
+* **Milestone Overlays:** Visualize how releases align with your strategic initiatives.
+
+*(Graphic: A screenshot of a GitLab roadmap with these four features highlighted with callout boxes.)*
+
+# **Live Demo: Exploring the Roadmap**
+
+## **Live Demo**
+
+* We will now explore the **Epics \> Roadmap** view together.  
+* **Focus Areas:**  
+  * Adjusting the timeline view.  
+  * Viewing epic details and progress.  
+  * Dragging and dropping to adjust epic timelines.
+
+*(Graphic: A large GitLab logo or a screenshot icon.)*
+
+# **Activity: Build a Mini Roadmap**
+
+## **Activity: Build Your Mini Roadmap**
+
+* **Your Task:**  
+  1. Navigate to the **Epics \> Roadmap** view.  
+  2. Find at least three epics and ensure they have start and due dates.  
+  3. Practice adjusting the timeline by dragging the epic bars.  
+  4. Switch the view between 'Months' and 'Quarters'.  
+* **Instructions:** You have 15 minutes to get comfortable with creating a visual plan.
+
+# **Partner Discussion: The Stakeholder Conversation**
+
+## **Partner Discussion**
+
+* Find a partner and share your mini-roadmap.  
+* Discuss the following question:  
+  * "What is one takeaway on how this aids stakeholder communication?"
+
+**Goal:** Practice articulating the strategic value of the roadmap.
+
+# **Module Recap**
+
+## **Key Concepts Mastered**
+
+* **Strategic Communication:** You can now visually communicate your long-term plan.  
+* **Timeline Visualization:** You understand how to use the roadmap to show the timing of your epics.  
+* **Stakeholder Alignment:** You have a tool to facilitate conversations about priorities and schedules.
+
+# **The Full Picture**
+
+## **The Complete GitLab Workflow**
+
+An updated version of the flow diagram from Slide 2, now showing the complete picture: `Issues` \-\> `Labels` \-\> `Boards` \-\> `Milestones` \-\> `Epics` \-\> **`Roadmaps`**
+
+**Key Takeaway:** Each GitLab feature builds on the last to create a single, integrated system from idea to delivery.
+
+# **Questions?**
+c:Tef9,# Module 8: Advanced Git Branching Workflows with GitLab
+
+# The Bridge from Plan to Production
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+
+# From 'Why' and 'When' to 'How'
+
+* In the last modules, we focused on strategic planning (Epics, Roadmaps).
+* Now, we shift to the technical execution that brings those plans to life.
+* A solid branching strategy is the foundation for collaboration and automation.
+
+*(Graphic: A simple icon showing a roadmap on the left transforming into a code branch icon on the right.)*
+
+# Why a Branching Strategy Matters
+
+# Bringing Order to Collaboration
+
+A consistent strategy prevents:
+* Confusing code history
+* Difficult merge conflicts
+* Uncertainty about what's "production-ready"
+
+**Key Takeaway:** The goal is a predictable, low-friction process for shipping value.
+
+# Common Branching Models
+
+# A Look at Popular Workflows
+
+| GitHub Flow | Trunk-Based Development | GitLab Flow |
+|-------------|-------------------------|-------------|
+| **Concept:** Simple, `main` is always deployable. Branch from `main` for any work. | **Concept:** All developers work on a single `main` branch, integrating daily. | **Concept:** More structured with environment or release branches. |
+| **Best for:** Continuous deployment. | **Best for:** High-maturity teams with robust automated testing. | **Best for:** Scheduled releases and version control. |
+
+# Our Focus: The GitLab Flow
+
+# Built for Traceability
+
+* Provides excellent traceability from issue to code.
+* Connects planning features with development work.
+* Creates a clear separation between completed code and deployed code.
+
+*(Graphic: A diagram showing a flow: Feature Branch -> Main Branch -> Production Branch)*
+
+# The Power of a Naming Convention
+
+# Context at a Glance
+
+A well-named branch provides instant context.
+* **Our Convention:** `[issue-number]-[short-description]`
+* **Example:** `45-fix-profile-picture-upload`
+
+**Key Insight:** This simple pattern creates clarity and predictability for the whole team.
+
+# Activity: The Branch Naming Challenge
+
+# Name That Branch!
+
+* We will now practice naming branches for different scenarios.
+* Use our convention: `[issue-number]-[short-description]`
+* I will present three scenarios. Your task is to create the perfect branch name for each.
+
+# Scenario 1: The Bug Fix
+
+*(Graphic: A large bug icon)*
+
+* **Issue #45:** "User profile picture fails to upload"
+* **Task:** Create a branch to fix this bug.
+* **What is your branch name?**
+
+# Scenario 2: The New Feature
+
+*(Graphic: A large "new feature" or lightbulb icon)*
+
+* **Issue #78:** "Add Google single sign-on (SSO) to login page"
+* **Task:** Create a branch to develop this new feature.
+* **What is your branch name?**
+
+# Scenario 3: The Doc Update
+
+*(Graphic: A large documentation or text file icon)*
+
+* **Issue #102:** "Update a dependency in the API documentation"
+* **Task:** Create a branch for this documentation update.
+* **What is your branch name?**
+
+# Module Recap
+
+# Key Concepts Mastered
+
+* **Branching Workflows:** You understand the principles behind popular strategies like GitLab Flow.
+* **Traceability:** You can apply GitLab Flow to connect issues directly to code branches.
+* **Naming Conventions:** You can create consistent and descriptive branch names.
+
+# What's Next? The Bridge to Automation
+
+* Our consistent branching strategy is the key that unlocks automation.
+* When you create a merge request from a well-named branch, you can automatically trigger a CI/CD pipeline.
+* **Coming up in Module 9:** We will build that pipeline.
+
+*(Graphic: A simple flow diagram: Branch -> Merge Request -> Pipeline)*
+
+# Questions?
+d:T112c,# **Module 9: CI/CD Foundations & Best Practices**
+
+## **Automating Your Workflow with Confidence**
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+
+# **The Payoff for Good Branching**
+
+## **From Branch to Automated Pipeline**
+
+* In our last module, we created a clean, consistent branching strategy.  
+* Now, we see the payoff: **Automation**.  
+* CI/CD is the automated system that runs on the bridge we built.
+
+*(Graphic: A simple flow diagram showing: Branch \-\> Merge Request \-\> Pipeline)*
+
+# **What is CI/CD?**
+
+## **The Two Halves of Automation**
+
+| Continuous Integration (CI) | Continuous Delivery/Deployment (CD) |
+| :---- | :---- |
+| The practice of frequently merging code changes. | Takes over after CI passes. |
+| Automatically runs builds and tests after each change. | Automatically deploys your code to staging or production. |
+| **Goal:** Detect issues as early as possible. It's your "safety net." | **Goal:** Release new features to users quickly and reliably. |
+
+Export to Sheets
+
+# **The Heart of the Pipeline: `.gitlab-ci.yml`**
+
+## **The Recipe for Your Automation**
+
+* GitLab CI/CD is controlled by a single file in your repository: `.gitlab-ci.yml`.  
+* This file is the "recipe" that tells GitLab what to do.  
+* **Key Components:**  
+  * `stages`: Defines the order of execution (e.g., build, then test, then deploy).  
+  * `jobs`: The individual commands to be executed within a stage.
+
+*(Graphic: A simple icon of a text file with `.gitlab-ci.yml` written on it.)*
+
+# **Live Demo: A Pipeline in Action**
+
+## **See the Automation**
+
+* We will now see how a pipeline runs automatically.  
+* **Focus Areas:**  
+  * Reviewing a pre-existing `.gitlab-ci.yml` file.  
+  * Creating a branch and merge request to trigger the pipeline.  
+  * Watching the pipeline graph and its stages.  
+  * Seeing security scan and code coverage results in the merge request.
+
+*(Graphic: A large GitLab logo or a "play button" icon.)*
+
+# **Activity: Create Your First Pipeline\!**
+
+## **Your Turn to Automate**
+
+* We are now going to build a simple, two-stage pipeline from scratch.  
+* The goal is to see how approachable the basic structure is.  
+* **Please navigate to:** `Project -> CI/CD -> Editor`
+
+# **Activity Step 1: Define Your Stages**
+
+## **Setting the Order**
+
+* The `stages` keyword defines the overall order of execution.  
+* Add this to the top of your file in the editor:  
+  YAML  
+* **Key Insight:** This ensures all `build` jobs finish before any `test` jobs begin.
+
+# **Activity Step 2: The Build Job**
+
+## **Building the Project**
+
+* A `job` is a set of commands. Let's create our first one.  
+* Add this below your stages:  
+  YAML  
+* **Explanation:** We've named the job `build_project` and assigned it to the `build` stage.
+
+# **Activity Step 3: The Test Job**
+
+## **Testing the Code**
+
+* Now, let's add a job for the `test` stage.  
+* Add this to the bottom of your file:  
+  YAML  
+* **Explanation:** This job, `run_tests`, will only run after `build_project` succeeds.
+
+# **Activity Step 4: Commit and Watch it Run\!**
+
+## **See the Magic**
+
+* Commit your new `.gitlab-ci.yml` file.  
+* Navigate to **CI/CD \> Pipelines**.  
+* You should see your new pipeline running\!  
+* Click on it to watch your stages and jobs execute in real-time.
+
+*(Graphic: An icon of a rocket launching with "Success\!" text.)*
+
+# **Module Recap**
+
+## **Key Concepts Mastered**
+
+* **CI/CD Concepts:** You understand the purpose of Continuous Integration and Delivery.  
+* **The Pipeline Recipe:** You can define a basic pipeline using `.gitlab-ci.yml` with stages and jobs.  
+* **Automation in Action:** You know how a pipeline is triggered and can read its graph.  
+* **Hands-On Creation:** You have successfully created your first automated pipeline.
+
+# **What's Next? Extending the Pipeline**
+
+## **The GitLab Ecosystem**
+
+* Our simple pipeline is just the beginning.  
+* In our final module, we'll explore how to connect our pipeline to other tools your team uses every day.  
+* **Coming up in Module 10:** Integrations with Slack, Jira, ServiceNow, and more.
+
+*(Graphic: A diagram showing the GitLab pipeline icon connecting to icons for Slack, Jira, and ServiceNow.)*
+
+# **Questions?**
+e:T1076,# **Module 10: Leveraging the GitLab Ecosystem & Integrations**
+
+## **Connecting GitLab to Your Entire Toolchain**
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+
+# **Beyond the Platform**
+
+## **No Tool is an Island**
+
+* We have built a powerful, self-contained system in GitLab.  
+* Now, let's connect it to the other tools you use every day.  
+* **The Goal:** Create a seamless flow of information across your entire workflow, reducing manual work and increasing visibility.
+
+# **Where to Find Integrations**
+
+## **Your Connection Hub**
+
+* Integrations are managed at the project or group level.  
+* **Navigation Path:** `Project -> Settings -> Integrations`  
+* Each integration connects a GitLab event (e.g., code push, failed pipeline) to another application.
+
+*(Graphic: A clean screenshot of the GitLab Integrations settings page, showing the list of available services.)*
+
+# **Popular Integration: Slack**
+
+## **Real-Time Notifications Where You Work**
+
+* **What it does:** Sends automated messages to specific Slack channels for GitLab events.  
+* **Events:**  
+  * New merge requests  
+  * Comments on issues  
+  * Failed CI/CD pipelines  
+* **Why it's valuable:** It brings critical information to your team's communication hub for faster response times.
+
+*(Graphic: The Slack logo connected to the GitLab logo with a notification icon between them.)*
+
+# **Popular Integration: Jira**
+
+## **Bridging Planning and Development**
+
+* **What it does:** Creates a powerful, two-way link between GitLab commits or merge requests and Jira issues.  
+* **How it works:** Mention a Jira issue ID in a commit, and GitLab automatically adds a linked comment back in the corresponding Jira ticket.  
+* **Why it's valuable:** Keeps both systems in sync without manual effort. Developers can stay in GitLab, while project managers get full visibility in Jira.
+
+*(Graphic: The Jira logo and GitLab logo with a two-way arrow between them.)*
+
+# **Popular Integration: ServiceNow**
+
+## **Automating Change Management**
+
+* **What it does:** Connects the GitLab deployment workflow to formal change management processes in ServiceNow.  
+* **How it works:** A merge request can automatically create a change request. The CI/CD pipeline can then pause and wait for approval in ServiceNow before deploying.  
+* **Why it's valuable:** Automates compliance and approval workflows, ensuring a full and auditable trail for every deployment.
+
+*(Graphic: The ServiceNow logo and GitLab logo with a "check mark/approval" icon between them.)*
+
+# **Activity: Brainstorm Your Ideal Integration**
+
+## **What Tool Would YOU Integrate Next?**
+
+* Think about the tools you use every day alongside GitLab.  
+* What information do you manually copy between systems?  
+* What status updates could be automated?  
+* Where is the biggest point of friction in your current workflow?
+
+**Instructions:** In small groups, identify one tool and what you'd want the integration to do.
+
+# **Share Back**
+
+## **Let's Hear Your Ideas**
+
+* What tool did you choose?  
+* Why would it be a game-changer for your team?  
+* What problem does it solve?
+
+*(Graphic: A large speech bubble or discussion icon.)*
+
+# **Module Recap**
+
+## **Key Concepts Mastered**
+
+* **Ecosystem Awareness:** You know where to find and configure integrations in GitLab.  
+* **Popular Use Cases:** You understand the value of connecting GitLab with tools like Slack, Jira, and ServiceNow.  
+* **Workflow Optimization:** You can identify opportunities to automate and streamline your team's specific toolchain.
+
+# **The Journey's End**
+
+## **A Complete, Integrated System**
+
+* You now have a complete system to take an idea from planning all the way to production with visibility, collaboration, and automation.  
+* This connected workflow is the foundation for a high-performing team.
+
+*(Graphic: A final, comprehensive flow diagram showing: Idea \-\> Issue \-\> Branch \-\> Merge Request \-\> Pipeline \-\> Deployment, with other tool icons branching off at various stages.)*
+
+# **Questions?**
+f:Tc8f,# Implementation Planning Session
+
+# Welcome to Your Implementation Planning Session
+
+## Turning Knowledge into Action
+
+![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+
+
+# Today's Agenda
+
+* **Assess** your current GitLab usage and identify gaps
+* **Prioritize** which modules to implement first
+* **Create** a 90-day implementation roadmap
+* **Define** success metrics and checkpoints
+* **Assign** ownership and accountability
+
+# Current State Assessment
+
+## Where Are You Today?
+
+Let's evaluate your team's current GitLab maturity across the key areas we've covered:
+
+* **Issue Management:** Basic vs. Rich structured issues
+* **Labeling System:** Ad-hoc vs. Strategic scoped labels
+* **Board Configuration:** Generic vs. Workflow-specific
+* **Time Tracking:** Manual vs. Integrated
+* **Epic Usage:** None vs. Strategic themes
+* **Milestone Planning:** Informal vs. Data-driven sprints
+
+# Implementation Priority Matrix
+
+## Impact vs. Effort Analysis
+
+| High Impact, Low Effort | High Impact, High Effort |
+|-------------------------|---------------------------|
+| **Quick Wins** - Start here | **Strategic Projects** - Plan carefully |
+| • Scoped label system | • Epic hierarchy implementation |
+| • Issue templates | • Advanced board configurations |
+| • Basic time tracking | • Full roadmap integration |
+
+| Low Impact, Low Effort | Low Impact, High Effort |
+|------------------------|--------------------------|
+| **Fill-ins** - Do when time allows | **Avoid** - Not worth the investment |
+| • UI customizations | • Over-engineered workflows |
+| • Nice-to-have integrations | • Complex automation too early |
+
+# Your 90-Day Roadmap Template
+
+## Phase 1: Foundation (Days 1-30)
+
+**Week 1-2: Issue & Label Foundation**
+* Implement scoped label system
+* Create issue templates
+* Train team on rich issue creation
+
+**Week 3-4: Basic Workflow**
+* Configure workflow-specific boards
+* Implement basic time tracking
+* Establish milestone planning process
+
+# Phase 2: Optimization (Days 31-60)
+
+**Week 5-6: Advanced Boards**
+* Implement swimlanes
+* Set WIP limits
+* Create role-specific board views
+
+**Week 7-8: Strategic Planning**
+* Begin epic implementation
+* Connect epics to milestones
+* Start basic roadmap usage
+
+# Phase 3: Integration (Days 61-90)
+
+**Week 9-10: Automation & CI/CD**
+* Implement branching strategy
+* Create basic CI/CD pipelines
+* Automate common workflows
+
+**Week 11-12: Ecosystem Integration**
+* Connect key external tools
+* Optimize reporting and metrics
+* Full team adoption and training
+
+# Success Metrics & Checkpoints
+
+## How Will You Measure Success?
+
+**30-Day Checkpoint:**
+* 100% of issues use templates and proper labels
+* Team velocity baseline established
+* Basic boards configured and in use
+
+**60-Day Checkpoint:**
+* Epic-driven planning implemented
+* Advanced board features adopted
+* Time tracking data being used for planning
+
+**90-Day Checkpoint:**
+* Full CI/CD pipeline operational
+* Key integrations functional
+* Team self-sufficient with new processes
+
+# Questions
+0:{"P":null,"b":"6mbBfhr-sM4ut2u8ILEqI","p":"/slides-gitlab","c":["","slides","03_Strategic_Labeling_%26_Powerful_Filtering"],"i":false,"f":[[["",{"children":["slides",{"children":[["slug","03_Strategic_Labeling_%26_Powerful_Filtering","d"],{"children":["__PAGE__",{}]}]}]},"$undefined","$undefined",true],["",["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/slides-gitlab/_next/static/css/7f2bac3a49a607b0.css","precedence":"next","crossOrigin":"$undefined","nonce":"$undefined"}]],["$","html",null,{"lang":"en","children":[["$","head",null,{"children":["$","link",null,{"rel":"icon","href":"/slides-gitlab/veloz-logo.svg","type":"image/svg+xml"}]}],["$","body",null,{"children":["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":[[["$","title",null,{"children":"404: This page could not be found."}],["$","div",null,{"style":{"fontFamily":"system-ui,\"Segoe UI\",Roboto,Helvetica,Arial,sans-serif,\"Apple Color Emoji\",\"Segoe UI Emoji\"","height":"100vh","textAlign":"center","display":"flex","flexDirection":"column","alignItems":"center","justifyContent":"center"},"children":["$","div",null,{"children":[["$","style",null,{"dangerouslySetInnerHTML":{"__html":"body{color:#000;background:#fff;margin:0}.next-error-h1{border-right:1px solid rgba(0,0,0,.3)}@media (prefers-color-scheme:dark){body{color:#fff;background:#000}.next-error-h1{border-right:1px solid rgba(255,255,255,.3)}}"}}],["$","h1",null,{"className":"next-error-h1","style":{"display":"inline-block","margin":"0 20px 0 0","padding":"0 23px 0 0","fontSize":24,"fontWeight":500,"verticalAlign":"top","lineHeight":"49px"},"children":404}],["$","div",null,{"style":{"display":"inline-block"},"children":["$","h2",null,{"style":{"fontSize":14,"fontWeight":400,"lineHeight":"49px","margin":0},"children":"This page could not be found."}]}]]}]}]],[]],"forbidden":"$undefined","unauthorized":"$undefined"}]}]]}]]}],{"children":["slides",["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":[["slug","03_Strategic_Labeling_%26_Powerful_Filtering","d"],["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","error":"$undefined","errorStyles":"$undefined","errorScripts":"$undefined","template":["$","$L3",null,{}],"templateStyles":"$undefined","templateScripts":"$undefined","notFound":"$undefined","forbidden":"$undefined","unauthorized":"$undefined"}]]}],{"children":["__PAGE__",["$","$1","c",{"children":[["$","$L4",null,{"slidesIndex":[{"name":"01_GitLab_Foundations_&_UI_Navigation","file":"01_GitLab_Foundations_&_UI_Navigation.md","import":"$5"},{"name":"02_Mastering_Issue_Management_&_Integrated_Time_Tracking","file":"02_Mastering_Issue_Management_&_Integrated_Time_Tracking.md","import":"$6"},{"name":"03_Strategic_Labeling_&_Powerful_Filtering","file":"03_Strategic_Labeling_&_Powerful_Filtering.md","import":"$7"},{"name":"04_Milestones_for_Timeboxing_&_Release_Planning","file":"04_Milestones_for_Timeboxing_&_Release_Planning.md","import":"$8"},{"name":"05_Epics_for_Structuring_Larger_Initiatives","file":"05_Epics_for_Structuring_Larger_Initiatives.md","import":"$9"},{"name":"06_Advanced_Issue_Board_Configurations_&_Workflow_Visualization","file":"06_Advanced_Issue_Board_Configurations_&_Workflow_Visualization.md","import":"$a"},{"name":"07_Roadmaps_for_Strategic_Visualization","file":"07_Roadmaps_for_Strategic_Visualization.md","import":"$b"},{"name":"08_Advanced_Git_Branching_Workflows_with_GitLab","file":"08_Advanced_Git_Branching_Workflows_with_GitLab.md","import":"$c"},{"name":"09_CI_Foundations_&_Best_Practices","file":"09_CI_Foundations_&_Best_Practices.md","import":"$d"},{"name":"10_Leveraging_the_GitLab_Ecosystem_&_Integrations","file":"10_Leveraging_the_GitLab_Ecosystem_&_Integrations.md","import":"$e"},{"name":"11_Implementation_Planning_Session","file":"11_Implementation_Planning_Session.md","import":"$f"}]}],"$undefined",null,["$","$L10",null,{"children":["$L11","$L12",null]}]]}],{},null,false]},null,false]},null,false]},null,false],["$","$1","h",{"children":[null,["$","$1","qC2X2w9AgI9T6grk3o0_r",{"children":[["$","$L13",null,{"children":"$L14"}],null]}],["$","$L15",null,{"children":"$L16"}]]}],false]],"m":"$undefined","G":["$17","$undefined"],"s":false,"S":true}
+14:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+11:null
+12:null
+16:[["$","title","0",{"children":"v0 App"}],["$","meta","1",{"name":"description","content":"Created with v0"}],["$","meta","2",{"name":"generator","content":"v0.dev"}]]

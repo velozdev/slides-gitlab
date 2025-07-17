@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "prebuild": "node scripts/generate-slides-index.js",
-    "build": "next build",
-    "export": "NEXT_PUBLIC_BASE_PATH=/slides-gitlab next export",
-    "deploy": "pnpm build && pnpm export && npx gh-pages -d out",
+    "build": "NEXT_PUBLIC_BASE_PATH=/slides-gitlab next build",
+    "deploy": "pnpm build && npx gh-pages -d out",
     "dev": "NEXT_PUBLIC_BASE_PATH= next dev",
     "lint": "next lint",
     "start": "next start"
