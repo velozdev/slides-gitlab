@@ -101,7 +101,9 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
           prevItem();
           break;
         case "Escape":
-          exitPresentation();
+          event.preventDefault();
+          // Go to dashboard (base href)
+          window.location.href = "/";
           break;
       }
     };
