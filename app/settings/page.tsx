@@ -16,34 +16,10 @@ interface SlideTheme {
 }
 
 const themes = {
-  dark: {
-    name: "Dark",
-    background: "bg-black",
-    textColor: "text-white",
-    accentColor: "text-blue-400",
-    fontFamily: "font-sans",
-  },
-  light: {
-    name: "Light",
-    background: "bg-white",
-    textColor: "text-gray-900",
-    accentColor: "text-blue-600",
-    fontFamily: "font-sans",
-  },
-  corporate: {
-    name: "Corporate",
-    background: "bg-slate-900",
-    textColor: "text-white",
-    accentColor: "text-emerald-400",
-    fontFamily: "font-serif",
-  },
-  minimal: {
-    name: "Minimal",
-    background: "bg-gray-50",
-    textColor: "text-gray-800",
-    accentColor: "text-indigo-600",
-    fontFamily: "font-mono",
-  },
+  dark: { name: "Dark", className: "theme-dark" },
+  light: { name: "Light", className: "theme-light" },
+  corporate: { name: "Corporate", className: "theme-corporate" },
+  minimal: { name: "Minimal", className: "theme-minimal" },
 }
 
 const fontFamilies = {
@@ -53,42 +29,31 @@ const fontFamilies = {
 }
 
 export default function SettingsPage() {
-  const [theme, setTheme] = useState<SlideTheme>(themes.dark)
-  const [selectedTheme, setSelectedTheme] = useState("dark")
+  const [selectedTheme, setSelectedTheme] = useState("dark");
+  const [fontFamily, setFontFamily] = useState("font-sans");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("slideshow-theme")
-    if (savedTheme) {
-      const parsed = JSON.parse(savedTheme)
-      setTheme(parsed)
-
-      // Find matching preset theme
-      const matchingTheme = Object.entries(themes).find(
-        ([_, themeData]) =>
-          themeData.background === parsed.background &&
-          themeData.textColor === parsed.textColor &&
-          themeData.accentColor === parsed.accentColor &&
-          themeData.fontFamily === parsed.fontFamily,
-      )
-
-      if (matchingTheme) {
-        setSelectedTheme(matchingTheme[0])
-      }
+    const savedTheme = localStorage.getItem("slideshow-theme");
+    const savedFont = localStorage.getItem("slideshow-font");
+    if (savedTheme && themes[savedTheme]) {
+      setSelectedTheme(savedTheme);
+      document.body.classList.remove(...Object.values(themes).map(t => t.className));
+      document.body.classList.add(themes[savedTheme].className);
     }
-  }, [])
+    if (savedFont) setFontFamily(savedFont);
+  }, []);
 
   const handleThemeChange = (themeKey: string) => {
-    const newTheme = themes[themeKey as keyof typeof themes]
-    setTheme(newTheme)
-    setSelectedTheme(themeKey)
-    localStorage.setItem("slideshow-theme", JSON.stringify(newTheme))
-  }
+    setSelectedTheme(themeKey);
+    localStorage.setItem("slideshow-theme", themeKey);
+    document.body.classList.remove(...Object.values(themes).map(t => t.className));
+    document.body.classList.add(themes[themeKey].className);
+  };
 
-  const handleFontChange = (fontFamily: string) => {
-    const newTheme = { ...theme, fontFamily }
-    setTheme(newTheme)
-    localStorage.setItem("slideshow-theme", JSON.stringify(newTheme))
-  }
+  const handleFontChange = (font: string) => {
+    setFontFamily(font);
+    localStorage.setItem("slideshow-font", font);
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
@@ -164,21 +129,22 @@ export default function SettingsPage() {
             </CardHeader>
             <CardContent>
               <div
-                className={`${theme.background} ${theme.textColor} ${theme.fontFamily} p-6 rounded-lg border-2 border-gray-200`}
+                className={`p-6 rounded-lg border-2 border-gray-200 ${fontFamily}`}
+                style={{ fontFamily: `var(--font-family)` }}
               >
                 <h1 className="text-2xl font-bold mb-4">Sample Slide Title</h1>
                 <div className="space-y-3">
                   <p>This is how your slide content will appear.</p>
                   <ul className="space-y-2">
-                    <li className={`${theme.accentColor} flex items-center`}>
+                    <li className="flex items-center text-accent">
                       <span className="mr-2">▶</span>
                       First bullet point
                     </li>
-                    <li className={`${theme.accentColor} flex items-center`}>
+                    <li className="flex items-center text-accent">
                       <span className="mr-2">▶</span>
                       Second bullet point
                     </li>
-                    <li className={`${theme.accentColor} flex items-center`}>
+                    <li className="flex items-center text-accent">
                       <span className="mr-2">▶</span>
                       Third bullet point
                     </li>
@@ -187,7 +153,7 @@ export default function SettingsPage() {
                     <strong>Bold text</strong> and <em>italic text</em> styling.
                   </p>
                   <p>
-                    Code snippets look like <code className="bg-gray-800 text-yellow-300 px-2 py-1 rounded">this</code>.
+                    Code snippets look like <code className="bg-gray-800 px-2 py-1 rounded text-accent">this</code>.
                   </p>
                 </div>
               </div>

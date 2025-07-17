@@ -31,12 +31,12 @@ export default function HomePage() {
   })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="min-h-screen bg-background text-foreground p-4 font-sans" style={{ fontFamily: 'var(--font-family)' }}>
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">Markdown Slideshow</h1>
-          <p className="text-gray-600 mb-6">Professional presentations from markdown files</p>
+          <h1 className="text-4xl font-bold mb-2">Markdown Slideshow</h1>
+          <p className="mb-6">Professional presentations from markdown files</p>
 
           <div className="flex justify-center gap-4">
             <Link href="/try-md">
@@ -56,7 +56,7 @@ export default function HomePage() {
 
         {/* Available Slideshows */}
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-6 text-[#1F2937]">Available Presentations</h2>
+          <h2 className="text-2xl font-semibold mb-6">Available Presentations</h2>
           {slideshows.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {slideshows.map((slideshow) => (
@@ -65,10 +65,8 @@ export default function HomePage() {
                   tabIndex={0}
                   role="button"
                   aria-label={`Open ${slideshow.title}`}
-                  className="group relative grid grid-rows-[auto_1fr] grid-cols-1 min-h-0 h-32 bg-[#F0F4F8] border border-[#E5E7EB] rounded-xl p-4 shadow-sm hover:shadow-lg transition-shadow cursor-pointer focus:ring-2 focus:ring-blue-400"
-                  style={{ fontFamily: 'Inter, Roboto, \"Open Sans\", Arial, sans-serif' }}
+                  className="group relative grid grid-rows-[auto_1fr] grid-cols-1 min-h-0 h-32 rounded-xl p-4 shadow-sm hover:shadow-lg transition-shadow cursor-pointer focus:ring-2 focus:ring-primary"
                   onClick={e => {
-                    // Only trigger if not clicking the play button directly
                     if (!(e.target as HTMLElement).closest('a,button')) {
                       document.getElementById(`card-link-${slideshow.name}`)?.click();
                     }
@@ -80,20 +78,20 @@ export default function HomePage() {
                     }
                   }}
                 >
-                  <CardTitle className="text-[1.1rem] font-bold text-[#1F2937] leading-tight mb-2 col-span-2">
+                  <CardTitle className="text-[1.1rem] font-bold leading-tight mb-2 col-span-2">
                     {slideshow.title}
                   </CardTitle>
-                  <div className="flex items-center gap-3 text-[#6B7280] text-[0.95rem] font-normal">
-                    <FileText className="w-5 h-5 text-indigo-400" />
+                  <div className="flex items-center gap-3 text-muted-foreground text-[0.95rem] font-normal">
+                    <FileText className="w-5 h-5 text-primary" />
                     <span>{slideshow.slideCount} slides</span>
                     <span className="mx-1">·</span>
-                    <Clock className="w-4 h-4 text-blue-500" />
+                    <Clock className="w-4 h-4" />
                     <span>{slideshow.time} min</span>
                   </div>
                   <Button
                     asChild
                     size="icon"
-                    className="ml-auto w-10 h-10 rounded-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] flex items-center justify-center shadow-md border-none row-start-2 col-start-2"
+                    className="ml-auto w-10 h-10 rounded-full bg-primary text-primary-foreground hover:bg-primary/90 flex items-center justify-center shadow-md border-none row-start-2 col-start-2"
                     style={{ boxShadow: '0 4px 16px 0 rgba(37,99,235,0.10)' }}
                   >
                     <Link
@@ -110,13 +108,13 @@ export default function HomePage() {
               ))}
             </div>
           ) : (
-            <Card className="text-center py-12 bg-[#F0F4F8] border border-[#E5E7EB]">
+            <Card className="text-center py-12">
               <CardContent>
                 <FileText className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                <h3 className="text-xl font-semibold mb-2 text-[#1F2937]">No presentations found</h3>
-                <p className="text-[#6B7280] mb-4">Add markdown files to the slides folder to see them here.</p>
+                <h3 className="text-xl font-semibold mb-2">No presentations found</h3>
+                <p className="mb-4">Add markdown files to the slides folder to see them here.</p>
                 <Link href="/try-md">
-                  <Button className="flex items-center gap-2 bg-[#2563EB] text-white hover:bg-[#1D4ED8]">
+                  <Button className="flex items-center gap-2 bg-primary text-primary-foreground hover:bg-primary/90">
                     <Upload className="w-4 h-4" />
                     Upload Custom Markdown
                   </Button>
@@ -127,7 +125,7 @@ export default function HomePage() {
         </div>
 
         {/* Quick Start Guide */}
-        <Card className="bg-white/50 backdrop-blur-sm">
+        <Card className="bg-card/50 backdrop-blur-sm">
           <CardHeader>
             <CardTitle>Quick Start Guide</CardTitle>
             <CardDescription>How to create and present your slideshows</CardDescription>

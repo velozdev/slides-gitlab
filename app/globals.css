@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
+  :root, .theme-light {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     --card: 0 0% 100%;
@@ -29,9 +29,10 @@
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --font-family: 'Inter', 'Roboto', 'Open Sans', Arial, sans-serif;
   }
 
-  .dark {
+  .theme-dark {
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
     --card: 222.2 84% 4.9%;
@@ -56,6 +57,63 @@
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --font-family: 'Inter', 'Roboto', 'Open Sans', Arial, sans-serif;
+  }
+
+  .theme-corporate {
+    --background: 230 35% 10%;
+    --foreground: 0 0% 100%;
+    --card: 230 35% 14%;
+    --card-foreground: 0 0% 100%;
+    --popover: 230 35% 14%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 230 35% 18%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 230 35% 18%;
+    --muted-foreground: 160 84% 39%;
+    --accent: 160 84% 39%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 230 35% 18%;
+    --input: 230 35% 18%;
+    --ring: 160 84% 39%;
+    --chart-1: 160 84% 39%;
+    --chart-2: 197 37% 24%;
+    --chart-3: 43 74% 66%;
+    --chart-4: 27 87% 67%;
+    --chart-5: 12 76% 61%;
+    --font-family: 'Merriweather', 'Georgia', 'Times New Roman', serif;
+  }
+
+  .theme-minimal {
+    --background: 220 20% 98%;
+    --foreground: 220 20% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 20%;
+    --primary: 246 100% 60%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 20% 92%;
+    --secondary-foreground: 220 20% 20%;
+    --muted: 220 20% 92%;
+    --muted-foreground: 246 100% 60%;
+    --accent: 246 100% 60%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 220 20% 20%;
+    --border: 220 20% 92%;
+    --input: 220 20% 92%;
+    --ring: 246 100% 60%;
+    --chart-1: 246 100% 60%;
+    --chart-2: 197 37% 24%;
+    --chart-3: 43 74% 66%;
+    --chart-4: 27 87% 67%;
+    --chart-5: 12 76% 61%;
+    --font-family: 'Fira Mono', 'Menlo', 'Monaco', 'Consolas', monospace;
   }
 }
 

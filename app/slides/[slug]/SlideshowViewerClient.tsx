@@ -1,4 +1,5 @@
 "use client";
+"use client";
 
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
@@ -11,13 +12,6 @@ interface Slide {
   content: string;
 }
 
-interface SlideTheme {
-  background: string;
-  textColor: string;
-  accentColor: string;
-  fontFamily: string;
-}
-
 export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: any[] }) {
   const params = useParams();
   const router = useRouter();
@@ -26,12 +20,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentItem, setCurrentItem] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [theme, setTheme] = useState<SlideTheme>({
-    background: "bg-white",
-    textColor: "text-gray-900",
-    accentColor: "text-blue-700",
-    fontFamily: "font-mono",
-  });
+  const [fontFamily, setFontFamily] = useState("font-sans");
 
   const startPresentation = () => {
     setIsPresenting(true);
@@ -39,12 +28,14 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
     setCurrentItem(0);
   };
 
-  // Load theme from localStorage
+  // Load theme from localStorage and set <body> class
   useEffect(() => {
     const savedTheme = localStorage.getItem("slideshow-theme");
-    if (savedTheme) {
-      setTheme(JSON.parse(savedTheme));
-    }
+    const savedFont = localStorage.getItem("slideshow-font");
+    const themeClass = savedTheme ? `theme-${savedTheme}` : "theme-dark";
+    document.body.classList.remove("theme-light", "theme-dark", "theme-corporate", "theme-minimal");
+    document.body.classList.add(themeClass);
+    if (savedFont) setFontFamily(savedFont);
   }, []);
 
   // Check for direct presentation mode
@@ -178,10 +169,10 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
       .replace(/^## \*\*(.*?)\*\*$/gm, '<h2 class="text-3xl font-bold mb-6">$1</h2>')
       .replace(/^## (.*$)/gm, '<h2 class="text-3xl font-bold mb-6">$1</h2>')
       // Bold and italic
-      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-yellow-300">$1</strong>')
+      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold" style="color:#027ac4">$1</strong>')
       .replace(/\*(.*?)\*/g, '<em class="italic text-blue-300">$1</em>')
       // Code (handle backticks properly)
-      .replace(/`([^`]+)`/g, '<code class="bg-gray-800 text-yellow-300 px-2 py-1 rounded font-mono text-sm">$1</code>')
+      .replace(/`([^`]+)`/g, '<code class="bg-gray-800" style="color:#027ac4;" class="px-2 py-1 rounded font-mono text-sm">$1</code>')
       // Unordered lists - handle both * and -
       .replace(/^[*-] (.+)$/gm, '<li class="list-item unordered">$1</li>')
       // Ordered lists - handle 1. 2. etc
@@ -239,7 +230,8 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
 
   if ((isPresenting || new URLSearchParams(window.location.search).get("present") === "true") && slides.length > 0) {
     return (
-      <div className={`fixed inset-0 ${theme.background} ${theme.textColor} ${theme.fontFamily} flex flex-col`}>
+      <div className={`fixed inset-0 bg-background text-foreground flex flex-col ${fontFamily}`}
+        style={{ fontFamily: `var(--font-family)` }}>
         <div className="flex-1 flex flex-col justify-center items-center p-8">
           <div className="max-w-4xl w-full text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-8 animate-in">{slides[currentSlide].title}</h1>
@@ -262,7 +254,8 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 ${fontFamily}`}
+      style={{ fontFamily: `var(--font-family)` }}>
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <Link href="/">
