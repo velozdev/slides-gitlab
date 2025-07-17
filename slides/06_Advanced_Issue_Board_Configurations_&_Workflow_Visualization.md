@@ -1,11 +1,11 @@
-# **Module 6: Advanced Issue Board Configurations & Workflow Visualization**
+# Advanced Issue Board Configurations & Workflow Visualization
 
-## **From Simple Task Lists to Powerful Command Centers**
+## From Simple Task Lists to Powerful Command Centers
 
 ![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
 
 
-# **Can You Answer These Questions Instantly?**
+# Can You Answer These Questions Instantly?
 
 * What's blocked and why?  
 * What's ready for the next team member?  
@@ -14,9 +14,9 @@
 
 *(Graphic: On the left, a simple, generic Kanban board with columns "To Do," "In Progress," "Done.")*
 
-# **The Problem: Generic Boards Tell a Vague Story**
+# The Problem: Generic Boards Tell a Vague Story
 
-## **The Generic Board**
+## The Generic Board
 
 A large, simple graphic showing three columns:
 
@@ -26,19 +26,19 @@ A large, simple graphic showing three columns:
 
 **Caption below:** This gives a high-level view but doesn't map to your team's actual process.
 
-# **The Solution: Workflow-Specific Boards**
+# The Solution: Workflow-Specific Boards
 
-## **Mirror Your Team's Real Process**
+## Mirror Your Team's Real Process
 
 A side-by-side comparison.
 
-**Left Side (Generic):**
+### Left Side (Generic):
 
 * To Do  
 * In Progress  
 * Done
 
-**Right Side (Software Dev Workflow):**
+### Right Side (Software Dev Workflow):
 
 * Backlog  
 * Ready for Development  
@@ -50,16 +50,16 @@ A side-by-side comparison.
 
 **Key Takeaway:** Your board should be a mirror of your real process, not a generic template.
 
-# **Live Demo: Building Our Workflow Board**
+# Live Demo: Building Our Workflow Board
 
-## **Live Demo**
+## Live Demo
 
 We will now build a "Development Workflow" board together.
 
-* **Focus Areas:**  
-  * Creating columns that match a real development process.  
-  * Using labels and milestones to filter each list.  
-  * Applying board-wide filters to create a focused view.
+### Focus Areas:  
+* Creating columns that match a real development process.  
+* Using labels and milestones to filter each list.  
+* Applying board-wide filters to create a focused view.
 
 *(Graphic: A large GitLab logo or a screenshot icon.)*
 
@@ -83,11 +83,11 @@ We will now build a "Development Workflow" board together.
 
 *(Icons beside each bullet point representing the concept.)*
 
-# **Example: Swimlanes by Epic**
+# Example: Swimlanes by Epic
 
-## **Strategic and Tactical View in One**
+## Strategic and Tactical View in One
 
-**Key Insights Gained:**
+### Key Insights Gained:
 
 * Which epics are moving smoothly through development.  
 * Which epics are stalled in a specific stage like code review.  
@@ -105,35 +105,35 @@ We will now build a "Development Workflow" board together.
 
 *(Graphic: An icon of a "Stop" sign or a "funnel" to represent limiting work.)*
 
-# **Why Limit WIP?**
+# Why Limit WIP?
 
-## **The Benefits of Focus**
+## The Benefits of Focus
 
 * **Reduces Context Switching:** Every additional task reduces overall efficiency.  
 * **Improves Quality:** Rushed work creates more bugs and rework.  
 * **Exposes Bottlenecks:** Limits clearly show where your workflow is getting stuck.  
 * **Prevents Burnout:** Overloaded teams are stressed and less effective.
 
-# **Setting WIP Limits in GitLab**
+# Setting WIP Limits in GitLab
 
-## **A Conscious Decision**
+## A Conscious Decision
 
 * When you exceed a WIP limit, GitLab shows a warning but does not block the action.  
 * This makes breaking the rule a conscious team decision, not an accident.
 
 *(Graphic: A screenshot of a board with numbers (e.g., 3/4) on top of the "In Progress" and "Code Review" columns, with one column highlighted in orange to show the warning.)*
 
-# **Specialized Boards: One Size Fits None**
+# Specialized Boards: One Size Fits None
 
-## **Different Views for Different Roles**
+## Different Views for Different Roles
 
 * The same set of issues can be viewed through different boards, each tailored for a specific purpose or role.
 
 *(Graphic: A central icon representing "All Issues" with arrows pointing to smaller board icons labeled "Developer View," "QA View," and "PM View.")*
 
-# **Example: The Product Manager Board**
+# Example: The Product Manager Board
 
-## **View for Strategic Tracking**
+## View for Strategic Tracking
 
 * **Columns:** Backlog, Sprint Ready, In Progress, Done  
 * **Swimlanes:** Epic  
@@ -142,21 +142,20 @@ We will now build a "Development Workflow" board together.
 
 *(Graphic: A mock-up of this specific board configuration.)*
 
-# **Activity: Build Your Board**
+# Activity: Build Your Board
 
-## **Configure Your Team's Workflow Board**
+## Configure Your Team's Workflow Board
 
-**Choose Your Challenge:**
+### Choose Your Challenge:
 
 1. **Option 1:** Perfect Your Development Board  
 2. **Option 2:** Create a Role-Specific Board (QA, PM, etc.)  
 3. **Option 3:** Build a Specialized Purpose Board (Bug Triage, Sprint Planning)
+4. **You have 10 minutes to build and configure a board.**
 
-**You have 10 minutes to build and configure a board.**
+# Module Recap
 
-# **Module Recap**
-
-## **Key Concepts Mastered**
+## Key Concepts Mastered
 
 * **Workflow-Specific Boards:** You can create columns that match real processes.  
 * **Swimlanes:** You can visualize multiple dimensions of work simultaneously.  
@@ -164,12 +163,12 @@ We will now build a "Development Workflow" board together.
 * **Specialized Views:** You can create role-specific and purpose-built boards.  
 * **Flow Optimization:** You understand how boards drive process improvement.
 
-# **Your Action Items**
+# Your Action Items
 
-## **Putting It Into Practice**
+## Putting It Into Practice
 
 * **This Week:** Replace your generic boards with workflow-specific ones.  
 * **Next Week:** Implement WIP limits and train your team on flow principles.  
 * **This Month:** Create specialized boards for different roles and measure flow improvements.
 
-# **Questions?**
+# Questions?

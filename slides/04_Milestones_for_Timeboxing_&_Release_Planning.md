@@ -1,4 +1,4 @@
-# **Module 4: Milestones for Timeboxing & Release Planning**
+# Milestones for Timeboxing & Release Planning
 
 ## **From a Pile of Work to a Coordinated System**
 
@@ -137,4 +137,4 @@ Use a `Release Milestone` to group your sprints and track progress towards a maj
 * **Sprint Templates:** You have reusable templates that save hours of planning time.  
 * **Integration Strategy:** You see how milestones connect to broader release planning.
 
-# **Questions?**
+# Questions?

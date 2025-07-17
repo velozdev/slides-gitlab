@@ -1,4 +1,4 @@
-# **Module 3: Strategic Labeling & Powerful Filtering**
+# **Strategic Labeling & Powerful Filtering**
 
 ## **From Sticky Notes to a Structured Database**
 
@@ -153,4 +153,4 @@ Export to Sheets
 * **Label Subscriptions:** You know how to create automatic awareness systems.  
 * **Label Governance:** You understand how to maintain and evolve your system over time.
 
-# **Questions?**
+# Questions?

@@ -1,4 +1,4 @@
-# **Module 9: CI/CD Foundations & Best Practices**
+# **CI/CD Foundations & Best Practices**
 
 ## **Automating Your Workflow with Confidence**
 
@@ -117,4 +117,4 @@ Export to Sheets
 
 *(Graphic: A diagram showing the GitLab pipeline icon connecting to icons for Slack, Jira, and ServiceNow.)*
 
-# **Questions?**
+# Questions?

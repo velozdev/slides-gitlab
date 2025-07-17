@@ -1,4 +1,4 @@
-# **Module 7: Roadmaps for Strategic Visualization**
+# Roadmaps for Strategic Visualization
 
 ## **Communicating Your Plan with Confidence**
 
@@ -95,4 +95,4 @@ An updated version of the flow diagram from Slide 2, now showing the complete pi
 
 **Key Takeaway:** Each GitLab feature builds on the last to create a single, integrated system from idea to delivery.
 
-# **Questions?**
+# Questions?

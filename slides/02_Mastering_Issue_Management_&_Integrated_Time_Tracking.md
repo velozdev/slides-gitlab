@@ -1,11 +1,11 @@
-# **Module 2: Mastering Issue Management & Integrated Time Tracking**
+# Mastering Issue Management & Integrated Time Tracking
 
-## **The Backbone of Your Scrum Workflow**
+## The Backbone of Your Scrum Workflow
 
 ![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
 
 
-# **Today's Goals**
+# Today's Goals
 
 * **Create rich, structured issues** that actually help your team
 * **Track time** without additional tools or spreadsheets
@@ -13,17 +13,17 @@
 * Use  
    **advanced features** that most teams don't even know exist
 
-# **Beyond a Title & Description**
+# Beyond a Title & Description
 
-## **Moving from a simple task to a shared understanding.**
+## Moving from a simple task to a shared understanding.
 
 A great issue is more than just a title. It's a "contract" that contains everything needed to get the work done. We can achieve this with structured markdown.
 
 *(Graphic: A simple text title on the left, transforming into a structured document icon on the right.)*
 
-# **Anatomy of a Rich Issue**
+# Anatomy of a Rich Issue
 
-Example: "Implement User Authentication" 6
+Example: "Implement User Authentication"
 
 * **User Story:** As a \[user\], I want \[action\], so that \[benefit\].
 * **Business Value:** Why are we building this?
@@ -33,9 +33,9 @@ Example: "Implement User Authentication" 6
 
 *(Graphic: A screenshot or well-formatted text block showing the different sections of the example issue.)*
 
-# **Adding Rich Metadata**
+# Adding Rich Metadata
 
-## **Context at a Glance**
+## Context at a Glance
 
 Use the sidebar to add crucial context to every issue.
 
@@ -45,16 +45,16 @@ Use the sidebar to add crucial context to every issue.
 * **(Icon) Labels:** Categorize the work (e.g., bug, feature, backend).
 * **(Icon) Weight:** Estimate effort using story points.
 
-# **Task Lists: Your Interactive Checklist**
+# Task Lists: Your Interactive Checklist
 
-## **Two pieces of magic in one feature.**
+## Two pieces of magic in one feature.
 
 1. **Live Progress Tracking:** GitLab automatically tracks the completion percentage as you check items off.
 2. **Create Linked Issues:** Convert any task list item into its own issue with a single click, automatically linking it back to the original story.
 
 *(Graphic: A before/after animation showing a task being checked off and the progress bar updating, then another task turning into a linked issue.)*
 
-# **Issue Relationships: Visualizing Dependencies**
+# Issue Relationships: Visualizing Dependencies
 
 See what's blocking progress instantly.
 
@@ -66,7 +66,7 @@ See what's blocking progress instantly.
 
 *(Graphic: A simple diagram showing three issue icons connected by these three relationship types.)*
 
-# **Issue Templates: Work Smarter**
+# Issue Templates: Work Smarter
 
 Ensure consistency and save time.
 
@@ -75,9 +75,9 @@ Ensure consistency and save time.
 
 *(Graphic: A screenshot showing the "Choose a template" dropdown in the new issue view.)*
 
-# **Integrated Time Tracking**
+# Integrated Time Tracking
 
-## **Ditch the Spreadsheets**
+## Ditch the Spreadsheets
 
 * GitLab's time tracking is built right into issues.
 * It connects directly to your workflow and generates reports automatically.
@@ -131,4 +131,4 @@ Use data for learning, not for punishment. 36
 * ✅  **Integrated Time Tracking:** Estimation, logging, and reporting without external tools.
 * ✅  **Team Conventions:** The importance of consistency for making features work.
 
-# **Questions?**
+# Questions?

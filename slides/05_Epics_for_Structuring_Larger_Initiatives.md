@@ -1,4 +1,4 @@
-# **Module 5: Epics for Structuring Larger Initiatives**
+# Epics for Structuring Larger Initiatives
 
 ## **From Individual Tasks to Strategic Themes**
 
@@ -126,4 +126,4 @@ Each GitLab feature builds on the last to create a complete project management s
 * **Epic Boards:** You can visualize strategic progress and identify bottlenecks.  
 * **Strategic Integration:** You can see how epics connect daily work to business objectives.
 
-# **Questions?**
+# Questions?

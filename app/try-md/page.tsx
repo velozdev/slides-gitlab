@@ -63,7 +63,7 @@ export default function SlideshowApp() {
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
-    if ((file && file.type === "text/markdown") || file.name.endsWith(".md")) {
+    if (file && (file.type === "text/markdown" || file.name.endsWith(".md"))) {
       const reader = new FileReader()
       reader.onload = (e) => {
         const markdown = e.target?.result as string

@@ -35,10 +35,10 @@ export default function SettingsPage() {
   useEffect(() => {
     const savedTheme = localStorage.getItem("slideshow-theme");
     const savedFont = localStorage.getItem("slideshow-font");
-    if (savedTheme && themes[savedTheme]) {
+    if (savedTheme && savedTheme in themes) {
       setSelectedTheme(savedTheme);
       document.body.classList.remove(...Object.values(themes).map(t => t.className));
-      document.body.classList.add(themes[savedTheme].className);
+      document.body.classList.add(themes[savedTheme as keyof typeof themes].className);
     }
     if (savedFont) setFontFamily(savedFont);
   }, []);
@@ -47,7 +47,7 @@ export default function SettingsPage() {
     setSelectedTheme(themeKey);
     localStorage.setItem("slideshow-theme", themeKey);
     document.body.classList.remove(...Object.values(themes).map(t => t.className));
-    document.body.classList.add(themes[themeKey].className);
+    document.body.classList.add(themes[themeKey as keyof typeof themes].className);
   };
 
   const handleFontChange = (font: string) => {
@@ -102,7 +102,7 @@ export default function SettingsPage() {
                 <Label htmlFor="font-select" className="text-sm font-medium">
                   Font Family
                 </Label>
-                <Select value={theme.fontFamily} onValueChange={handleFontChange}>
+                <Select value={fontFamily} onValueChange={handleFontChange}>
                   <SelectTrigger className="mt-2">
                     <SelectValue placeholder="Select a font" />
                   </SelectTrigger>

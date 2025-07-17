@@ -1,4 +1,4 @@
-# **Module 1: GitLab Foundations & UI Navigation**
+# GitLab Foundations & UI Navigation
 
 ## **Tuning Our Instruments Before the Symphony**
 

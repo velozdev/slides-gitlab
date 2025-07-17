@@ -1,4 +1,4 @@
-# Module 8: Advanced Git Branching Workflows with GitLab
+# Advanced Git Branching Workflows with GitLab
 
 # The Bridge from Plan to Production
 
