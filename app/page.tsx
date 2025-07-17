@@ -4,8 +4,9 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Play, Settings, Upload, FileText } from "lucide-react"
+import { Play, Settings, Upload, FileText, Clock } from "lucide-react"
 import { slidesIndex } from "@/lib/slides-index"
+import { moduleTimes } from "@/lib/module-times"
 
 function getTitleFromMarkdown(md: string): string {
   // Try to extract the first H1 or first line as title
@@ -19,11 +20,13 @@ function getTitleFromMarkdown(md: string): string {
 export default function HomePage() {
   // No loading state needed, slidesIndex is static
   const slideshows = slidesIndex.map((slide) => {
+    const name = slide.name;
     return {
-      name: slide.name,
-      title: getTitleFromMarkdown(slide.import),
+      name,
+      title: getTitleFromMarkdown(slide.import).replaceAll('**', ''),
       slideCount: (slide.import.match(/^# /gm) || []).length,
-      path: `/slides/${slide.name}`,
+      path: `/slides/${name}`,
+      time: moduleTimes[name] || Math.max(15, ((slide.import.match(/^# /gm) || []).length * 3)),
     }
   })
 
@@ -53,38 +56,67 @@ export default function HomePage() {
 
         {/* Available Slideshows */}
         <div className="mb-8">
-          <h2 className="text-2xl font-semibold mb-6 text-gray-800">Available Presentations</h2>
-
+          <h2 className="text-2xl font-semibold mb-6 text-[#1F2937]">Available Presentations</h2>
           {slideshows.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {slideshows.map((slideshow) => (
-                <Card key={slideshow.name} className="hover:shadow-lg transition-shadow">
-                  <CardHeader>
-                    <CardTitle className="flex items-start justify-between">
-                      <span className="text-lg leading-tight">{slideshow.title}</span>
-                      <FileText className="w-5 h-5 text-gray-400 flex-shrink-0 ml-2" />
-                    </CardTitle>
-                    <CardDescription>{slideshow.slideCount} slides</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Link href={`${slideshow.path}?present=true`}>
-                      <Button className="w-full flex items-center gap-2">
-                        <Play className="w-4 h-4" />
-                        Start Presentation
-                      </Button>
+                <Card
+                  key={slideshow.name}
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`Open ${slideshow.title}`}
+                  className="group relative grid grid-rows-[auto_1fr] grid-cols-1 min-h-0 h-32 bg-[#F0F4F8] border border-[#E5E7EB] rounded-xl p-4 shadow-sm hover:shadow-lg transition-shadow cursor-pointer focus:ring-2 focus:ring-blue-400"
+                  style={{ fontFamily: 'Inter, Roboto, \"Open Sans\", Arial, sans-serif' }}
+                  onClick={e => {
+                    // Only trigger if not clicking the play button directly
+                    if (!(e.target as HTMLElement).closest('a,button')) {
+                      document.getElementById(`card-link-${slideshow.name}`)?.click();
+                    }
+                  }}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      document.getElementById(`card-link-${slideshow.name}`)?.click();
+                    }
+                  }}
+                >
+                  <CardTitle className="text-[1.1rem] font-bold text-[#1F2937] leading-tight mb-2 col-span-2">
+                    {slideshow.title}
+                  </CardTitle>
+                  <div className="flex items-center gap-3 text-[#6B7280] text-[0.95rem] font-normal">
+                    <FileText className="w-5 h-5 text-indigo-400" />
+                    <span>{slideshow.slideCount} slides</span>
+                    <span className="mx-1">·</span>
+                    <Clock className="w-4 h-4 text-blue-500" />
+                    <span>{slideshow.time} min</span>
+                  </div>
+                  <Button
+                    asChild
+                    size="icon"
+                    className="ml-auto w-10 h-10 rounded-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] flex items-center justify-center shadow-md border-none row-start-2 col-start-2"
+                    style={{ boxShadow: '0 4px 16px 0 rgba(37,99,235,0.10)' }}
+                  >
+                    <Link
+                      id={`card-link-${slideshow.name}`}
+                      href={`${slideshow.path}?present=true`}
+                      tabIndex={-1}
+                      aria-label={`Start presentation: ${slideshow.title}`}
+                    >
+                      <Play className="w-6 h-6" />
+                      <span className="sr-only">Start Presentation</span>
                     </Link>
-                  </CardContent>
+                  </Button>
                 </Card>
               ))}
             </div>
           ) : (
-            <Card className="text-center py-12">
+            <Card className="text-center py-12 bg-[#F0F4F8] border border-[#E5E7EB]">
               <CardContent>
                 <FileText className="w-16 h-16 mx-auto text-gray-400 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">No presentations found</h3>
-                <p className="text-gray-600 mb-4">Add markdown files to the slides folder to see them here.</p>
+                <h3 className="text-xl font-semibold mb-2 text-[#1F2937]">No presentations found</h3>
+                <p className="text-[#6B7280] mb-4">Add markdown files to the slides folder to see them here.</p>
                 <Link href="/try-md">
-                  <Button className="flex items-center gap-2">
+                  <Button className="flex items-center gap-2 bg-[#2563EB] text-white hover:bg-[#1D4ED8]">
                     <Upload className="w-4 h-4" />
                     Upload Custom Markdown
                   </Button>
