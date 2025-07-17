@@ -5,6 +5,8 @@
   "scripts": {
     "prebuild": "node scripts/generate-slides-index.js",
     "build": "next build",
+    "export": "next export",
+    "deploy": "pnpm build && pnpm export && npx gh-pages -d out",
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start"
@@ -64,6 +66,7 @@
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5",
     "tailwindcss": "^3.4.17",
     "typescript": "^5"
