@@ -11,7 +11,6 @@
 * Now, we shift to the technical execution that brings those plans to life.
 * A solid branching strategy is the foundation for collaboration and automation.
 
-*(Graphic: A simple icon showing a roadmap on the left transforming into a code branch icon on the right.)*
 
 # Why a Branching Strategy Matters
 
@@ -41,8 +40,6 @@ A consistent strategy prevents:
 * Connects planning features with development work.
 * Creates a clear separation between completed code and deployed code.
 
-*(Graphic: A diagram showing a flow: Feature Branch -> Main Branch -> Production Branch)*
-
 # The Power of a Naming Convention
 
 # Context at a Glance
@@ -63,23 +60,17 @@ A well-named branch provides instant context.
 
 # Scenario 1: The Bug Fix
 
-*(Graphic: A large bug icon)*
-
 * **Issue #45:** "User profile picture fails to upload"
 * **Task:** Create a branch to fix this bug.
 * **What is your branch name?**
 
 # Scenario 2: The New Feature
 
-*(Graphic: A large "new feature" or lightbulb icon)*
-
 * **Issue #78:** "Add Google single sign-on (SSO) to login page"
 * **Task:** Create a branch to develop this new feature.
 * **What is your branch name?**
 
 # Scenario 3: The Doc Update
-
-*(Graphic: A large documentation or text file icon)*
 
 * **Issue #102:** "Update a dependency in the API documentation"
 * **Task:** Create a branch for this documentation update.
@@ -98,7 +89,5 @@ A well-named branch provides instant context.
 * Our consistent branching strategy is the key that unlocks automation.
 * When you create a merge request from a well-named branch, you can automatically trigger a CI/CD pipeline.
 * **Coming up in Module 9:** We will build that pipeline.
-
-*(Graphic: A simple flow diagram: Branch -> Merge Request -> Pipeline)*
 
 # Questions?

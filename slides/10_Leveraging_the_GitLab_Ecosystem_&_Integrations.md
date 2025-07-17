@@ -21,8 +21,6 @@
 * **Navigation Path:** `Project -> Settings -> Integrations`  
 * Each integration connects a GitLab event (e.g., code push, failed pipeline) to another application.
 
-*(Graphic: A clean screenshot of the GitLab Integrations settings page, showing the list of available services.)*
-
 # Popular Integration: Slack
 
 ## Real-Time Notifications Where You Work
@@ -34,7 +32,6 @@
   * Failed CI/CD pipelines  
 * **Why it's valuable:** It brings critical information to your team's communication hub for faster response times.
 
-*(Graphic: The Slack logo connected to the GitLab logo with a notification icon between them.)*
 
 # Popular Integration: Jira
 
@@ -44,8 +41,6 @@
 * **How it works:** Mention a Jira issue ID in a commit, and GitLab automatically adds a linked comment back in the corresponding Jira ticket.  
 * **Why it's valuable:** Keeps both systems in sync without manual effort. Developers can stay in GitLab, while project managers get full visibility in Jira.
 
-*(Graphic: The Jira logo and GitLab logo with a two-way arrow between them.)*
-
 # Popular Integration: ServiceNow
 
 ## Automating Change Management
@@ -53,8 +48,6 @@
 * **What it does:** Connects the GitLab deployment workflow to formal change management processes in ServiceNow.  
 * **How it works:** A merge request can automatically create a change request. The CI/CD pipeline can then pause and wait for approval in ServiceNow before deploying.  
 * **Why it's valuable:** Automates compliance and approval workflows, ensuring a full and auditable trail for every deployment.
-
-*(Graphic: The ServiceNow logo and GitLab logo with a "check mark/approval" icon between them.)*
 
 # Activity: Brainstorm Your Ideal Integration
 
@@ -75,8 +68,6 @@
 * Why would it be a game-changer for your team?  
 * What problem does it solve?
 
-*(Graphic: A large speech bubble or discussion icon.)*
-
 # Module Recap
 
 ## Key Concepts Mastered
@@ -91,7 +82,5 @@
 
 * You now have a complete system to take an idea from planning all the way to production with visibility, collaboration, and automation.  
 * This connected workflow is the foundation for a high-performing team.
-
-*(Graphic: A final, comprehensive flow diagram showing: Idea \-\> Issue \-\> Branch \-\> Merge Request \-\> Pipeline \-\> Deployment, with other tool icons branching off at various stages.)*
 
 # Questions?

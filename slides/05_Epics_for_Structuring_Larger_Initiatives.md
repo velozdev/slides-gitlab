@@ -1,11 +1,11 @@
 # Epics for Structuring Larger Initiatives
 
-## **From Individual Tasks to Strategic Themes**
+## From Individual Tasks to Strategic Themes
 
 ![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
 
 
-# **Today's Goals**
+# Today's Goals
 
 * **Create epics** that connect business strategy to daily work.  
 * **Structure epic hierarchies** that make sense for your organization.  
@@ -13,9 +13,9 @@
 * **Connect epics to roadmaps** for stakeholder communication.  
 * **Track epic progress** across multiple teams and milestones.
 
-# **What is an Epic?**
+# What is an Epic?
 
-## **The Chapters in Your Product Story**
+## The Chapters in Your Product Story
 
 If issues are the individual pages, epics are the chapters that group them together into a coherent story.
 
@@ -23,9 +23,9 @@ If issues are the individual pages, epics are the chapters that group them toget
 * They help you track progress on large features that span multiple sprints.  
 * They are containers for related issues that together deliver a meaningful business outcome.
 
-# **Epic vs. Issue**
+# Epic vs. Issue
 
-## **A Quick Comparison**
+## A Quick Comparison
 
 A simple guideline: If it can be done in one sprint, it's likely an issue. If it takes multiple sprints to deliver a full experience, it's a great candidate for an epic.
 
@@ -36,28 +36,26 @@ A simple guideline: If it can be done in one sprint, it's likely an issue. If it
 | Technical or task-focused | Business outcome-focused |
 | Assigned to individuals or small teams | Involve multiple people or teams |
 
-Export to Sheets
 
-# **The Epic Hierarchy**
+# The Epic Hierarchy
 
-## **Tracking Progress at Every Level**
+## Tracking Progress at Every Level
 
 GitLab supports nested epics, allowing you to connect high-level strategy directly to individual tasks.
 
-*(Graphic: A top-down flow chart showing the hierarchy)*
 
 * **Portfolio Epic** (e.g., 'Q1 2024 Digital Transformation')  
   * **Program Epic** (e.g., 'Customer Portal Redesign')  
     * **Feature Epic** (e.g., 'User Authentication System')  
       * **Issue** (e.g., 'Implement OAuth login')
 
-# **Anatomy of an Epic**
+# Anatomy of an Epic
 
-## **A Charter for Your Initiative**
+## A Charter for Your Initiative
 
 A well-structured epic acts as the single source of truth for a major initiative.
 
-Key Sections:
+### Key Sections:
 
 * **Epic Overview:** What is this initiative and why does it matter?  
 * **Business Objectives:** What is the primary goal and how will success be measured?  
@@ -66,17 +64,16 @@ Key Sections:
 * **Dependencies:** What does this epic block, and what is it blocked by?  
 * **Stakeholders:** Who is the sponsor, owner, and lead?
 
-# **Epic Templates**
+# Epic Templates
 
-## **Drive Consistency Across Your Organization**
+## Drive Consistency Across Your Organization
 
 Just like with issues, you can create templates for your epics. This is crucial for ensuring every major initiative starts with the same strategic context and structure.
 
-*(Graphic: A screenshot showing the "Choose a template" dropdown in the new epic view.)*
 
-# **Visualizing Strategy: Epic Boards**
+# Visualizing Strategy: Epic Boards
 
-## **Kanban for Your Initiatives**
+## Kanban for Your Initiatives
 
 Epic boards are like issue boards but for visualizing strategic progress.
 
@@ -86,9 +83,9 @@ They help you:
 * Visualize epic progress across different states (e.g., Backlog, In Progress, Done).  
 * Identify bottlenecks at the strategic level.
 
-# **Visualizing Timelines: Roadmaps**
+# Visualizing Timelines: Roadmaps
 
-## **Communicating Your Plan Over Time**
+## Communicating Your Plan Over Time
 
 Roadmaps turn your epics into strategic communication tools.
 
@@ -96,29 +93,22 @@ Roadmaps turn your epics into strategic communication tools.
 * They help you communicate strategic direction to stakeholders.  
 * They allow you to track progress against strategic goals.
 
-*(This is a preview of a premium feature that will be covered in more detail in Module 7.)*
 
-# **The Full Picture**
+# The Full Picture
 
-## **How It All Connects**
+## How It All Connects
 
 Each GitLab feature builds on the last to create a complete project management system.
 
-*(Graphic: A simple flow diagram)*
+* `Issues` (Tasks) \-\>
+* `Labels` (Organize) \-\>
+* `Milestones` (Time-box) \-\>
+* `Epics` (Theme) \-\>
+* `Boards/Roadmaps` (Visualize)
 
-`Issues` (Tasks) \-\>
+# Module Recap
 
-`Labels` (Organize) \-\>
-
-`Milestones` (Time-box) \-\>
-
-`Epics` (Theme) \-\>
-
-`Boards/Roadmaps` (Visualize)
-
-# **Module Recap**
-
-## **Key Concepts Mastered**
+## Key Concepts Mastered
 
 * **Epic Structure:** You understand how epics differ from issues and when to use them.  
 * **Epic Hierarchy:** You can create nested epics that reflect your organizational structure.  

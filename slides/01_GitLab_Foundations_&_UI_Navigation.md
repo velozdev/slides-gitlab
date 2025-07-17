@@ -1,20 +1,19 @@
 # GitLab Foundations & UI Navigation
 
-## **Tuning Our Instruments Before the Symphony**
+## Tuning Our Instruments Before the Symphony
 
 ![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
 
-# **Unlocking Your Potential**
+# Unlocking Your Potential
 
-## **Most teams use about 20% of GitLab's capabilities.**
+## Most teams use about 20% of GitLab's capabilities.
 
 Today, we start unlocking the other 80%.
 
-*(Graphic: A visual of an iceberg, with the small tip labeled "What most teams use" and the large submerged part labeled "What we'll unlock today.")*
 
-# **GitLab is Three Tools in One**
+# GitLab is Three Tools in One
 
-## **The Integrated DevOps Platform**
+## The Integrated DevOps Platform
 
 A three-column layout with icons for each section.
 
@@ -22,31 +21,28 @@ A three-column layout with icons for each section.
 | :---- | :---- | :---- |
 | Your Git repositories. This is where your code lives. | Automated testing and deployment. We'll touch on this on Day 3\. | This is where we'll spend most of our time. The "Plan" capabilities are your secret weapon for Scrum. |
 
-Export to Sheets
 
-# **A Seamless Flow**
+# A Seamless Flow
 
-## **From Idea to Production**
+## From Idea to Production
 
 * Your user stories become issues.  
 * Issues connect to code changes.  
 * Code changes trigger deployments.
 
-*(Graphic: A simple flow diagram: `Issue Icon` \-\> `Code Branch Icon` \-\> `Pipeline Icon` \-\> `Rocket Icon`)*
 
-# **UI Navigation: Your Mission Control**
+# UI Navigation: Your Mission Control
 
-## **The Project Dashboard**
+## The Project Dashboard
 
 * Shows activity across all your projects.  
 * Think of it as your personal news feed for all GitLab activity.  
 * **Key Concept:** The left sidebar is context-sensitive; it changes based on whether you're in a Group or a Project.
 
-*(Graphic: A screenshot of the GitLab project dashboard with the left sidebar highlighted.)*
 
-# **Key Sidebar Exploration**
+# Key Sidebar Exploration
 
-## **Your Toolkit for Planning & Execution**
+## Your Toolkit for Planning & Execution
 
 A visual list of key sidebar items with brief descriptions.
 
@@ -58,9 +54,9 @@ A visual list of key sidebar items with brief descriptions.
 * **Merge Requests:** Where code review happens.  
 * **Repository:** Your actual code files and Git history.
 
-# **Groups vs. Projects**
+# Groups vs. Projects
 
-## **Understanding the Hierarchy**
+## Understanding the Hierarchy
 
 This hierarchy matters because permissions and features work differently at each level.
 
@@ -74,13 +70,11 @@ This hierarchy matters because permissions and features work differently at each
 * Individual repositories or work streams.  
 * *Analogy: Files inside the folder*
 
-*(Graphic: An icon of a folder labeled "Group" containing three file icons labeled "Project.")*
+# Example Hierarchy
 
-# **Example Hierarchy**
+## How It Looks in Practice
 
-## **How It Looks in Practice**
-
-**Group: 'Marketing Team'**
+### Group: 'Marketing Team'
 
 * Project: 'Website'  
 * Project: 'Campaign Management'  
@@ -92,9 +86,9 @@ This hierarchy matters because permissions and features work differently at each
 * Project: 'Backend API'  
 * Project: 'Mobile App'
 
-# **Activity: Time to Explore**
+# Activity: Time to Explore
 
-## **Navigation Practice**
+## Navigation Practice
 
 * It's your turn to explore the GitLab UI.  
 * The goal is to get comfortable clicking around and seeing what's there.  

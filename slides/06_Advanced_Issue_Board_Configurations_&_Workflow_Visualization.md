@@ -12,7 +12,6 @@
 * Who is overloaded and who has capacity?  
 * What's taking too long in each stage?
 
-*(Graphic: On the left, a simple, generic Kanban board with columns "To Do," "In Progress," "Done.")*
 
 # The Problem: Generic Boards Tell a Vague Story
 
@@ -61,20 +60,17 @@ We will now build a "Development Workflow" board together.
 * Using labels and milestones to filter each list.  
 * Applying board-wide filters to create a focused view.
 
-*(Graphic: A large GitLab logo or a screenshot icon.)*
+# A New Dimension: Swimlanes
 
-# **A New Dimension: Swimlanes**
-
-## **Visualizing Work from Multiple Angles**
+## Visualizing Work from Multiple Angles
 
 * Think of swimlanes as horizontal slices across your workflow columns.  
 * They allow you to group your work by another dimension.
 
-*(Graphic: A simple diagram showing vertical columns for "Workflow" and horizontal rows cutting across them labeled "Swimlanes.")*
 
-# **Common Swimlane Dimensions**
+# Common Swimlane Dimensions
 
-## **How Do You Want to Group Your Work?**
+## How Do You Want to Group Your Work?
 
 * **By Epic:** See how each epic progresses through your workflow.  
 * **By Assignee:** Instantly see each team member's workload across all stages.  
@@ -93,17 +89,13 @@ We will now build a "Development Workflow" board together.
 * Which epics are stalled in a specific stage like code review.  
 * Which epics are ready for deployment.
 
-*(Graphic: A screenshot or mock-up of a GitLab board with clear horizontal swimlanes labeled "Epic 1: User Authentication" and "Epic 2: Profile Redesign.")*
+# Optimizing Flow with WIP Limits
 
-# **Optimizing Flow with WIP Limits**
-
-## **Stop Starting, Start Finishing**
+## Stop Starting, Start Finishing
 
 * Work-in-Progress (WIP) limits prevent your team from starting too much work at once.  
 * The theory is simple:  
    **Limited WIP \= Faster Flow**
-
-*(Graphic: An icon of a "Stop" sign or a "funnel" to represent limiting work.)*
 
 # Why Limit WIP?
 
@@ -121,15 +113,11 @@ We will now build a "Development Workflow" board together.
 * When you exceed a WIP limit, GitLab shows a warning but does not block the action.  
 * This makes breaking the rule a conscious team decision, not an accident.
 
-*(Graphic: A screenshot of a board with numbers (e.g., 3/4) on top of the "In Progress" and "Code Review" columns, with one column highlighted in orange to show the warning.)*
-
 # Specialized Boards: One Size Fits None
 
 ## Different Views for Different Roles
 
 * The same set of issues can be viewed through different boards, each tailored for a specific purpose or role.
-
-*(Graphic: A central icon representing "All Issues" with arrows pointing to smaller board icons labeled "Developer View," "QA View," and "PM View.")*
 
 # Example: The Product Manager Board
 
@@ -139,8 +127,6 @@ We will now build a "Development Workflow" board together.
 * **Swimlanes:** Epic  
 * **Filter:** `milestone: "Current Sprint"`  
 * **Purpose:** To track sprint progress and the status of major epics.
-
-*(Graphic: A mock-up of this specific board configuration.)*
 
 # Activity: Build Your Board
 
