@@ -34,36 +34,55 @@ export default function SlideshowApp() {
     })
   }
 
+  // Helper: Parse markdown table block to HTML
+  function parseMarkdownTable(tableBlock: string): string {
+    const rows = tableBlock.trim().split(/\n/).filter(Boolean);
+    if (rows.length < 2) return tableBlock; // Not a valid table
+    const header = rows[0];
+    // Alignment row (should be skipped)
+    // Only keep body rows that are not the alignment row
+    const bodyRows = rows.slice(2);
+    const headerCells = header.split("|").map(cell => cell.trim()).filter(Boolean);
+    const body = bodyRows.map(row => {
+      const cells = row.split("|").map(cell => cell.trim()).filter(Boolean);
+      return `<tr>${cells.map(cell => `<td>${cell}</td>`).join("")}</tr>`;
+    }).join("");
+    return `<table class="table-auto w-full border-collapse my-6 text-left"><thead><tr>${headerCells.map(cell => `<th>${cell}</th>`).join("")}</tr></thead><tbody>${body}</tbody></table>`;
+  }
+
   const convertMarkdownToHTML = (markdown: string): string => {
-    return (
-      markdown
-        // Headers
-        .replace(/^### (.*$)/gm, "<h3>$1</h3>")
-        .replace(/^## (.*$)/gm, "<h2>$1</h2>")
-        // Bold and italic
-        .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
-        .replace(/\*(.*?)\*/g, "<em>$1</em>")
-        // Code
-        .replace(/`(.*?)`/g, "<code>$1</code>")
-        // Lists
-        .replace(/^\* (.*$)/gm, "<li>$1</li>")
-        .replace(/^- (.*$)/gm, "<li>$1</li>")
-        // Wrap consecutive list items in ul
-        .replace(/(<li>.*<\/li>)/gs, (match) => {
-          const items = match.split("</li>").filter((item) => item.includes("<li>"))
-          return "<ul>" + items.map((item) => item + "</li>").join("") + "</ul>"
-        })
-        // Paragraphs
-        .replace(/\n\n/g, "</p><p>")
-        .replace(/^(?!<[uh]|<li)(.+)$/gm, "<p>$1</p>")
-        // Clean up empty paragraphs
-        .replace(/<p><\/p>/g, "")
-    )
+    // Table regex: find all markdown tables
+    const tableRegex = /((?:^\|.*\|\s*$\n?)+)/gm;
+    let html = markdown.replace(tableRegex, parseMarkdownTable);
+    // Continue with other markdown replacements
+    html = html
+      // Headers
+      .replace(/^### (.*$)/gm, "<h3>$1</h3>")
+      .replace(/^## (.*$)/gm, "<h2>$1</h2>")
+      // Bold and italic
+      .replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\*(.*?)\*/g, "<em>$1</em>")
+      // Code
+      .replace(/`(.*?)`/g, "<code>$1</code>")
+      // Lists
+      .replace(/^\* (.*$)/gm, "<li>$1</li>")
+      .replace(/^- (.*$)/gm, "<li>$1</li>")
+      // Wrap consecutive list items in ul
+      .replace(/(<li>.*<\/li>)/gs, (match) => {
+        const items = match.split("</li>").filter((item) => item.includes("<li>"))
+        return "<ul>" + items.map((item) => item + "</li>").join("") + "</ul>"
+      })
+      // Paragraphs
+      .replace(/\n\n/g, "</p><p>")
+      .replace(/^(?!<[uh]|<li)(.+)$/gm, "<p>$1</p>")
+      // Clean up empty paragraphs
+      .replace(/<p><\/p>/g, "");
+    return html;
   }
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0]
-    if ((file && file.type === "text/markdown") || file.name.endsWith(".md")) {
+    if (file && (file.type === "text/markdown" || file.name.endsWith(".md"))) {
       const reader = new FileReader()
       reader.onload = (e) => {
         const markdown = e.target?.result as string

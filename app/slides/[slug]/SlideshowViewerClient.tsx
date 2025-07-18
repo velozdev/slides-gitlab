@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { MarkdownParser } from "@/lib/MarkdownParser";
 import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Play, Settings } from "lucide-react";
@@ -11,13 +12,8 @@ interface Slide {
   content: string;
 }
 
-interface SlideTheme {
-  background: string;
-  textColor: string;
-  accentColor: string;
-  fontFamily: string;
-}
-
+// Markdown Parser Module
+// ...existing code...
 export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: any[] }) {
   const params = useParams();
   const router = useRouter();
@@ -26,12 +22,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentItem, setCurrentItem] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [theme, setTheme] = useState<SlideTheme>({
-    background: "bg-white",
-    textColor: "text-gray-900",
-    accentColor: "text-blue-700",
-    fontFamily: "font-mono",
-  });
+  const [fontFamily, setFontFamily] = useState("font-sans");
 
   const startPresentation = () => {
     setIsPresenting(true);
@@ -39,12 +30,14 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
     setCurrentItem(0);
   };
 
-  // Load theme from localStorage
+  // Load theme from localStorage and set <body> class
   useEffect(() => {
     const savedTheme = localStorage.getItem("slideshow-theme");
-    if (savedTheme) {
-      setTheme(JSON.parse(savedTheme));
-    }
+    const savedFont = localStorage.getItem("slideshow-font");
+    const themeClass = savedTheme ? `theme-${savedTheme}` : "theme-dark";
+    document.body.classList.remove("theme-light", "theme-dark", "theme-corporate", "theme-minimal");
+    document.body.classList.add(themeClass);
+    if (savedFont) setFontFamily(savedFont);
   }, []);
 
   // Check for direct presentation mode
@@ -60,8 +53,17 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
   const nextItem = () => {
     if (!slides[currentSlide]) return;
     const currentSlideContent = slides[currentSlide].content;
+    // Count list items and table rows
     const listItems = (currentSlideContent.match(/^[*-] /gm) || []).length;
-    if (currentItem < listItems - 1) {
+    // Count table rows in markdown, including last row at end of string
+    const tableRowMatches = currentSlideContent.match(/\|[^\n]*\|[^\n]*(?:\n|$)/g) || [];
+    // Exclude header and separator rows
+    let tableRows = 0;
+    if (tableRowMatches.length >= 3) {
+      tableRows = tableRowMatches.length - 2;
+    }
+    const revealableItems = listItems + tableRows;
+    if (currentItem < revealableItems - 1) {
       setCurrentItem(currentItem + 1);
     } else if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
@@ -76,7 +78,12 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
       setCurrentSlide(currentSlide - 1);
       const prevSlideContent = slides[currentSlide - 1].content;
       const listItems = (prevSlideContent.match(/^[*-] /gm) || []).length;
-      setCurrentItem(Math.max(0, listItems - 1));
+      const tableRowMatches = prevSlideContent.match(/\|[^\n]*\|[^\n]*(?:\n|$)/g) || [];
+      let tableRows = 0;
+      if (tableRowMatches.length >= 3) {
+        tableRows = tableRowMatches.length - 2;
+      }
+      setCurrentItem(Math.max(0, listItems + tableRows - 1));
     }
   };
 
@@ -101,7 +108,9 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
           prevItem();
           break;
         case "Escape":
-          exitPresentation();
+          event.preventDefault();
+          // Go to dashboard (base href)
+          window.location.href = "/";
           break;
       }
     };
@@ -127,7 +136,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
         // Use decodeURIComponent to match slug with slideIndex
         const rawSlug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
         const slug = decodeURIComponent(rawSlug || "");
-        const slideEntry = slidesIndex.find((s) => s.name === slug);
+        const slideEntry = slidesIndex.find((s: any) => s.name === slug);
         if (slideEntry) {
           const parsedSlides = parseMarkdown(slideEntry.import);
           setSlides(parsedSlides);
@@ -142,65 +151,8 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
     loadSlideshow();
   }, [params.slug, slidesIndex]);
 
-  const parseMarkdown = (markdown: string): Slide[] => {
-    const sections = markdown.split(/^# /gm).filter((section) => section.trim());
-    return sections.map((section) => {
-      const lines = section.trim().split("\n");
-      let title = lines[0] || "Untitled Slide";
-      // Remove double asterisks from titles
-      title = title.replace(/^\*\*(.*?)\*\*$/, "$1");
-      const content = lines.slice(1).join("\n").trim();
-      return { title, content };
-    });
-  };
-
-  const convertMarkdownToHTML = (markdown: string): string => {
-    let html = markdown
-      // Handle images ![alt](url)
-      .replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" class="inline-block align-middle my-4 max-h-24" />')
-      // Handle tables first (before other processing)
-      .replace(/\|(.+)\|/g, (match, content) => {
-        // This is a table row
-        const cells = content.split("|").map((cell: string) => cell.trim());
-        return `<tr>${cells.map((cell: string) => `<td>${cell}</td>`).join("")}</tr>`;
-      })
-      // Wrap table rows in table tags
-      .replace(/(<tr>.*<\/tr>)/gs, (match) => {
-        const rows = match.split("</tr>").filter((row) => row.includes("<tr>"));
-        const tableRows = rows.map((row) => row + "</tr>").join("");
-        return `<table class="table-auto w-full border-collapse border border-gray-600 my-4">${tableRows}</table>`;
-      })
-      // Headers - handle double asterisks in headers
-      .replace(/^### \*\*(.*?)\*\*$/gm, '<h3 class="text-2xl font-semibold mb-4">$1</h3>')
-      .replace(/^### (.*$)/gm, '<h3 class="text-2xl font-semibent mb-4">$1</h3>')
-      .replace(/^## \*\*(.*?)\*\*$/gm, '<h2 class="text-3xl font-bold mb-6">$1</h2>')
-      .replace(/^## (.*$)/gm, '<h2 class="text-3xl font-bold mb-6">$1</h2>')
-      // Bold and italic
-      .replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-yellow-300">$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em class="italic text-blue-300">$1</em>')
-      // Code (handle backticks properly)
-      .replace(/`([^`]+)`/g, '<code class="bg-gray-800 text-yellow-300 px-2 py-1 rounded font-mono text-sm">$1</code>')
-      // Unordered lists - handle both * and -
-      .replace(/^[*-] (.+)$/gm, '<li class="list-item unordered">$1</li>')
-      // Ordered lists - handle 1. 2. etc
-      .replace(/^\d+\. (.+)$/gm, '<li class="list-item ordered">$1</li>')
-      // Wrap consecutive ordered list items in <ol>
-      .replace(/(<li class=\"list-item ordered\">.*?<\/li>)(\s*<li class=\"list-item ordered\">.*?<\/li>)*?/gs, (match) => {
-        return `<ol class=\"space-y-3 my-4 list-decimal list-inside mx-auto text-left\" style=\"max-width: 600px;\">${match}</ol>`;
-      })
-      // Wrap consecutive unordered list items in <ul>
-      .replace(/(<li class=\"list-item unordered\">.*?<\/li>)(\s*<li class=\"list-item unordered\">.*?<\/li>)*?/gs, (match) => {
-        return `<ul class=\"space-y-3 my-4 list-disc list-inside mx-auto text-left\" style=\"max-width: 600px;\">${match}</ul>`;
-      })
-      // Paragraphs - but avoid wrapping tables and lists
-      .replace(/^(?!<[uth]|<li)(.+)$/gm, '<p class="mb-4 leading-relaxed">$1</p>')
-      // Clean up empty paragraphs and fix table styling
-      .replace(/<p[^>]*><\/p>/g, "")
-      .replace(/<table[^>]*>/g, '<table class="table-auto w-full border-collapse my-6 text-left">')
-      .replace(/<td>/g, '<td class="border border-gray-600 px-4 py-3 align-top">')
-      .replace(/<tr>/g, '<tr class="border-b border-gray-600">');
-    return html;
-  };
+  const parseMarkdown = MarkdownParser.parseSlides;
+  const convertMarkdownToHTML = MarkdownParser.convertToHTML;
 
   const renderSlideContent = (content: string, slideIndex: number) => {
     const html = convertMarkdownToHTML(content);
@@ -208,8 +160,8 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
     if (isPresenting && slideIndex === currentSlide) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(`<div>${html}</div>`, "text/html");
+      // Animate list items
       const listItems = doc.querySelectorAll("li.list-item");
-      // Show list items progressively based on currentItem
       listItems.forEach((item, index) => {
         if (index <= currentItem) {
           item.classList.add("animate-in");
@@ -217,6 +169,17 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
         } else {
           item.classList.add("animate-out");
           item.classList.remove("animate-in");
+        }
+      });
+      // Animate table rows
+      const tableRows = doc.querySelectorAll("tbody tr");
+      tableRows.forEach((row, index) => {
+        if (index <= currentItem) {
+          row.classList.add("animate-in");
+          row.classList.remove("animate-out");
+        } else {
+          row.classList.add("animate-out");
+          row.classList.remove("animate-in");
         }
       });
       return doc.body.innerHTML;
@@ -237,7 +200,8 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
 
   if ((isPresenting || new URLSearchParams(window.location.search).get("present") === "true") && slides.length > 0) {
     return (
-      <div className={`fixed inset-0 ${theme.background} ${theme.textColor} ${theme.fontFamily} flex flex-col`}>
+      <div className={`fixed inset-0 bg-background text-foreground flex flex-col ${fontFamily}`}
+        style={{ fontFamily: `var(--font-family)` }}>
         <div className="flex-1 flex flex-col justify-center items-center p-8">
           <div className="max-w-4xl w-full text-center">
             <h1 className="text-4xl md:text-6xl font-bold mb-8 animate-in">{slides[currentSlide].title}</h1>
@@ -260,7 +224,8 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className={`min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 ${fontFamily}`}
+      style={{ fontFamily: `var(--font-family)` }}>
       <div className="max-w-4xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <Link href="/">
