@@ -4,7 +4,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Play, Settings, Upload, FileText, Clock } from "lucide-react"
+import { Play, Settings, Upload, FileText, Clock, BookOpen } from "lucide-react"
 import { slidesIndex } from "@/lib/slides-index"
 import { moduleTimes } from "@/lib/module-times"
 
@@ -49,6 +49,12 @@ export default function HomePage() {
               <Button variant="outline" className="flex items-center gap-2 bg-transparent">
                 <Settings className="w-4 h-4" />
                 Settings
+              </Button>
+            </Link>
+            <Link href="/exercises">
+              <Button variant="outline" className="flex items-center gap-2 bg-transparent">
+                <BookOpen className="w-4 h-4" />
+                Exercises
               </Button>
             </Link>
           </div>
