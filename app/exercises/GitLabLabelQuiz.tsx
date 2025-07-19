@@ -2,15 +2,31 @@
 import React, { useState } from 'react';
 import { Tag, CheckCircle, XCircle, Lightbulb, RotateCcw, AlertCircle } from 'lucide-react';
 
-const GitLabLabelQuiz = () => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [selectedLabels, setSelectedLabels] = useState([]);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const [score, setScore] = useState(0);
-  const [completed, setCompleted] = useState(false);
+type Label = {
+  name: string;
+  color: string;
+  category: string;
+};
+
+type Question = {
+  id: number;
+  title: string;
+  description: string;
+  reporter: string;
+  expectedLabels: string[];
+  explanation: string;
+  reasoning: Record<string, string>;
+};
+
+const GitLabLabelQuiz: React.FC = () => {
+  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+  const [selectedLabels, setSelectedLabels] = useState<string[]>([]);
+  const [showFeedback, setShowFeedback] = useState<boolean>(false);
+  const [score, setScore] = useState<number>(0);
+  const [completed, setCompleted] = useState<boolean>(false);
 
   // Realistic label taxonomy based on common GitLab practices
-  const availableLabels = [
+  const availableLabels: Label[] = [
     // Type
     { name: 'bug', color: 'bg-red-100 text-red-800', category: 'Type' },
     { name: 'feature', color: 'bg-blue-100 text-blue-800', category: 'Type' },
@@ -52,7 +68,7 @@ const GitLabLabelQuiz = () => {
     { name: 'technical-debt', color: 'bg-gray-100 text-gray-800', category: 'Special' }
   ];
 
-  const questions = [
+  const questions: Question[] = [
     {
       id: 1,
       title: "Login page completely broken on mobile devices",
@@ -174,7 +190,7 @@ const GitLabLabelQuiz = () => {
     }
   ];
 
-  const toggleLabel = (label) => {
+  const toggleLabel = (label: Label) => {
     setSelectedLabels(prev => 
       prev.includes(label.name) 
         ? prev.filter(l => l !== label.name)
@@ -188,12 +204,12 @@ const GitLabLabelQuiz = () => {
     const selected = selectedLabels;
     
     // Calculate precision and recall
-    const correctlySelected = selected.filter(label => expected.includes(label));
-    const precision = correctlySelected.length / Math.max(selected.length, 1);
-    const recall = correctlySelected.length / expected.length;
+    const correctlySelected: string[] = selected.filter(label => expected.includes(label));
+    const precision: number = correctlySelected.length / Math.max(selected.length, 1);
+    const recall: number = correctlySelected.length / expected.length;
     
     // F1 score (harmonic mean of precision and recall)
-    const f1 = precision + recall > 0 ? 2 * (precision * recall) / (precision + recall) : 0;
+    const f1: number = precision + recall > 0 ? 2 * (precision * recall) / (precision + recall) : 0;
     
     return {
       score: Math.round(f1 * 100),
@@ -227,7 +243,7 @@ const GitLabLabelQuiz = () => {
     setCompleted(false);
   };
 
-  const groupedLabels = availableLabels.reduce((acc, label) => {
+  const groupedLabels: Record<string, Label[]> = availableLabels.reduce((acc: Record<string, Label[]>, label: Label) => {
     if (!acc[label.category]) acc[label.category] = [];
     acc[label.category].push(label);
     return acc;
@@ -243,21 +259,19 @@ const GitLabLabelQuiz = () => {
           <div className="text-6xl mb-4">🏷️</div>
           <h2 className="text-3xl font-bold text-gray-800 mb-4">Quiz Complete!</h2>
           <div className="text-xl text-gray-600 mb-6">
-            Your Score: {score}/{maxScore} ({percentage}%)
+            Your Score: {score}/{maxScore} ({percentage}&#37;)
           </div>
-          
           <div className="bg-blue-50 p-6 rounded-lg mb-6">
             <h3 className="text-lg font-semibold text-blue-800 mb-3">🎯 Label Strategy Tips</h3>
             <div className="text-blue-700 space-y-2 text-left">
-              <p>• <strong>Always include a type:</strong> bug, feature, enhancement, documentation, security</p>
-              <p>• <strong>Set priority thoughtfully:</strong> Critical for revenue/security, High for user impact</p>
-              <p>• <strong>Tag responsible teams:</strong> Help with routing and workload planning</p>
-              <p>• <strong>Use status labels:</strong> Track workflow and blockers effectively</p>
-              <p>• <strong>Estimate effort:</strong> Helps with sprint planning and capacity</p>
-              <p>• <strong>Mark special cases:</strong> good-first-issue, breaking-change, customer-reported</p>
+              <p>&bull; <strong>Always include a type:</strong> bug, feature, enhancement, documentation, security</p>
+              <p>&bull; <strong>Set priority thoughtfully:</strong> Critical for revenue/security, High for user impact</p>
+              <p>&bull; <strong>Tag responsible teams:</strong> Help with routing and workload planning</p>
+              <p>&bull; <strong>Use status labels:</strong> Track workflow and blockers effectively</p>
+              <p>&bull; <strong>Estimate effort:</strong> Helps with sprint planning and capacity</p>
+              <p>&bull; <strong>Mark special cases:</strong> good-first-issue, breaking-change, customer-reported</p>
             </div>
           </div>
-          
           <button
             onClick={resetQuiz}
             className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors flex items-center gap-2 mx-auto"
@@ -280,9 +294,9 @@ const GitLabLabelQuiz = () => {
           <Tag className="w-8 h-8 text-blue-600" />
           GitLab Label Strategy Quiz
         </h1>
-        <div className="text-sm text-gray-600">
-          Question {currentQuestion + 1} of {questions.length} • Avg Score: {Math.round(score/(currentQuestion + (showFeedback ? 1 : 0)))}%
-        </div>
+          <div className="text-sm text-gray-600">
+            Question {currentQuestion + 1} of {questions.length} &bull; Avg Score: {Math.round(score/(currentQuestion + (showFeedback ? 1 : 0)))}&#37;
+          </div>
       </div>
 
       <div className="mb-6">
@@ -315,7 +329,7 @@ const GitLabLabelQuiz = () => {
             <div key={category} className="space-y-2">
               <h4 className="text-sm font-medium text-gray-600">{category}</h4>
               <div className="flex flex-wrap gap-2">
-                {labels.map(label => (
+                {(labels as Label[]).map((label: Label) => (
                   <button
                     key={label.name}
                     onClick={() => toggleLabel(label)}
@@ -342,7 +356,7 @@ const GitLabLabelQuiz = () => {
             {selectedLabels.map(labelName => {
               const label = availableLabels.find(l => l.name === labelName);
               return (
-                <span key={labelName} className={`px-3 py-1 rounded-full text-sm font-medium ${label.color}`}>
+                <span key={labelName} className={`px-3 py-1 rounded-full text-sm font-medium ${label?.color ?? ''}`}>
                   {labelName}
                 </span>
               );
@@ -366,36 +380,36 @@ const GitLabLabelQuiz = () => {
         <div className="mt-6 space-y-4">
           <div className="bg-white border border-gray-200 rounded-lg p-4">
             <div className="flex items-center gap-2 mb-3">
-              {result.score >= 80 ? (
+              {result && result.score >= 80 ? (
                 <CheckCircle className="w-5 h-5 text-green-500" />
-              ) : result.score >= 60 ? (
+              ) : result && result.score >= 60 ? (
                 <Lightbulb className="w-5 h-5 text-yellow-500" />
               ) : (
                 <XCircle className="w-5 h-5 text-red-500" />
               )}
-              <span className="font-semibold">
-                Score: {result.score}% 
-                {result.score >= 80 ? ' - Excellent!' : result.score >= 60 ? ' - Good effort!' : ' - Keep learning!'}
-              </span>
+                <span className="font-semibold">
+                  Score: {result ? result.score : 0}&#37; 
+                  {result ? (result.score >= 80 ? ' - Excellent!' : result.score >= 60 ? ' - Good effort!' : ' - Keep learning!') : ''}
+                </span>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
               <div className="bg-green-50 p-3 rounded">
-                <div className="font-medium text-green-800">Correct ({result.correctlySelected.length})</div>
+                <div className="font-medium text-green-800">Correct ({result ? result.correctlySelected.length : 0})</div>
                 <div className="text-green-700">
-                  {result.correctlySelected.join(', ') || 'None'}
+                  {result ? result.correctlySelected.join(', ') : 'None'}
                 </div>
               </div>
               <div className="bg-yellow-50 p-3 rounded">
-                <div className="font-medium text-yellow-800">Missed ({result.missed.length})</div>
+                <div className="font-medium text-yellow-800">Missed ({result ? result.missed.length : 0})</div>
                 <div className="text-yellow-700">
-                  {result.missed.join(', ') || 'None'}
+                  {result ? result.missed.join(', ') : 'None'}
                 </div>
               </div>
               <div className="bg-red-50 p-3 rounded">
-                <div className="font-medium text-red-800">Unnecessary ({result.unnecessary.length})</div>
+                <div className="font-medium text-red-800">Unnecessary ({result ? result.unnecessary.length : 0})</div>
                 <div className="text-red-700">
-                  {result.unnecessary.join(', ') || 'None'}
+                  {result ? result.unnecessary.join(', ') : 'None'}
                 </div>
               </div>
             </div>

@@ -41,6 +41,7 @@ const GitLabCommunicationQuiz = () => {
       explanation: "Creating a separate issue ensures the frontend bug gets proper tracking and prioritization. @mentioning the frontend team ensures visibility without cluttering the original backend issue. This follows the principle of separating concerns while maintaining good communication.",
       whyWrong: {
         'a': "Mixing unrelated issues in one thread creates confusion and may cause the frontend bug to be overlooked.",
+        'b': "",
         'c': "Direct messages don't create trackable records and may not reach the right person or team lead.",
         'd': "Slack messages can be missed and don't integrate with GitLab's tracking system."
       }
@@ -76,6 +77,7 @@ const GitLabCommunicationQuiz = () => {
       explanation: "For urgent production issues, you need to escalate through multiple channels while maintaining proper documentation. @mentioning in GitLab creates a record, while Slack provides immediate notification. This balances urgency with proper process.",
       whyWrong: {
         'a': "Normal process may be too slow for a critical production issue affecting 40% of users.",
+        'b': "",
         'c': "Phone calls don't create documentation and may not include other stakeholders who need to know.",
         'd': "Deploying without review, even in emergencies, is risky and may violate compliance requirements."
       }
@@ -110,6 +112,7 @@ const GitLabCommunicationQuiz = () => {
       correctAnswer: 'a',
       explanation: "Start with the PM who created the issue. They're responsible for requirements and should have the context. If they need to escalate to the CEO or customer, they can do so. This respects the chain of responsibility and avoids overwhelming executives with technical details.",
       whyWrong: {
+        'a': "",
         'b': "Scheduling meetings with executives for initial clarification is inefficient and may not be necessary.",
         'c': "Going directly to the CEO bypasses the PM and may create confusion about who owns the requirements.",
         'd': "Implementing without clarification wastes time and may not meet actual needs."
@@ -147,6 +150,7 @@ const GitLabCommunicationQuiz = () => {
       whyWrong: {
         'a': "Just asking when it will be merged doesn't solve your immediate problem or help with planning.",
         'b': "Simply escalating to PM without attempting to unblock yourself may not be the most productive approach.",
+        'c': "",
         'd': "Direct pressure on individuals can create tension and doesn't address the systemic dependency issue."
       }
     },
@@ -181,6 +185,7 @@ const GitLabCommunicationQuiz = () => {
       explanation: "Extended back-and-forth in MR comments is inefficient and can escalate tension. A video call allows for real-time discussion, better explanation of approaches, and faster resolution. Save MR comments for documenting the final decision.",
       whyWrong: {
         'a': "Continuing in comments can become argumentative and wastes time for all MR watchers.",
+        'b': "",
         'c': "Blindly deferring to seniority without discussion doesn't lead to the best technical solutions.",
         'd': "Escalating immediately without attempting direct resolution may be premature and burdens the tech lead."
       }
@@ -217,6 +222,7 @@ const GitLabCommunicationQuiz = () => {
       whyWrong: {
         'a': "Simply closing ignores the underlying UX issue that caused customer confusion.",
         'b': "Converting without context may lose important information about customer impact.",
+        'c': "",
         'd': "Making changes without stakeholder input may not address the real problem and could introduce new issues."
       }
     },
@@ -400,7 +406,7 @@ const GitLabCommunicationQuiz = () => {
 
       {/* Options */}
       <div className="space-y-3 mb-6">
-        <h3 className="text-lg font-semibold text-gray-800">What's your approach?</h3>
+        <h3 className="text-lg font-semibold text-gray-800">What&apos;s your approach?</h3>
         {currentQ.options.map((option) => (
           <button
             key={option.id}
@@ -467,7 +473,9 @@ const GitLabCommunicationQuiz = () => {
               <div className="mb-3">
                 <p className="text-red-700 font-medium">Your choice: {selectedOption?.action}</p>
                 <p className="text-red-600 text-sm mt-1">
-                  {currentQ.whyWrong[selectedAction]}
+                  {currentQ.whyWrong && (currentQ.whyWrong as Record<string, string>)[selectedAction] !== undefined
+                    ? (currentQ.whyWrong as Record<string, string>)[selectedAction].replace(/'/g, "&apos;")
+                    : "No explanation available for this choice."}
                 </p>
               </div>
             )}

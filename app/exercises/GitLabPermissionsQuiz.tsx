@@ -251,7 +251,7 @@ const GitLabPermissionsQuiz = () => {
     }
   ];
 
-  const handleAnswerSelect = (scenarioId, optionId) => {
+  const handleAnswerSelect = (scenarioId: string, optionId: string) => {
     setAnswers(prev => ({
       ...prev,
       [scenarioId]: optionId
@@ -455,7 +455,7 @@ const GitLabPermissionsQuiz = () => {
                   name={`scenario-${getCurrentScenario().id}`}
                   value={option.id}
                   checked={userAnswer === option.id}
-                  onChange={() => handleAnswerSelect(getCurrentScenario().id, option.id)}
+                  onChange={() => handleAnswerSelect(String(getCurrentScenario().id), option.id)}
                   className="mt-1"
                 />
                 <span className="text-gray-800">{option.text}</span>

@@ -87,29 +87,29 @@ const OverviewStep = () => (
             </ul>
           </div>
         </div>
-        <div className="bg-white p-4 rounded-lg shadow-sm">
-          <h4 className="font-semibold mb-3">🎯 The Magic Combination:</h4>
-          <div className="space-y-3 text-sm">
-            <div className="flex items-start gap-2">
-              <ArrowRight className="w-4 h-4 text-purple-600 mt-0.5" />
-              <div>
-                <strong>Strategic clarity</strong> meets <strong>tactical execution</strong>
+          <div className="bg-white p-4 rounded-lg shadow-sm">
+            <h4 className="font-semibold mb-3">🎯 The Magic Combination:</h4>
+            <div className="space-y-3 text-sm">
+              <div className="flex items-start gap-2">
+                <ArrowRight className="w-4 h-4 text-purple-600 mt-0.5" />
+                <div>
+                  <strong>Strategic clarity</strong> meets <strong>tactical execution</strong>
+                </div>
               </div>
-            </div>
-            <div className="flex items-start gap-2">
-              <ArrowRight className="w-4 h-4 text-purple-600 mt-0.5" />
-              <div>
-                <strong>Long-term vision</strong> broken into <strong>short-term actions</strong>
+              <div className="flex items-start gap-2">
+                <ArrowRight className="w-4 h-4 text-purple-600 mt-0.5" />
+                <div>
+                  <strong>Long-term vision</strong> broken into <strong>short-term actions</strong>
+                </div>
               </div>
-            </div>
-            <div className="flex items-start gap-2">
-              <ArrowRight className="w-4 h-4 text-purple-600 mt-0.5" />
-              <div>
-                <strong>Business outcomes</strong> connected to <strong>daily work</strong>
+              <div className="flex items-start gap-2">
+                <ArrowRight className="w-4 h-4 text-purple-600 mt-0.5" />
+                <div>
+                  <strong>Business outcomes</strong> connected to <strong>daily work</strong>
+                </div>
               </div>
             </div>
           </div>
-        </div>
       </div>
     </div>
     <div className="bg-yellow-50 border border-yellow-200 p-4 rounded-lg">
@@ -119,7 +119,7 @@ const OverviewStep = () => (
           <h4 className="font-semibold text-yellow-800 mb-1">Most Teams Miss This!</h4>
           <p className="text-yellow-700 text-sm">
             They use OKRs for quarterly planning but never connect them to sprint/iteration execution.
-             Or they run sprints without clear connection to strategic objectives. GitLab's integrated
+             Or they run sprints without clear connection to strategic objectives. GitLab&apos;s integrated
              approach eliminates this gap.
           </p>
         </div>
@@ -149,28 +149,40 @@ const OverviewStep = () => (
 );
 
 // Component for objective definition step
-const ObjectiveStep = ({ userInputs, updateInput, showTips, toggleTip }) => (
+type ObjectiveStepProps = {
+  userInputs: {
+    objective: string;
+    keyResults: string[];
+    iterationGoals: Record<string, string>;
+    teamCapacity: string;
+    riskFactors: string[];
+  };
+  updateInput: (field: string, value: any) => void;
+  showTips: Record<string, boolean>;
+  toggleTip: (tipId: string) => void;
+};
+const ObjectiveStep: React.FC<ObjectiveStepProps> = ({ userInputs, updateInput, showTips, toggleTip }) => (
   <div className="space-y-6">
     <div className="bg-blue-50 p-4 rounded-lg">
       <h3 className="font-semibold text-blue-900 mb-2">Writing Great Objectives</h3>
       <p className="text-blue-800 text-sm mb-3">
-        Objectives should be inspirational, qualitative, and time-bound. They answer "What do we want to achieve?"
+        Objectives should be inspirational, qualitative, and time-bound. They answer &quot;What do we want to achieve?&quot;
       </p>
       <div className="grid md:grid-cols-2 gap-4 text-sm">
         <div>
           <h4 className="font-medium text-green-700 mb-1">✅ Good Examples:</h4>
           <ul className="text-green-600 space-y-1">
-            <li>• "Become the go-to platform for remote teams"</li>
-            <li>• "Deliver exceptional customer experience"</li>
-            <li>• "Scale our infrastructure for global growth"</li>
+            <li>• &quot;Become the go-to platform for remote teams&quot;</li>
+            <li>• &quot;Deliver exceptional customer experience&quot;</li>
+            <li>• &quot;Scale our infrastructure for global growth&quot;</li>
           </ul>
         </div>
         <div>
           <h4 className="font-medium text-red-700 mb-1">❌ Avoid These:</h4>
           <ul className="text-red-600 space-y-1">
-            <li>• "Increase revenue" (too generic)</li>
-            <li>• "Fix all bugs" (not inspirational)</li>
-            <li>• "Do better marketing" (not specific)</li>
+            <li>• &quot;Increase revenue&quot; (too generic)</li>
+            <li>• &quot;Fix all bugs&quot; (not inspirational)</li>
+            <li>• &quot;Do better marketing&quot; (not specific)</li>
           </ul>
         </div>
       </div>
@@ -200,7 +212,7 @@ const ObjectiveStep = ({ userInputs, updateInput, showTips, toggleTip }) => (
           <div className="space-y-2">
             <p><strong>Verb + What + For Whom + Time Period</strong></p>
             <p className="text-gray-600">
-              "Establish our product as the preferred choice for mid-market companies by Q2 2025"
+              &quot;Establish our product as the preferred choice for mid-market companies by Q2 2025&quot;
             </p>
             <div className="mt-3">
               <h5 className="font-medium mb-1">Quick Checklist:</h5>
@@ -219,18 +231,30 @@ const ObjectiveStep = ({ userInputs, updateInput, showTips, toggleTip }) => (
 );
 
 // Component for key results step
-const KeyResultsStep = ({ userInputs, updateKeyResult, showTips, toggleTip }) => (
+type KeyResultsStepProps = {
+  userInputs: {
+    objective: string;
+    keyResults: string[];
+    iterationGoals: Record<string, string>;
+    teamCapacity: string;
+    riskFactors: string[];
+  };
+  updateKeyResult: (index: number, value: string) => void;
+  showTips: Record<string, boolean>;
+  toggleTip: (tipId: string) => void;
+};
+const KeyResultsStep: React.FC<KeyResultsStepProps> = ({ userInputs, updateKeyResult, showTips, toggleTip }) => (
   <div className="space-y-6">
     <div className="bg-green-50 p-4 rounded-lg">
       <h3 className="font-semibold text-green-900 mb-2">Defining Key Results</h3>
       <p className="text-green-800 text-sm mb-3">
-        Key Results are specific, measurable outcomes that prove you've achieved your objective.
+        Key Results are specific, measurable outcomes that prove you&apos;ve achieved your objective.
          Aim for 2-4 key results per objective.
       </p>
       <div className="text-sm">
         <p className="font-medium mb-1">Good key results are:</p>
         <ul className="text-green-700 space-y-1">
-          <li>• <strong>Specific:</strong> No ambiguity about what's being measured</li>
+          <li>• <strong>Specific:</strong> No ambiguity about what&apos;s being measured</li>
           <li>• <strong>Measurable:</strong> Include numbers, percentages, or clear states</li>
           <li>• <strong>Achievable:</strong> Challenging but realistic with effort</li>
           <li>• <strong>Time-bound:</strong> Clear deadline or timeframe</li>
@@ -275,19 +299,19 @@ const KeyResultsStep = ({ userInputs, updateKeyResult, showTips, toggleTip }) =>
             <div>
               <h4 className="font-medium text-green-700 mb-2">✅ Strong Key Results:</h4>
               <ul className="text-green-600 space-y-1">
-                <li>• "Launch in 3 new markets by Q2"</li>
-                <li>• "Achieve 99.9% uptime for 90 days"</li>
-                <li>• "Generate $1M ARR from enterprise"</li>
-                <li>• "Reduce load time from 3s to 1s"</li>
+                <li>• &quot;Launch in 3 new markets by Q2&quot;</li>
+                <li>• &quot;Achieve 99.9% uptime for 90 days&quot;</li>
+                <li>• &quot;Generate $1M ARR from enterprise&quot;</li>
+                <li>• &quot;Reduce load time from 3s to 1s&quot;</li>
               </ul>
             </div>
             <div>
               <h4 className="font-medium text-red-700 mb-2">❌ Weak Key Results:</h4>
               <ul className="text-red-600 space-y-1">
-                <li>• "Improve user experience"</li>
-                <li>• "Better team communication"</li>
-                <li>• "Launch new features"</li>
-                <li>• "Increase customer satisfaction"</li>
+                <li>• &quot;Improve user experience&quot;</li>
+                <li>• &quot;Better team communication&quot;</li>
+                <li>• &quot;Launch new features&quot;</li>
+                <li>• &quot;Increase customer satisfaction&quot;</li>
               </ul>
             </div>
           </div>
@@ -298,7 +322,17 @@ const KeyResultsStep = ({ userInputs, updateKeyResult, showTips, toggleTip }) =>
 );
 
 // Component for iterations step
-const IterationsStep = ({ userInputs, updateIterationGoal }) => (
+type IterationsStepProps = {
+  userInputs: {
+    objective: string;
+    keyResults: string[];
+    iterationGoals: Record<string, string>;
+    teamCapacity: string;
+    riskFactors: string[];
+  };
+  updateIterationGoal: (iteration: string, goal: string) => void;
+};
+const IterationsStep: React.FC<IterationsStepProps> = ({ userInputs, updateIterationGoal }) => (
   <div className="space-y-6">
     <div className="bg-purple-50 p-4 rounded-lg">
       <h3 className="font-semibold text-purple-900 mb-2">Planning Iterations</h3>
@@ -369,7 +403,23 @@ const IterationsStep = ({ userInputs, updateIterationGoal }) => (
 );
 
 // Component for execution step
-const ExecutionStep = ({ userInputs, updateInput, generatedPlan, generatePlan }) => (
+type ExecutionStepProps = {
+  userInputs: {
+    objective: string;
+    keyResults: string[];
+    iterationGoals: Record<string, string>;
+    teamCapacity: string;
+    riskFactors: string[];
+  };
+  updateInput: (field: string, value: any) => void;
+  generatedPlan: {
+    gitlabSetup: string[];
+    trackingStrategy: string[];
+    successMetrics: string[];
+  } | null;
+  generatePlan: () => void;
+};
+const ExecutionStep: React.FC<ExecutionStepProps> = ({ userInputs, updateInput, generatedPlan, generatePlan }) => (
   <div className="space-y-6">
     <div className="bg-green-50 p-4 rounded-lg">
       <h3 className="font-semibold text-green-900 mb-2">GitLab Configuration Strategy</h3>
@@ -508,7 +558,11 @@ const ExecutionStep = ({ userInputs, updateInput, generatedPlan, generatePlan })
 );
 
 // Progress indicator component
-const ProgressIndicator = ({ steps, currentStep }) => (
+type ProgressIndicatorProps = {
+  steps: Array<{ id: string; title: string; icon: React.ElementType; description: string }>;
+  currentStep: number;
+};
+const ProgressIndicator: React.FC<ProgressIndicatorProps> = ({ steps, currentStep }) => (
   <div className="mb-8">
     <div className="flex items-center justify-between">
       {steps.map((step, index) => {
@@ -553,7 +607,7 @@ const GitLabOKRPlanningWorkshop = () => {
     riskFactors: []
   });
   const [generatedPlan, setGeneratedPlan] = useState(null);
-  const [showTips, setShowTips] = useState({});
+  const [showTips, setShowTips] = useState<Record<string, boolean>>({});
 
   const steps = [
     {
@@ -588,20 +642,20 @@ const GitLabOKRPlanningWorkshop = () => {
     }
   ];
 
-  const updateInput = (field, value) => {
+  const updateInput = (field: string, value: any) => {
     setUserInputs(prev => ({
       ...prev,
       [field]: value
     }));
   };
 
-  const updateKeyResult = (index, value) => {
+  const updateKeyResult = (index: number, value: string) => {
     const newKeyResults = [...userInputs.keyResults];
     newKeyResults[index] = value;
     updateInput('keyResults', newKeyResults);
   };
 
-  const updateIterationGoal = (iteration, goal) => {
+  const updateIterationGoal = (iteration: string, goal: string) => {
     setUserInputs(prev => ({
       ...prev,
       iterationGoals: {
@@ -611,7 +665,7 @@ const GitLabOKRPlanningWorkshop = () => {
     }));
   };
 
-  const toggleTip = (tipId) => {
+  const toggleTip = (tipId: string) => {
     setShowTips(prev => ({
       ...prev,
       [tipId]: !prev[tipId]
@@ -639,7 +693,7 @@ const GitLabOKRPlanningWorkshop = () => {
         "OKR achievement rate at quarter end"
       ]
     };
-    setGeneratedPlan(plan);
+    setGeneratedPlan(plan as any);
   };
 
   const nextStep = () => {
