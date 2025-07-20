@@ -1,17 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { MarkdownParser } from "@/lib/MarkdownParser";
 import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Play, Settings } from "lucide-react";
 import Link from "next/link";
 
-// Remove unused SlideEntry type
-
-interface Slide {
-  title: string;
-  content: string;
+interface SlideEntry {
+  name: string;
+  import: string;
 }
 
 // Markdown Parser Module
@@ -51,7 +49,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
     }
   }, []);
 
-  const nextItem = () => {
+  const nextItem = useCallback(() => {
     if (!slides[currentSlide]) return;
     const currentSlideContent = slides[currentSlide].content;
     // Count list items and table rows
@@ -63,10 +61,6 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
     if (tableRowMatches.length >= 3) {
       tableRows = tableRowMatches.length - 2;
     }
-interface SlideEntry {
-  name: string;
-  [key: string]: any;
-}
     const revealableItems = listItems + tableRows;
     if (currentItem < revealableItems - 1) {
       setCurrentItem(currentItem + 1);
@@ -74,9 +68,9 @@ interface SlideEntry {
       setCurrentSlide(currentSlide + 1);
       setCurrentItem(0);
     }
-  };
+  }, [slides, currentSlide, currentItem]);
 
-  const prevItem = () => {
+  const prevItem = useCallback(() => {
     if (currentItem > 0) {
       setCurrentItem(currentItem - 1);
     } else if (currentSlide > 0) {
@@ -90,7 +84,7 @@ interface SlideEntry {
       }
       setCurrentItem(Math.max(0, listItems + tableRows - 1));
     }
-  };
+  }, [currentItem, currentSlide, slides]);
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -126,7 +120,9 @@ interface SlideEntry {
       document.removeEventListener("keydown", handleKeyPress);
       document.removeEventListener("click", handleClick);
     };
-  }, [isPresenting, currentSlide, currentItem, slides]);
+  }, [isPresenting, nextItem, prevItem]);
+
+  const parseMarkdown = useCallback((content: string) => MarkdownParser.parseSlides(content), []);
 
   // Load slideshow content directly from imported markdown files
   useEffect(() => {
@@ -139,9 +135,9 @@ interface SlideEntry {
         }
         const rawSlug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
         const slug = decodeURIComponent(rawSlug || "");
-        const slideEntry = slidesIndex.find((s: { name: string; import: string }) => s.name === slug);
+        const slideEntry = slidesIndex.find((s: SlideEntry) => s.name === slug);
         if (slideEntry) {
-          const parsedSlides = parseMarkdown((slideEntry as { import: string }).import);
+          const parsedSlides = parseMarkdown(slideEntry.import);
           setSlides(parsedSlides);
         } else {
           console.error("Slideshow not found:", slug);
@@ -152,9 +148,8 @@ interface SlideEntry {
       setLoading(false);
     };
     loadSlideshow();
-  }, [params?.slug, slidesIndex]);
+  }, [params, slidesIndex, parseMarkdown]);
 
-  const parseMarkdown = MarkdownParser.parseSlides;
   const convertMarkdownToHTML = MarkdownParser.convertToHTML;
 
   const renderSlideContent = (content: string, slideIndex: number) => {

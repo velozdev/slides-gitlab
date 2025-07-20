@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Search, CheckCircle, XCircle, Lightbulb, RotateCcw } from 'lucide-react';
 
 const GitLabSearchQuiz = () => {
@@ -178,8 +178,8 @@ const GitLabSearchQuiz = () => {
             <h3 className="text-lg font-semibold text-blue-800 mb-3">🚀 Next Steps</h3>
             <div className="text-blue-700 space-y-2">
               <p>• Try these searches in your GitLab instance</p>
-              <p>• Ask GitLab Duo: "Help me search for..." and mention what you learned</p>
-              <p>• Bookmark GitLab's search documentation for reference</p>
+              <p>• Ask GitLab Duo: &quot;Help me search for...&quot; and mention what you learned</p>
+              <p>• Bookmark GitLab&apos;s search documentation for reference</p>
               <p>• Share these techniques with your team!</p>
             </div>
           </div>

@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -19,7 +19,6 @@ export default function SlideshowApp() {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [currentItem, setCurrentItem] = useState(0)
   const fileInputRef = useRef<HTMLInputElement>(null)
-  const slideshowRef = useRef<HTMLDivElement>(null)
 
   const parseMarkdown = (markdown: string): Slide[] => {
     // Split by H1 headings
@@ -105,7 +104,7 @@ export default function SlideshowApp() {
     setCurrentItem(0)
   }
 
-  const nextItem = () => {
+  const nextItem = useCallback(() => {
     if (!slides[currentSlide]) return
 
     const currentSlideContent = slides[currentSlide].content
@@ -117,9 +116,9 @@ export default function SlideshowApp() {
       setCurrentSlide(currentSlide + 1)
       setCurrentItem(0)
     }
-  }
+  }, [slides, currentSlide, currentItem])
 
-  const prevItem = () => {
+  const prevItem = useCallback(() => {
     if (currentItem > 0) {
       setCurrentItem(currentItem - 1)
     } else if (currentSlide > 0) {
@@ -128,7 +127,7 @@ export default function SlideshowApp() {
       const listItems = (prevSlideContent.match(/<li>/g) || []).length
       setCurrentItem(Math.max(0, listItems - 1))
     }
-  }
+  }, [currentItem, currentSlide, slides])
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
@@ -166,7 +165,7 @@ export default function SlideshowApp() {
       document.removeEventListener("keydown", handleKeyPress)
       document.removeEventListener("click", handleClick)
     }
-  }, [isPresenting, currentSlide, currentItem, slides])
+  }, [isPresenting, nextItem, prevItem])
 
   const renderSlideContent = (content: string, slideIndex: number) => {
     const html = convertMarkdownToHTML(content)

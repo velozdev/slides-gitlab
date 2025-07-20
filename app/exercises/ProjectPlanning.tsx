@@ -2,6 +2,43 @@
 import React, { useState } from 'react';
 import { ChevronRight, ChevronLeft, Clock, Users, AlertTriangle, Target, CheckCircle, XCircle, Calendar, Link2 } from 'lucide-react';
 
+interface Story {
+  id: string;
+  title: string;
+  description: string;
+  details: string;
+  correctRange: [number, number];
+  explanation: string;
+}
+
+interface EstimationExercise {
+  id: string;
+  title: string;
+  type: 'estimation';
+  icon: React.ReactNode;
+  description: string;
+  instructions: string;
+  stories: Story[];
+}
+
+interface RiskItem {
+  id: string;
+  title: string;
+  description: string;
+  correctQuadrant: string;
+  mitigation: string;
+}
+
+interface RiskAssessmentExercise {
+  id: string;
+  title: string;
+  type: 'risk';
+  icon: React.ReactNode;
+  description: string;
+  instructions: string;
+  risks: RiskItem[];
+}
+
 const ProjectPlanningTraining = () => {
   const [currentExercise, setCurrentExercise] = useState(0);
   const [exerciseData, setExerciseData] = useState<Record<string, Record<string, unknown>>>({});
@@ -9,11 +46,29 @@ const ProjectPlanningTraining = () => {
   const [totalScore, setTotalScore] = useState(0);
   const [completedExercises, setCompletedExercises] = useState(new Set());
 
-  const exercises = [
+  // Timer state: 15 minutes countdown
+  const [timerSeconds, setTimerSeconds] = useState(15 * 60); // 15 minutes in seconds
+
+  React.useEffect(() => {
+    if (timerSeconds <= 0) return;
+    const interval = setInterval(() => {
+      setTimerSeconds((prev) => (prev > 0 ? prev - 1 : 0));
+    }, 1000);
+    return () => clearInterval(interval);
+  }, [timerSeconds]);
+
+  // Format timer as MM:SS
+  const formatTimer = (seconds: number) => {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+  }
+
+  const exercises: (EstimationExercise | SprintPlanningExercise | DependencyMappingExercise | RiskAssessmentExercise)[] = [
     {
       id: 'story-estimation',
       title: 'Story Point Estimation Workshop',
-      type: 'estimation',
+      type: 'estimation' as const,
       icon: <Target className="w-6 h-6" />,
       description: 'Practice estimating user stories using story points. Consider complexity, effort, and uncertainty.',
       instructions: 'Estimate each story using the Fibonacci sequence (1, 2, 3, 5, 8, 13, 21). Consider technical complexity, business complexity, and uncertainty.',
@@ -63,7 +118,7 @@ const ProjectPlanningTraining = () => {
     {
       id: 'sprint-planning',
       title: 'Sprint Planning Simulation',
-      type: 'planning',
+      type: 'planning' as const,
       icon: <Calendar className="w-6 h-6" />,
       description: 'Plan a 2-week sprint by selecting and prioritizing stories within team capacity.',
       instructions: 'Your team has 40 story points capacity for this sprint. Drag stories from the backlog to the sprint, considering priorities and dependencies.',
@@ -84,7 +139,7 @@ const ProjectPlanningTraining = () => {
     {
       id: 'dependency-mapping',
       title: 'Dependency Analysis',
-      type: 'dependencies',
+      type: 'dependencies' as const,
       icon: <Link2 className="w-6 h-6" />,
       description: 'Identify and map dependencies between project components.',
       instructions: 'Connect related items by drawing dependency relationships. Identify potential bottlenecks and critical paths.',
@@ -107,7 +162,7 @@ const ProjectPlanningTraining = () => {
     {
       id: 'risk-assessment',
       title: 'Risk Assessment Matrix',
-      type: 'risk',
+      type: 'risk' as const,
       icon: <AlertTriangle className="w-6 h-6" />,
       description: 'Evaluate and prioritize project risks using impact vs. probability analysis.',
       instructions: 'Drag each risk to the appropriate quadrant based on its probability and impact. Then prioritize your mitigation efforts.',
@@ -159,14 +214,13 @@ const ProjectPlanningTraining = () => {
   ];
 
   const handleEstimationSubmit = (exerciseId: string) => {
-    const exercise = exercises.find(e => e.id === exerciseId);
-    if (!exercise || !('stories' in exercise)) return;
+    const exercise = exercises.find(e => e.id === exerciseId) as EstimationExercise | undefined;
+    if (!exercise || exercise.type !== 'estimation') return;
     const userEstimates = exerciseData[exerciseId] || {};
     
     let correct = 0;
-    let total = (exercise as any).stories.length;
     
-    const results = (exercise as any).stories.map((story: any) => {
+    const results = exercise.stories.map((story: Story) => {
       const userEstimate = parseInt((userEstimates as Record<string, string>)[story.id] || '0');
       const isCorrect = userEstimate >= story.correctRange[0] && userEstimate <= story.correctRange[1];
       if (isCorrect) correct++;
@@ -186,22 +240,22 @@ const ProjectPlanningTraining = () => {
   };
 
   const handleSprintPlanningSubmit = (exerciseId: string) => {
-    const exercise = exercises.find(e => e.id === exerciseId);
-    if (!exercise || !('backlogItems' in exercise) || !('teamCapacity' in exercise)) return;
+    const exercise = exercises.find(e => e.id === exerciseId) as SprintPlanningExercise | undefined;
+    if (!exercise || exercise.type !== 'planning') return;
     const selectedItems = (exerciseData[exerciseId]?.selectedItems ?? []) as string[];
     
     const totalPoints = selectedItems.reduce((sum: number, itemId: string) => {
-      const item = (exercise as any).backlogItems.find((i: any) => i.id === itemId);
+      const item = exercise.backlogItems.find((i: BacklogItem) => i.id === itemId);
       return sum + (item?.points || 0);
     }, 0);
     
-    const withinCapacity = totalPoints <= (exercise as any).teamCapacity;
+    const withinCapacity = totalPoints <= exercise.teamCapacity;
     const hasHighPriorityItems = selectedItems.some((itemId: string) => 
-      (exercise as any).backlogItems.find((i: any) => i.id === itemId)?.priority === 'High'
+      exercise.backlogItems.find((i: BacklogItem) => i.id === itemId)?.priority === 'High'
     );
     
     const dependencyViolations = selectedItems.filter((itemId: string) => {
-      const item = (exercise as any).backlogItems.find((i: any) => i.id === itemId);
+      const item = exercise.backlogItems.find((i: BacklogItem) => i.id === itemId);
       return item?.dependency && !selectedItems.includes(item.dependency as string);
     });
     
@@ -222,9 +276,15 @@ const ProjectPlanningTraining = () => {
     setExerciseData({ ...exerciseData, [exerciseId]: { ...exerciseData[exerciseId], ...data } });
   };
 
-  const renderEstimationExercise = (exercise: any) => {
+  const renderEstimationExercise = (exercise: EstimationExercise) => {
     const userEstimates = (exerciseData[exercise.id] ?? {}) as Record<string, string>;
-    const results = showResults[exercise.id] as any;
+    const results = showResults[exercise.id] as Array<{
+      storyId: string;
+      userEstimate: number;
+      correctRange: [number, number];
+      isCorrect: boolean;
+      explanation: string;
+    }> | undefined;
     
     return (
       <div className="space-y-6">
@@ -241,8 +301,8 @@ const ProjectPlanningTraining = () => {
           </div>
         </div>
         
-        {exercise.stories.map((story: any) => {
-          const result = results?.find((r: any) => r.storyId === story.id);
+        {exercise.stories.map((story: Story) => {
+          const result = results?.find((r) => r.storyId === story.id);
           return (
             <div key={story.id} className="border rounded-lg p-4 bg-white">
               <div className="flex justify-between items-start mb-3">
@@ -614,12 +674,6 @@ const ProjectPlanningTraining = () => {
     const userAssessment: Record<string, string | undefined> = exerciseData[exercise.id] as Record<string, string | undefined> || {};
     const results = showResults[exercise.id] as Array<{ riskId: string; userQuadrant: string; correctQuadrant: string; isCorrect: boolean }> | undefined;
 
-    const handleRiskDrop = (e: React.DragEvent<HTMLDivElement>, riskId: string) => {
-      e.preventDefault();
-      const quadrant = e.dataTransfer.getData('text/plain');
-      updateExerciseData(exercise.id, { [riskId]: quadrant });
-    };
-
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, riskId: string) => {
       e.dataTransfer.setData('text/plain', riskId);
     };
@@ -753,22 +807,14 @@ const ProjectPlanningTraining = () => {
     );
   };
 
-  const handleExerciseChange = (direction: 'next' | 'prev') => {
-    setCurrentExercise((prev) => {
-      const next = direction === 'next' ? prev + 1 : prev - 1;
-      return Math.max(0, Math.min(next, exercises.length - 1));
-    });
-  };
-
   const handleRiskAssessmentSubmit = (exerciseId: string) => {
-    const exercise = exercises.find(e => e.id === exerciseId);
-    if (!exercise) return;
+    const exercise = exercises.find(e => e.id === exerciseId) as RiskAssessmentExercise | undefined;
+    if (!exercise || exercise.type !== 'risk') return;
     const userAssessment: Record<string, string | undefined> = exerciseData[exerciseId] as Record<string, string | undefined> || {};
 
     let correct = 0;
-    let total = (exercise as any).risks.length;
 
-    const results = (exercise as any).risks.map((risk: { id: string; correctQuadrant: string }) => {
+    const results = exercise.risks.map((risk: RiskItem) => {
       const userQuadrant = userAssessment[risk.id];
       const isCorrect = userQuadrant === risk.correctQuadrant;
       if (isCorrect) correct++;
@@ -793,7 +839,7 @@ const ProjectPlanningTraining = () => {
         <div className="flex gap-2">
           <button className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg flex items-center gap-2">
             <Clock className="w-5 h-5" />
-            Timer: 00:00
+            Timer: {formatTimer(timerSeconds)}
           </button>
           <button className="px-4 py-2 bg-gray-100 text-gray-800 rounded-lg flex items-center gap-2">
             <Users className="w-5 h-5" />
@@ -834,10 +880,10 @@ const ProjectPlanningTraining = () => {
               <h3 className="text-lg font-semibold text-gray-800 mb-4">
                 {exercises[currentExercise].title}
               </h3>
-              {currentExercise === 0 && renderEstimationExercise(exercises[currentExercise])}
-              {currentExercise === 1 && exercises[currentExercise].teamCapacity !== undefined && exercises[currentExercise].backlogItems !== undefined && renderSprintPlanningExercise(exercises[currentExercise] as SprintPlanningExercise)}
-              {currentExercise === 2 && exercises[currentExercise].items !== undefined && exercises[currentExercise].correctDependencies !== undefined && renderDependencyMappingExercise(exercises[currentExercise] as DependencyMappingExercise)}
-              {currentExercise === 3 && exercises[currentExercise].risks !== undefined && renderRiskAssessmentExercise(exercises[currentExercise] as { id: string; title: string; type: string; icon: React.ReactNode; description: string; instructions: string; risks: Array<{ id: string; title: string; description: string; correctQuadrant: string; mitigation: string; }>; })}
+              {currentExercise === 0 && renderEstimationExercise(exercises[currentExercise] as EstimationExercise)}
+              {currentExercise === 1 && renderSprintPlanningExercise(exercises[currentExercise] as SprintPlanningExercise)}
+              {currentExercise === 2 && renderDependencyMappingExercise(exercises[currentExercise] as DependencyMappingExercise)}
+              {currentExercise === 3 && renderRiskAssessmentExercise(exercises[currentExercise] as RiskAssessmentExercise)}
             </div>
           )}
         </div>
