@@ -1,11 +1,11 @@
 'use client';
 import React, { useState } from 'react';
-import { ChevronRight, ChevronLeft, Clock, Users, AlertTriangle, Target, DragHandleDots2Icon as Grip, CheckCircle, XCircle, RotateCcw, Trophy, Calendar, Zap, GitBranch, Link2 } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Clock, Users, AlertTriangle, Target, CheckCircle, XCircle, Calendar, Link2 } from 'lucide-react';
 
 const ProjectPlanningTraining = () => {
   const [currentExercise, setCurrentExercise] = useState(0);
-  const [exerciseData, setExerciseData] = useState({});
-  const [showResults, setShowResults] = useState({});
+  const [exerciseData, setExerciseData] = useState<Record<string, Record<string, unknown>>>({});
+  const [showResults, setShowResults] = useState<Record<string, unknown>>({});
   const [totalScore, setTotalScore] = useState(0);
   const [completedExercises, setCompletedExercises] = useState(new Set());
 
@@ -158,15 +158,16 @@ const ProjectPlanningTraining = () => {
     }
   ];
 
-  const handleEstimationSubmit = (exerciseId) => {
+  const handleEstimationSubmit = (exerciseId: string) => {
     const exercise = exercises.find(e => e.id === exerciseId);
+    if (!exercise || !('stories' in exercise)) return;
     const userEstimates = exerciseData[exerciseId] || {};
     
     let correct = 0;
-    let total = exercise.stories.length;
+    let total = (exercise as any).stories.length;
     
-    const results = exercise.stories.map(story => {
-      const userEstimate = parseInt(userEstimates[story.id] || 0);
+    const results = (exercise as any).stories.map((story: any) => {
+      const userEstimate = parseInt((userEstimates as Record<string, string>)[story.id] || '0');
       const isCorrect = userEstimate >= story.correctRange[0] && userEstimate <= story.correctRange[1];
       if (isCorrect) correct++;
       
@@ -184,23 +185,24 @@ const ProjectPlanningTraining = () => {
     setCompletedExercises(new Set([...completedExercises, exerciseId]));
   };
 
-  const handleSprintPlanningSubmit = (exerciseId) => {
+  const handleSprintPlanningSubmit = (exerciseId: string) => {
     const exercise = exercises.find(e => e.id === exerciseId);
-    const selectedItems = exerciseData[exerciseId]?.selectedItems || [];
+    if (!exercise || !('backlogItems' in exercise) || !('teamCapacity' in exercise)) return;
+    const selectedItems = (exerciseData[exerciseId]?.selectedItems ?? []) as string[];
     
-    const totalPoints = selectedItems.reduce((sum, itemId) => {
-      const item = exercise.backlogItems.find(i => i.id === itemId);
+    const totalPoints = selectedItems.reduce((sum: number, itemId: string) => {
+      const item = (exercise as any).backlogItems.find((i: any) => i.id === itemId);
       return sum + (item?.points || 0);
     }, 0);
     
-    const withinCapacity = totalPoints <= exercise.teamCapacity;
-    const hasHighPriorityItems = selectedItems.some(itemId => 
-      exercise.backlogItems.find(i => i.id === itemId)?.priority === 'High'
+    const withinCapacity = totalPoints <= (exercise as any).teamCapacity;
+    const hasHighPriorityItems = selectedItems.some((itemId: string) => 
+      (exercise as any).backlogItems.find((i: any) => i.id === itemId)?.priority === 'High'
     );
     
-    const dependencyViolations = selectedItems.filter(itemId => {
-      const item = exercise.backlogItems.find(i => i.id === itemId);
-      return item?.dependency && !selectedItems.includes(item.dependency);
+    const dependencyViolations = selectedItems.filter((itemId: string) => {
+      const item = (exercise as any).backlogItems.find((i: any) => i.id === itemId);
+      return item?.dependency && !selectedItems.includes(item.dependency as string);
     });
     
     const score = withinCapacity && hasHighPriorityItems && dependencyViolations.length === 0 ? 1 : 0;
@@ -216,13 +218,13 @@ const ProjectPlanningTraining = () => {
     setCompletedExercises(new Set([...completedExercises, exerciseId]));
   };
 
-  const updateExerciseData = (exerciseId, data) => {
+  const updateExerciseData = (exerciseId: string, data: Record<string, unknown>) => {
     setExerciseData({ ...exerciseData, [exerciseId]: { ...exerciseData[exerciseId], ...data } });
   };
 
-  const renderEstimationExercise = (exercise) => {
-    const userEstimates = exerciseData[exercise.id] || {};
-    const results = showResults[exercise.id];
+  const renderEstimationExercise = (exercise: any) => {
+    const userEstimates = (exerciseData[exercise.id] ?? {}) as Record<string, string>;
+    const results = showResults[exercise.id] as any;
     
     return (
       <div className="space-y-6">
@@ -239,8 +241,8 @@ const ProjectPlanningTraining = () => {
           </div>
         </div>
         
-        {exercise.stories.map(story => {
-          const result = results?.find(r => r.storyId === story.id);
+        {exercise.stories.map((story: any) => {
+          const result = results?.find((r: any) => r.storyId === story.id);
           return (
             <div key={story.id} className="border rounded-lg p-4 bg-white">
               <div className="flex justify-between items-start mb-3">
@@ -253,7 +255,7 @@ const ProjectPlanningTraining = () => {
                   <select
                     value={userEstimates[story.id] || ''}
                     onChange={(e) => updateExerciseData(exercise.id, { [story.id]: e.target.value })}
-                    disabled={results}
+                    disabled={!!results}
                     className="px-3 py-1 border rounded"
                   >
                     <option value="">Select</option>
@@ -302,23 +304,51 @@ const ProjectPlanningTraining = () => {
     );
   };
 
-  const renderSprintPlanningExercise = (exercise) => {
-    const selectedItems = exerciseData[exercise.id]?.selectedItems || [];
-    const results = showResults[exercise.id];
-    
-    const totalPoints = selectedItems.reduce((sum, itemId) => {
-      const item = exercise.backlogItems.find(i => i.id === itemId);
+  // Fix implicit any types in Sprint Planning
+  interface BacklogItem {
+    id: string;
+    title: string;
+    points: number;
+    priority: 'High' | 'Medium' | 'Low';
+    dependency: string | null;
+    description: string;
+  }
+
+  interface SprintPlanningExercise {
+    id: string;
+    title: string;
+    type: string;
+    icon: React.ReactNode;
+    description: string;
+    instructions: string;
+    teamCapacity: number;
+    backlogItems: BacklogItem[];
+    optimalSelection: string[];
+  }
+
+  const renderSprintPlanningExercise = (exercise: SprintPlanningExercise) => {
+    const selectedItems: string[] = (exerciseData[exercise.id]?.selectedItems ?? []) as string[];
+    const results = showResults[exercise.id] as {
+      totalPoints: number;
+      withinCapacity: boolean;
+      hasHighPriorityItems: boolean;
+      dependencyViolations: string[];
+      score: number;
+    } | undefined;
+
+    const totalPoints = selectedItems.reduce((sum: number, itemId: string) => {
+      const item = exercise.backlogItems.find((i: BacklogItem) => i.id === itemId);
       return sum + (item?.points || 0);
     }, 0);
-    
-    const toggleItem = (itemId) => {
+
+    const toggleItem = (itemId: string) => {
       if (results) return;
-      const newSelection = selectedItems.includes(itemId) 
-        ? selectedItems.filter(id => id !== itemId)
+      const newSelection = selectedItems.includes(itemId)
+        ? selectedItems.filter((id: string) => id !== itemId)
         : [...selectedItems, itemId];
       updateExerciseData(exercise.id, { selectedItems: newSelection });
     };
-    
+
     return (
       <div className="space-y-6">
         <div className="bg-green-50 p-4 rounded-lg">
@@ -329,7 +359,7 @@ const ProjectPlanningTraining = () => {
             </div>
           </div>
           <div className="w-full bg-green-200 rounded-full h-2 mt-2">
-            <div 
+            <div
               className={`h-2 rounded-full transition-all duration-300 ${
                 totalPoints > exercise.teamCapacity ? 'bg-red-500' : 'bg-green-500'
               }`}
@@ -337,23 +367,23 @@ const ProjectPlanningTraining = () => {
             />
           </div>
         </div>
-        
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <h3 className="font-semibold text-gray-800 mb-3">Product Backlog</h3>
             <div className="space-y-2">
-              {exercise.backlogItems.map(item => {
+              {exercise.backlogItems.map((item: BacklogItem) => {
                 const isSelected = selectedItems.includes(item.id);
                 const hasDependency = item.dependency;
                 const dependencySelected = item.dependency ? selectedItems.includes(item.dependency) : true;
-                
+
                 return (
                   <div
                     key={item.id}
                     onClick={() => toggleItem(item.id)}
                     className={`p-3 rounded-lg border-2 cursor-pointer transition-all ${
-                      isSelected 
-                        ? 'border-blue-500 bg-blue-50' 
+                      isSelected
+                        ? 'border-blue-500 bg-blue-50'
                         : 'border-gray-200 bg-white hover:border-gray-300'
                     } ${!dependencySelected ? 'opacity-50' : ''}`}
                   >
@@ -363,7 +393,7 @@ const ProjectPlanningTraining = () => {
                         <p className="text-sm text-gray-600">{item.description}</p>
                         {hasDependency && (
                           <p className="text-xs text-orange-600 mt-1">
-                            Depends on: {exercise.backlogItems.find(i => i.id === item.dependency)?.title}
+                            Depends on: {exercise.backlogItems.find((i: BacklogItem) => i.id === item.dependency)?.title}
                           </p>
                         )}
                       </div>
@@ -383,7 +413,7 @@ const ProjectPlanningTraining = () => {
               })}
             </div>
           </div>
-          
+
           <div>
             <h3 className="font-semibold text-gray-800 mb-3">Sprint Backlog</h3>
             <div className="bg-gray-50 rounded-lg p-4 min-h-[200px]">
@@ -391,13 +421,13 @@ const ProjectPlanningTraining = () => {
                 <p className="text-gray-500 text-center py-8">No items selected for sprint</p>
               ) : (
                 <div className="space-y-2">
-                  {selectedItems.map(itemId => {
-                    const item = exercise.backlogItems.find(i => i.id === itemId);
+                  {selectedItems.map((itemId: string) => {
+                    const item = exercise.backlogItems.find((i: BacklogItem) => i.id === itemId);
                     return (
                       <div key={itemId} className="bg-white p-3 rounded border">
                         <div className="flex justify-between items-center">
-                          <span className="font-medium">{item.title}</span>
-                          <span className="text-gray-600">{item.points} pts</span>
+                          <span className="font-medium">{item?.title}</span>
+                          <span className="text-gray-600">{item?.points} pts</span>
                         </div>
                       </div>
                     );
@@ -407,7 +437,7 @@ const ProjectPlanningTraining = () => {
             </div>
           </div>
         </div>
-        
+
         {results && (
           <div className="bg-blue-50 p-4 rounded-lg">
             <h3 className="font-semibold text-blue-800 mb-2">Sprint Planning Results:</h3>
@@ -438,15 +468,15 @@ const ProjectPlanningTraining = () => {
               </div>
               {results.dependencyViolations.length > 0 && (
                 <p className="text-red-600 text-sm mt-2">
-                  Missing dependencies: {results.dependencyViolations.map(id => 
-                    exercise.backlogItems.find(i => i.id === id)?.title
+                  Missing dependencies: {results.dependencyViolations.map(id =>
+                    exercise.backlogItems.find((i: BacklogItem) => i.id === id)?.title
                   ).join(', ')}
                 </p>
               )}
             </div>
           </div>
         )}
-        
+
         {!results && (
           <button
             onClick={() => handleSprintPlanningSubmit(exercise.id)}
@@ -459,182 +489,301 @@ const ProjectPlanningTraining = () => {
     );
   };
 
-  const renderRiskAssessmentExercise = (exercise) => {
-    const riskPlacements = exerciseData[exercise.id]?.riskPlacements || {};
-    const results = showResults[exercise.id];
-    
-    const placeRisk = (riskId, quadrant) => {
-      if (results) return;
-      updateExerciseData(exercise.id, { 
-        riskPlacements: { ...riskPlacements, [riskId]: quadrant } 
-      });
+  // --- Dependency Analysis UI ---
+  interface DependencyItem {
+    id: string;
+    title: string;
+    x: number;
+    y: number;
+    type: string;
+  }
+
+  interface DependencyMappingExercise {
+    id: string;
+    title: string;
+    type: string;
+    icon: React.ReactNode;
+    description: string;
+    instructions: string;
+    items: DependencyItem[];
+    correctDependencies: { from: string; to: string }[];
+  }
+
+  const renderDependencyMappingExercise = (exercise: DependencyMappingExercise) => {
+    const connections: { from: string; to: string }[] = (exerciseData[exercise.id]?.connections ?? []) as { from: string; to: string }[];
+    const selectedFrom: string | null = (exerciseData[exercise.id]?.selectedFrom ?? null) as string | null;
+    const selectedTo: string | null = (exerciseData[exercise.id]?.selectedTo ?? null) as string | null;
+    const results = showResults[exercise.id] as { correct: number; total: number } | undefined;
+
+    const handleConnect = () => {
+      if (selectedFrom && selectedTo && selectedFrom !== selectedTo) {
+        const newConnections = [...connections, { from: selectedFrom, to: selectedTo }];
+        updateExerciseData(exercise.id, {
+          connections: newConnections,
+          selectedFrom: null,
+          selectedTo: null
+        });
+      }
     };
-    
-    const submitRiskAssessment = () => {
+
+    const handleSubmit = () => {
+      // Score: count correct connections
+      const correctSet = new Set<string>(exercise.correctDependencies.map((d) => `${d.from}->${d.to}`));
+      const userSet = new Set<string>(connections.map((d) => `${d.from}->${d.to}`));
       let correct = 0;
-      const total = exercise.risks.length;
-      
-      exercise.risks.forEach(risk => {
-        if (riskPlacements[risk.id] === risk.correctQuadrant) {
-          correct++;
-        }
+      correctSet.forEach((dep) => {
+        if (userSet.has(dep)) correct++;
       });
-      
-      setShowResults({ ...showResults, [exercise.id]: {
-        correct,
-        total,
-        riskPlacements
-      }});
+      setShowResults({ ...showResults, [exercise.id]: { correct, total: correctSet.size } });
       setTotalScore(totalScore + correct);
       setCompletedExercises(new Set([...completedExercises, exercise.id]));
     };
-    
+
     return (
       <div className="space-y-6">
-        <div className="grid grid-cols-2 gap-4 h-96 border-2 border-gray-300 rounded-lg">
-          {/* High Impact, Low Probability */}
-          <div className="border-r border-b border-gray-300 p-4 bg-orange-50">
-            <h4 className="font-semibold text-orange-800 mb-2">High Impact, Low Probability</h4>
-            <p className="text-sm text-orange-600 mb-3">Plan & Monitor</p>
-            <div className="space-y-2">
-              {exercise.risks.filter(risk => riskPlacements[risk.id] === 'low-high').map(risk => (
-                <div key={risk.id} className="bg-white p-2 rounded border text-sm">
-                  <div className="font-medium">{risk.title}</div>
-                  <div className="text-gray-600">{risk.description}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* High Impact, High Probability */}
-          <div className="border-b border-gray-300 p-4 bg-red-50">
-            <h4 className="font-semibold text-red-800 mb-2">High Impact, High Probability</h4>
-            <p className="text-sm text-red-600 mb-3">Immediate Action</p>
-            <div className="space-y-2">
-              {exercise.risks.filter(risk => riskPlacements[risk.id] === 'high-high').map(risk => (
-                <div key={risk.id} className="bg-white p-2 rounded border text-sm">
-                  <div className="font-medium">{risk.title}</div>
-                  <div className="text-gray-600">{risk.description}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Low Impact, Low Probability */}
-          <div className="border-r border-gray-300 p-4 bg-green-50">
-            <h4 className="font-semibold text-green-800 mb-2">Low Impact, Low Probability</h4>
-            <p className="text-sm text-green-600 mb-3">Monitor Only</p>
-            <div className="space-y-2">
-              {exercise.risks.filter(risk => riskPlacements[risk.id] === 'low-low').map(risk => (
-                <div key={risk.id} className="bg-white p-2 rounded border text-sm">
-                  <div className="font-medium">{risk.title}</div>
-                  <div className="text-gray-600">{risk.description}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Low Impact, High Probability */}
-          <div className="p-4 bg-yellow-50">
-            <h4 className="font-semibold text-yellow-800 mb-2">Low Impact, High Probability</h4>
-            <p className="text-sm text-yellow-600 mb-3">Accept & Manage</p>
-            <div className="space-y-2">
-              {exercise.risks.filter(risk => riskPlacements[risk.id] === 'high-low').map(risk => (
-                <div key={risk.id} className="bg-white p-2 rounded border text-sm">
-                  <div className="font-medium">{risk.title}</div>
-                  <div className="text-gray-600">{risk.description}</div>
-                </div>
-              ))}
-            </div>
+        <div className="mb-4">
+          <h3 className="font-semibold text-gray-800 mb-2">Project Components</h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {exercise.items.map((item) => (
+              <div key={item.id} className="p-3 rounded border bg-white">
+                <div className="font-medium text-blue-700">{item.title}</div>
+                <div className="text-xs text-gray-500">{item.type}</div>
+                <button
+                  className={`mt-2 px-2 py-1 text-xs rounded ${selectedFrom === item.id ? 'bg-blue-200' : 'bg-gray-100'}`}
+                  onClick={() => updateExerciseData(exercise.id, { selectedFrom: item.id })}
+                  disabled={!!results}
+                >Select as From</button>
+                <button
+                  className={`ml-2 px-2 py-1 text-xs rounded ${selectedTo === item.id ? 'bg-green-200' : 'bg-gray-100'}`}
+                  onClick={() => updateExerciseData(exercise.id, { selectedTo: item.id })}
+                  disabled={!!results}
+                >Select as To</button>
+              </div>
+            ))}
           </div>
         </div>
-        
-        <div>
-          <h3 className="font-semibold text-gray-800 mb-3">Risk Items</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            {exercise.risks.map(risk => {
-              const isPlaced = riskPlacements[risk.id];
-              return (
-                <div key={risk.id} className={`p-3 rounded border ${isPlaced ? 'bg-gray-100 opacity-50' : 'bg-white'}`}>
-                  <h4 className="font-medium text-gray-800">{risk.title}</h4>
-                  <p className="text-sm text-gray-600">{risk.description}</p>
-                  {!isPlaced && !results && (
-                    <div className="mt-2 grid grid-cols-2 gap-2">
-                      <button
-                        onClick={() => placeRisk(risk.id, 'low-high')}
-                        className="text-xs px-2 py-1 bg-orange-100 text-orange-800 rounded hover:bg-orange-200"
-                      >
-                        Low Prob, High Impact
-                      </button>
-                      <button
-                        onClick={() => placeRisk(risk.id, 'high-high')}
-                        className="text-xs px-2 py-1 bg-red-100 text-red-800 rounded hover:bg-red-200"
-                      >
-                        High Prob, High Impact
-                      </button>
-                      <button
-                        onClick={() => placeRisk(risk.id, 'low-low')}
-                        className="text-xs px-2 py-1 bg-green-100 text-green-800 rounded hover:bg-green-200"
-                      >
-                        Low Prob, Low Impact
-                      </button>
-                      <button
-                        onClick={() => placeRisk(risk.id, 'high-low')}
-                        className="text-xs px-2 py-1 bg-yellow-100 text-yellow-800 rounded hover:bg-yellow-200"
-                      >
-                        High Prob, Low Impact
-                      </button>
-                    </div>
-                  )}
-                  {results && (
-                    <div className="mt-2">
-                      <div className="flex items-center gap-2">
-                        {riskPlacements[risk.id] === risk.correctQuadrant ? (
-                          <CheckCircle className="w-4 h-4 text-green-500" />
-                        ) : (
-                          <XCircle className="w-4 h-4 text-red-500" />
-                        )}
-                        <span>
-                          {riskPlacements[risk.id] === risk.correctQuadrant
-                            ? 'Correct placement'
-                            : `Expected: ${risk.correctQuadrant.replace('-', ' probability, ')} impact`}
-                        </span>
-                      </div>
-                      <div className="text-xs text-gray-600 mt-1">
-                        Mitigation: {risk.mitigation}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
+        <div className="mb-4">
+          <button
+            className="px-4 py-2 bg-blue-500 text-white rounded-lg font-medium"
+            onClick={handleConnect}
+            disabled={!selectedFrom || !selectedTo || !!results}
+          >Connect Selected</button>
         </div>
-        
+        <div className="mb-4">
+          <h4 className="font-semibold text-gray-800 mb-2">Connections</h4>
+          <ul className="list-disc pl-6">
+            {connections.map((conn, index) => (
+              <li key={index} className="text-sm">{exercise.items.find((i) => i.id === conn.from)?.title} → {exercise.items.find((i) => i.id === conn.to)?.title}</li>
+            ))}
+          </ul>
+        </div>
         {!results && (
           <button
-            onClick={submitRiskAssessment}
             className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium"
-          >
-            Submit Risk Assessment
-          </button>
+            onClick={handleSubmit}
+          >Submit Dependency Analysis</button>
         )}
-        
         {results && (
           <div className="bg-blue-50 p-4 rounded-lg">
-            <h3 className="font-semibold text-blue-800 mb-2">Risk Assessment Results:</h3>
+            <h3 className="font-semibold text-blue-800 mb-2">Dependency Analysis Results:</h3>
             <div className="space-y-2 text-sm">
-              <div className="flex items-center gap-2">
-                <span>Total Risks: {exercise.risks.length}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span>Correct Placements: {results.correct} / {results.total}</span>
-              </div>
+              <div>Total Correct Connections: {results.correct} / {results.total}</div>
             </div>
           </div>
         )}
       </div>
     );
+  };
+
+  const renderRiskAssessmentExercise = (exercise: {
+    id: string;
+    title: string;
+    type: string;
+    icon: React.ReactNode;
+    description: string;
+    instructions: string;
+    risks: Array<{
+      id: string;
+      title: string;
+      description: string;
+      correctQuadrant: string;
+      mitigation: string;
+    }>;
+  }) => {
+    const risks = exercise.risks;
+    const userAssessment: Record<string, string | undefined> = exerciseData[exercise.id] as Record<string, string | undefined> || {};
+    const results = showResults[exercise.id] as Array<{ riskId: string; userQuadrant: string; correctQuadrant: string; isCorrect: boolean }> | undefined;
+
+    const handleRiskDrop = (e: React.DragEvent<HTMLDivElement>, riskId: string) => {
+      e.preventDefault();
+      const quadrant = e.dataTransfer.getData('text/plain');
+      updateExerciseData(exercise.id, { [riskId]: quadrant });
+    };
+
+    const handleDragStart = (e: React.DragEvent<HTMLDivElement>, riskId: string) => {
+      e.dataTransfer.setData('text/plain', riskId);
+    };
+
+    // 3x3 grid for probability and impact
+    const probabilities = ['low', 'medium', 'high'];
+    const impacts = ['low', 'medium', 'high'];
+    const quadrantKey = (prob: string, imp: string) => `${prob}-${imp}`;
+
+    // Map risks to quadrants
+    const risksInQuadrant: Record<string, string[]> = {};
+    risks.forEach((risk) => {
+      const quadrant = userAssessment[risk.id];
+      if (quadrant) {
+        if (!risksInQuadrant[quadrant]) risksInQuadrant[quadrant] = [];
+        risksInQuadrant[quadrant].push(risk.id);
+      }
+    });
+
+    // Risks not yet placed
+    const unplacedRisks = risks.filter((risk) => !userAssessment[risk.id]);
+
+    return (
+      <div className="space-y-6">
+        <div className="bg-red-50 p-4 rounded-lg">
+          <h3 className="font-semibold text-red-800 mb-2">Risk Assessment Instructions:</h3>
+          <p className="text-sm text-red-700">
+            Drag and drop each risk into the appropriate quadrant based on its probability and impact.
+          </p>
+        </div>
+        <div className="w-full">
+          <div className="grid grid-cols-3 grid-rows-3 gap-4 w-full">
+            {probabilities.map((prob) => (
+              impacts.map((imp) => {
+                const key = quadrantKey(prob, imp);
+                const placedRiskIds = risksInQuadrant[key] || [];
+                return (
+                  <div
+                    key={key}
+                    onDrop={(e) => {
+                      e.preventDefault();
+                      const riskId = e.dataTransfer.getData('text/plain');
+                      updateExerciseData(exercise.id, { [riskId]: key });
+                    }}
+                    onDragOver={(e) => e.preventDefault()}
+                    className="p-4 rounded-lg border-2 flex flex-col items-center justify-start min-h-[120px] bg-gray-50 border-gray-200"
+                    style={{ width: '100%' }}
+                  >
+                    <span className="text-xs text-gray-500 mb-2">{prob.charAt(0).toUpperCase() + prob.slice(1)} Prob, {imp.charAt(0).toUpperCase() + imp.slice(1)} Impact</span>
+                    {placedRiskIds.length === 0 ? (
+                      <span className="text-gray-400">Drop Risk Here</span>
+                    ) : (
+                      placedRiskIds.map((riskId) => {
+                        const risk = risks.find((r) => r.id === riskId);
+                        return (
+                          <div key={riskId} className="bg-white border rounded px-2 py-1 mb-1 w-full text-sm flex items-center justify-between">
+                            <span>{risk?.title}</span>
+                            <button
+                              className="ml-2 text-xs text-red-500 hover:underline"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                updateExerciseData(exercise.id, { [riskId]: undefined });
+                              }}
+                            >Remove</button>
+                          </div>
+                        );
+                      })
+                    )}
+                  </div>
+                );
+              })
+            ))}
+          </div>
+        </div>
+        <div className="mt-8">
+          <h3 className="font-semibold text-gray-800 mb-3">Risks to Place</h3>
+          <div className="flex flex-wrap gap-3">
+            {unplacedRisks.map((risk) => (
+              <div
+                key={risk.id}
+                draggable
+                onDragStart={(e) => handleDragStart(e, risk.id)}
+                className="p-3 rounded-lg border-2 cursor-pointer bg-white border-gray-300 shadow-sm min-w-[180px]"
+              >
+                <div className="font-medium text-gray-800">{risk.title}</div>
+                <div className="text-sm text-gray-600">{risk.description}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {results && (
+          <div className="bg-blue-50 p-4 rounded-lg mt-6">
+            <h3 className="font-semibold text-blue-800 mb-2">Risk Assessment Results:</h3>
+            <div className="space-y-2 text-sm">
+              {risks.map((risk) => {
+                const userQuadrant = userAssessment[risk.id];
+                const correctQuadrant = risk.correctQuadrant;
+                const isCorrect = userQuadrant === correctQuadrant;
+                return (
+                  <div key={risk.id} className="flex items-center gap-2">
+                    {isCorrect ? (
+                      <CheckCircle className="w-4 h-4 text-green-500" />
+                    ) : (
+                      <XCircle className="w-4 h-4 text-red-500" />
+                    )}
+                    <span className={isCorrect ? 'text-green-700' : 'text-red-700'}>
+                      {risk.title} - {isCorrect ? 'Correct' : `Expected: ${correctQuadrant}`}
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        )}
+        {!results && (
+          <button
+            onClick={() => {
+              const unassessedRisks = risks.filter((risk) => !userAssessment[risk.id]);
+              if (unassessedRisks.length === 0) {
+                handleRiskAssessmentSubmit(exercise.id);
+              } else {
+                alert('Please assess all risks before submitting.');
+              }
+            }}
+            className="w-full py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors font-medium mt-6"
+          >
+            Submit Risk Assessment
+          </button>
+        )}
+      </div>
+    );
+  };
+
+  const handleExerciseChange = (direction: 'next' | 'prev') => {
+    setCurrentExercise((prev) => {
+      const next = direction === 'next' ? prev + 1 : prev - 1;
+      return Math.max(0, Math.min(next, exercises.length - 1));
+    });
+  };
+
+  const handleRiskAssessmentSubmit = (exerciseId: string) => {
+    const exercise = exercises.find(e => e.id === exerciseId);
+    if (!exercise) return;
+    const userAssessment: Record<string, string | undefined> = exerciseData[exerciseId] as Record<string, string | undefined> || {};
+
+    let correct = 0;
+    let total = (exercise as any).risks.length;
+
+    const results = (exercise as any).risks.map((risk: { id: string; correctQuadrant: string }) => {
+      const userQuadrant = userAssessment[risk.id];
+      const isCorrect = userQuadrant === risk.correctQuadrant;
+      if (isCorrect) correct++;
+
+      return {
+        riskId: risk.id,
+        userQuadrant,
+        correctQuadrant: risk.correctQuadrant,
+        isCorrect
+      };
+    });
+
+    setShowResults({ ...showResults, [exerciseId]: results });
+    setTotalScore(totalScore + correct);
+    setCompletedExercises(new Set([...completedExercises, exerciseId]));
   };
 
   return (
@@ -652,14 +801,13 @@ const ProjectPlanningTraining = () => {
           </button>
         </div>
       </div>
-      
       <div className="bg-white shadow rounded-lg p-6">
         <div className="flex gap-4 mb-6">
           {exercises.map((exercise, index) => (
             <div
               key={exercise.id}
               onClick={() => setCurrentExercise(index)}
-              className={`flex-1 p-4 rounded-lg cursor-pointer transition-all flex items-center gap-3 
+              className={`flex-1 p-4 rounded-lg cursor-pointer transition-all flex items-center gap-3 \
                 ${currentExercise === index ? 'bg-blue-50 border-blue-500' : 'bg-gray-50 border-transparent'}
               `}
             >
@@ -680,7 +828,6 @@ const ProjectPlanningTraining = () => {
             </div>
           ))}
         </div>
-        
         <div className="border-t pt-6">
           {exercises[currentExercise] && (
             <div>
@@ -688,9 +835,9 @@ const ProjectPlanningTraining = () => {
                 {exercises[currentExercise].title}
               </h3>
               {currentExercise === 0 && renderEstimationExercise(exercises[currentExercise])}
-              {currentExercise === 1 && renderSprintPlanningExercise(exercises[currentExercise])}
-              {currentExercise === 2 && renderDependencyMappingExercise(exercises[currentExercise])}
-              {currentExercise === 3 && renderRiskAssessmentExercise(exercises[currentExercise])}
+              {currentExercise === 1 && exercises[currentExercise].teamCapacity !== undefined && exercises[currentExercise].backlogItems !== undefined && renderSprintPlanningExercise(exercises[currentExercise] as SprintPlanningExercise)}
+              {currentExercise === 2 && exercises[currentExercise].items !== undefined && exercises[currentExercise].correctDependencies !== undefined && renderDependencyMappingExercise(exercises[currentExercise] as DependencyMappingExercise)}
+              {currentExercise === 3 && exercises[currentExercise].risks !== undefined && renderRiskAssessmentExercise(exercises[currentExercise] as { id: string; title: string; type: string; icon: React.ReactNode; description: string; instructions: string; risks: Array<{ id: string; title: string; description: string; correctQuadrant: string; mitigation: string; }>; })}
             </div>
           )}
         </div>

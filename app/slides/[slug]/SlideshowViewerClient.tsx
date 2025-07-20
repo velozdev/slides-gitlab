@@ -2,10 +2,12 @@
 
 import { useState, useEffect } from "react";
 import { MarkdownParser } from "@/lib/MarkdownParser";
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Play, Settings } from "lucide-react";
 import Link from "next/link";
+
+// Remove unused SlideEntry type
 
 interface Slide {
   title: string;
@@ -14,10 +16,9 @@ interface Slide {
 
 // Markdown Parser Module
 // ...existing code...
-export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: any[] }) {
+export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: SlideEntry[] }) {
   const params = useParams();
-  const router = useRouter();
-  const [slides, setSlides] = useState<Slide[]>([]);
+  const [slides, setSlides] = useState<Array<{ title: string; content: string }>>([]);
   const [isPresenting, setIsPresenting] = useState(false);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentItem, setCurrentItem] = useState(0);
@@ -62,6 +63,10 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
     if (tableRowMatches.length >= 3) {
       tableRows = tableRowMatches.length - 2;
     }
+interface SlideEntry {
+  name: string;
+  [key: string]: any;
+}
     const revealableItems = listItems + tableRows;
     if (currentItem < revealableItems - 1) {
       setCurrentItem(currentItem + 1);
@@ -85,12 +90,6 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
       }
       setCurrentItem(Math.max(0, listItems + tableRows - 1));
     }
-  };
-
-  const exitPresentation = () => {
-    setIsPresenting(false);
-    setCurrentSlide(0);
-    setCurrentItem(0);
   };
 
   useEffect(() => {
@@ -131,14 +130,18 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
 
   // Load slideshow content directly from imported markdown files
   useEffect(() => {
+    // Ensure slug is defined before using in loadSlideshow
     const loadSlideshow = async () => {
       try {
-        // Use decodeURIComponent to match slug with slideIndex
+        if (!params || typeof params.slug === 'undefined') {
+          setLoading(false);
+          return;
+        }
         const rawSlug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
         const slug = decodeURIComponent(rawSlug || "");
-        const slideEntry = slidesIndex.find((s: any) => s.name === slug);
+        const slideEntry = slidesIndex.find((s: { name: string; import: string }) => s.name === slug);
         if (slideEntry) {
-          const parsedSlides = parseMarkdown(slideEntry.import);
+          const parsedSlides = parseMarkdown((slideEntry as { import: string }).import);
           setSlides(parsedSlides);
         } else {
           console.error("Slideshow not found:", slug);
@@ -149,7 +152,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
       setLoading(false);
     };
     loadSlideshow();
-  }, [params.slug, slidesIndex]);
+  }, [params?.slug, slidesIndex]);
 
   const parseMarkdown = MarkdownParser.parseSlides;
   const convertMarkdownToHTML = MarkdownParser.convertToHTML;
@@ -186,7 +189,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: an
     }
     return html;
   };
-
+        // (removed stray reference to slug)
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">

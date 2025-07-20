@@ -8,13 +8,6 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { ArrowLeft, Palette, Type, Monitor } from "lucide-react"
 
-interface SlideTheme {
-  background: string
-  textColor: string
-  accentColor: string
-  fontFamily: string
-}
-
 const themes = {
   dark: { name: "Dark", className: "theme-dark" },
   light: { name: "Light", className: "theme-light" },
@@ -202,7 +195,7 @@ export default function SettingsPage() {
             <div className="flex items-center gap-3">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <p className="text-green-800 text-sm">
-                Settings are automatically saved to your browser's local storage.
+                Settings are automatically saved to your browser&apos;s local storage.
               </p>
             </div>
           </CardContent>
