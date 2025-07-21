@@ -2,7 +2,7 @@
 
 ## Automating Your Workflow with Confidence
 
-![GitLab Logo](https://about.gitlab.com/images/press/logo/png/gitlab-icon-rgb.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
+![GitLab Logo](https://gitlab.com/assets/favicon-72a2cad5025aa931d6ea56c3201d1f18e68a8cd39788c7c80d5b2b82aa5143ef.png) + ![Veloz Logo](https://img1.wsimg.com/isteam/ip/55a4d049-b669-44b1-befb-5cbb852ac163/Veloz-Logo.svg/:/rs=w:59,h:59,cg:true,m/cr=w:59,h:59/qt=q:100/ll)
 
 
 # The Payoff for Good Branching

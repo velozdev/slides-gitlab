@@ -150,10 +150,8 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
     loadSlideshow();
   }, [params, slidesIndex, parseMarkdown]);
 
-  const convertMarkdownToHTML = MarkdownParser.convertToHTML;
-
   const renderSlideContent = (content: string, slideIndex: number) => {
-    const html = convertMarkdownToHTML(content);
+    const html = MarkdownParser.convertToHTML(content, slideIndex);
     // If this is the current slide in presentation mode, handle animations
     if (isPresenting && slideIndex === currentSlide) {
       const parser = new DOMParser();
@@ -262,7 +260,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
                   <div
                     className="prose prose-lg max-w-none"
                     dangerouslySetInnerHTML={{
-                      __html: convertMarkdownToHTML(slide.content),
+                      __html: MarkdownParser.convertToHTML(slide.content, index),
                     }}
                   />
                 </div>

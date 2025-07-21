@@ -37,7 +37,7 @@ export class MarkdownParser {
     return { headerRow, dataRows };
   }
 
-  static convertToHTML(markdown: string) {
+  static convertToHTML(markdown: string, slideIndex?: number) {
     let html = markdown;
 
     // Group consecutive table lines into a single block, including last row at end of string
@@ -104,7 +104,12 @@ export class MarkdownParser {
       (match: string) => `<ul class="space-y-3 my-4 list-disc list-inside mx-auto text-left" style="max-width: 600px;">${match}</ul>`);
 
     // Paragraphs (avoid wrapping tables, lists, and headers)
-    html = html.replace(/^(?!<[uthol]|<li)(.+)$/gm, '<p class="mb-4 leading-relaxed">$1</p>');
+    // Use flex centering for title slide (slide 0), normal styling for others
+    if (slideIndex === 0) {
+      html = html.replace(/^(?!<[uthol]|<li)(.+)$/gm, '<p class="mb-4 leading-relaxed flex items-center justify-center min-h-16 gap-4">$1</p>');
+    } else {
+      html = html.replace(/^(?!<[uthol]|<li)(.+)$/gm, '<p class="mb-4 leading-relaxed">$1</p>');
+    }
 
     // Clean up empty paragraphs
     html = html.replace(/<p[^>]*><\/p>/g, '');
