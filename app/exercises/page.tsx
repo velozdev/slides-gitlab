@@ -44,6 +44,10 @@ export default function ExercisesDashboard() {
                 <span className="font-semibold text-teal-800">GitLab OKR Planning + Iterations</span>
                 <p className="text-sm text-gray-600">OKRs have been a game-changer in GitLab.</p>
               </Link>
+              <Link href="/exercises/GitLabReleaseQuiz" className="block p-4 rounded-lg bg-orange-50 hover:bg-orange-100 transition">
+                <span className="font-semibold text-orange-800">GitLab Release Planning & Deployment Strategy</span>
+                <p className="text-sm text-gray-600">Master critical release management scenarios from Black Friday launches to compliance deadlines.</p>
+              </Link>
             </div>
           </CardContent>
         </Card>
