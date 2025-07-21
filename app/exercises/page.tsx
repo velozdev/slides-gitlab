@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { BookOpen, Rocket, Target, TrendingUp, Zap, BarChart3, Briefcase, DollarSign, Users, RefreshCw, Activity, Gauge } from "lucide-react";
+import { BookOpen, Rocket, Target, TrendingUp, Zap, BarChart3, Briefcase, DollarSign, Users, RefreshCw, Activity, Gauge, MessageSquare, Shield } from "lucide-react";
 
 export default function ExercisesDashboard() {
   return (
@@ -239,6 +239,39 @@ export default function ExercisesDashboard() {
                   </div>
                 </Card>
               </Link>
+
+              <Link href="/exercises/GitLabStakeholderScenarios" className="group">
+                <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-blue-500">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+                      <MessageSquare className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                        GitLab Stakeholder & Client Management Scenarios
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        Master complex stakeholder relationships including C-suite alignment, client conflict resolution, partnership management, and crisis communication strategies.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Users className="w-4 h-4" />
+                          8 stakeholder scenarios
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MessageSquare className="w-4 h-4" />
+                          Crisis communication
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Shield className="w-4 h-4" />
+                          Relationship management
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
+              </Link>
+
                         <Link href="/exercises/GitLabReleaseQuiz" className="group">
             <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-orange-500">
               <div className="flex items-start gap-4">
