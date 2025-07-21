@@ -1,73 +1,138 @@
 'use client';
-import React, { useState } from 'react';
-import { Shield, Users, Lock, AlertTriangle, CheckCircle, XCircle, Eye, GitBranch } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Shield, Users, Lock, AlertTriangle, CheckCircle, XCircle, Star, Award, Clock, DollarSign } from 'lucide-react';
+
+interface ScenarioOption {
+  id: string;
+  text: string;
+  correct: boolean;
+  riskLevel?: string;
+}
+
+interface Scenario {
+  id: number;
+  title: string;
+  difficulty?: string;
+  timeImpact?: string;
+  costImpact?: string;
+  situation: string;
+  question: string;
+  options: ScenarioOption[];
+  explanation: string;
+  impact: string;
+  followUp?: string;
+}
 
 const GitLabPermissionsQuiz = () => {
   const [currentScenario, setCurrentScenario] = useState(0);
-  const [answers, setAnswers] = useState({});
+  const [answers, setAnswers] = useState<Record<number, string>>({});
   const [showResults, setShowResults] = useState(false);
-  const [showExplanation, setShowExplanation] = useState({});
+  const [showExplanation, setShowExplanation] = useState<Record<number, boolean>>({});
+  const [confidenceRatings, setConfidenceRatings] = useState<Record<number, number>>({});
+  const [startTime, setStartTime] = useState<number | null>(null);
+  const [completionTime, setCompletionTime] = useState<number | null>(null);
+  const [achievements, setAchievements] = useState<string[]>([]);
 
-  const scenarios = [
+  // Load progress from localStorage
+  useEffect(() => {
+    const savedProgress = localStorage.getItem('gitlab-permissions-quiz');
+    if (savedProgress) {
+      const data = JSON.parse(savedProgress);
+      setAnswers(data.answers || {});
+      setConfidenceRatings(data.confidenceRatings || {});
+      setAchievements(data.achievements || []);
+    }
+    setStartTime(Date.now());
+  }, []);
+
+  // Save progress to localStorage
+  useEffect(() => {
+    const progressData = {
+      answers,
+      confidenceRatings,
+      achievements,
+      lastUpdate: Date.now()
+    };
+    localStorage.setItem('gitlab-permissions-quiz', JSON.stringify(progressData));
+  }, [answers, confidenceRatings, achievements]);
+
+  // Type the scenarios array properly
+  const scenarios: Scenario[] = [
     {
       id: 1,
       title: "🔥 External Contractor Access",
+      difficulty: "Beginner",
+      timeImpact: "2-3 hours setup",
+      costImpact: "$0 - Best practice",
       situation: "Your startup is hiring a freelance developer for 2 months to help with a critical feature. They need to contribute code but shouldn't see financial reports or internal strategic documents that are in other projects.",
       question: "What's the best approach for giving this contractor access?",
       options: [
         { 
           id: 'a', 
           text: "Add them as a Developer to the main group containing all projects",
-          correct: false
+          correct: false,
+          riskLevel: "High"
         },
         { 
           id: 'b', 
           text: "Add them as a Developer only to the specific project they're working on",
-          correct: true
+          correct: true,
+          riskLevel: "Low"
         },
         { 
           id: 'c', 
           text: "Add them as a Guest to the main group and upgrade permissions as needed",
-          correct: false
+          correct: false,
+          riskLevel: "Medium"
         },
         { 
           id: 'd', 
           text: "Create a separate GitLab instance for external contractors",
-          correct: false
+          correct: false,
+          riskLevel: "Medium"
         }
       ],
       explanation: "✅ **Correct: Option B** - Project-level Developer access follows the principle of least privilege. They get exactly what they need (push code, create MRs, see issues) for that specific project only.\n\n❌ **Why others are wrong:**\n- **A**: Violates least privilege - gives access to ALL projects\n- **C**: Guests can't push code or create MRs\n- **D**: Overkill and creates maintenance overhead",
-      impact: "🎯 **Real Impact**: Prevents data breaches while enabling collaboration. Many companies have exposed sensitive IP by giving contractors group-level access."
+      impact: "🎯 **Real Impact**: Prevents data breaches while enabling collaboration. Many companies have exposed sensitive IP by giving contractors group-level access.",
+      followUp: "💡 **Pro Tip**: Set up a project access review calendar to automatically revoke contractor access when their contract ends."
     },
     {
       id: 2,
       title: "🚨 Production Hotfix Emergency",
+      difficulty: "Intermediate",
+      timeImpact: "5-10 minutes",
+      costImpact: "$5000+/min downtime",
       situation: "It's 2 AM, production is down, and your Senior Developer needs to push a critical hotfix directly to the main branch. Your repository currently has push rules preventing direct pushes to main.",
       question: "How do you handle this emergency while maintaining security?",
       options: [
         { 
           id: 'a', 
           text: "Temporarily disable all push rules for the main branch",
-          correct: false
+          correct: false,
+          riskLevel: "High"
         },
         { 
           id: 'b', 
           text: "Give the developer Maintainer role temporarily to bypass rules",
-          correct: true
+          correct: true,
+          riskLevel: "Low"
         },
         { 
           id: 'c', 
           text: "Create an emergency branch with relaxed rules",
-          correct: false
+          correct: false,
+          riskLevel: "Medium"
         },
         { 
           id: 'd', 
           text: "Force them to create an MR even in emergency",
-          correct: false
+          correct: false,
+          riskLevel: "High"
         }
       ],
       explanation: "✅ **Correct: Option B** - Maintainers can bypass push rules when needed. This gives controlled emergency access that can be revoked immediately after.\n\n❌ **Why others are wrong:**\n- **A**: Removes protection for everyone, not just the emergency responder\n- **C**: Adds complexity during crisis; hotfix should go to main\n- **D**: MR reviews cause dangerous delays during production outages",
-      impact: "⚡ **Real Impact**: Production downtime costs can be $5,000+ per minute. Having a clear escalation path for push rules saves both time and money."
+      impact: "⚡ **Real Impact**: Production downtime costs can be $5,000+ per minute. Having a clear escalation path for push rules saves both time and money.",
+      followUp: "🔧 **Action Item**: Document your emergency escalation procedures and train your team on them before you need them."
     },
     {
       id: 3,
@@ -247,18 +312,135 @@ const GitLabPermissionsQuiz = () => {
         }
       ],
       explanation: "✅ **Correct: Option A** - Temporary role promotion provides immediate access while maintaining audit trails through GitLab.\n\n❌ **Why others are wrong:**\n- **B**: Service accounts need pre-configuration and may not exist\n- **C**: Production issues can't wait for availability\n- **D**: Bypasses version control and creates configuration drift",
-      impact: "🚨 **Real Impact**: Feature flag emergencies can affect thousands of users. Having clear escalation procedures prevents prolonged outages."
+      impact: "🚨 **Real Impact**: Feature flag emergencies can affect thousands of users. Having clear escalation procedures prevents prolonged outages.",
+      followUp: "⚙️ **Best Practice**: Set up automated feature flag controls and multiple team members with emergency access."
+    },
+    {
+      id: 9,
+      title: "🎓 Open Source Contribution Setup",
+      difficulty: "Beginner",
+      timeImpact: "30-45 minutes",
+      costImpact: "$0 - Standard process",
+      situation: "Your team wants to contribute to an open source project hosted on GitLab.com. Some contributors are internal employees, others are external volunteers. You need to maintain clear separation between company IP and open source work.",
+      question: "How should you structure this open source project?",
+      options: [
+        { 
+          id: 'a', 
+          text: "Use your company GitLab instance and invite external contributors",
+          correct: false,
+          riskLevel: "High"
+        },
+        { 
+          id: 'b', 
+          text: "Create separate public project on GitLab.com with clear contributor guidelines",
+          correct: true,
+          riskLevel: "Low"
+        },
+        { 
+          id: 'c', 
+          text: "Fork the project to your company instance and mirror changes",
+          correct: false,
+          riskLevel: "Medium"
+        },
+        { 
+          id: 'd', 
+          text: "Use the same repository but different branches for company vs OSS work",
+          correct: false,
+          riskLevel: "High"
+        }
+      ],
+      explanation: "✅ **Correct: Option B** - Public projects should live on GitLab.com with clear separation from company infrastructure. Contributor agreements protect both parties.\n\n❌ **Why others are wrong:**\n- **A**: Exposes company infrastructure to external users\n- **C**: Creates maintenance overhead and delays\n- **D**: Mixes proprietary and open source code dangerously",
+      impact: "🌍 **Real Impact**: Proper OSS setup encourages community contributions while protecting company IP. Many successful projects thrive with this separation.",
+      followUp: "📋 **Action Item**: Create contributor license agreements (CLA) and clear guidelines for what can/cannot be included in OSS contributions."
+    },
+    {
+      id: 10,
+      title: "💼 Multi-tenant SaaS Customer Access",
+      difficulty: "Advanced",
+      timeImpact: "2-4 hours planning",
+      costImpact: "High - Security breach risk",
+      situation: "You're building a SaaS platform where customers need to see their deployment configurations stored in GitLab. Customer A should never see Customer B's configs, but your support team needs access to help troubleshoot across all customers.",
+      question: "What's the most scalable permission architecture?",
+      options: [
+        { 
+          id: 'a', 
+          text: "Create separate GitLab groups per customer with isolated access",
+          correct: true,
+          riskLevel: "Low"
+        },
+        { 
+          id: 'b', 
+          text: "Use one project with different branches per customer",
+          correct: false,
+          riskLevel: "High"
+        },
+        { 
+          id: 'c', 
+          text: "Create customer-specific projects within a shared group",
+          correct: false,
+          riskLevel: "Medium"
+        },
+        { 
+          id: 'd', 
+          text: "Use confidential issues to separate customer data",
+          correct: false,
+          riskLevel: "High"
+        }
+      ],
+      explanation: "✅ **Correct: Option A** - Separate groups provide complete isolation while allowing group-level support access. This scales well as you add customers.\n\n❌ **Why others are wrong:**\n- **B**: Branch-level permissions are complex and error-prone at scale\n- **C**: Shared groups risk accidental cross-customer access\n- **D**: Issues aren't designed for configuration management",
+      impact: "🔒 **Real Impact**: Customer data breaches can end your SaaS business. Proper multi-tenancy is critical for enterprise customers.",
+      followUp: "🏗️ **Architecture Note**: Consider automating group creation and customer onboarding to maintain consistency at scale."
     }
   ];
 
-  const handleAnswerSelect = (scenarioId: string, optionId: string) => {
+  const handleAnswerSelect = (scenarioId: number, optionId: string) => {
     setAnswers(prev => ({
       ...prev,
       [scenarioId]: optionId
     }));
+    
+    // Check for achievements
+    checkForAchievements(scenarioId, optionId);
   };
 
-  const toggleExplanation = (scenarioId) => {
+  const handleConfidenceRating = (scenarioId: number, rating: number) => {
+    setConfidenceRatings(prev => ({
+      ...prev,
+      [scenarioId]: rating
+    }));
+  };
+
+  const checkForAchievements = (scenarioId: number, optionId: string) => {
+    const scenario = scenarios.find(s => s.id === scenarioId);
+    const correctOption = scenario?.options.find(opt => opt.correct);
+    
+    if (correctOption && optionId === correctOption.id) {
+      const newAchievements: string[] = [];
+      
+      // First correct answer
+      if (Object.keys(answers).length === 0) {
+        newAchievements.push("First Success");
+      }
+      
+      // Perfect streak
+      const correctAnswers = Object.keys(answers).filter(id => {
+        const s = scenarios.find(sc => sc.id === parseInt(id));
+        const correct = s?.options.find(opt => opt.correct);
+        return correct && answers[parseInt(id)] === correct.id;
+      }).length;
+      
+      if (correctAnswers >= 3) {
+        newAchievements.push("Streak Master");
+      }
+      
+      // Add achievements
+      if (newAchievements.length > 0) {
+        setAchievements(prev => [...new Set([...prev, ...newAchievements])]);
+      }
+    }
+  };
+
+  const toggleExplanation = (scenarioId: number) => {
     setShowExplanation(prev => ({
       ...prev,
       [scenarioId]: !prev[scenarioId]
@@ -270,14 +452,14 @@ const GitLabPermissionsQuiz = () => {
     scenarios.forEach(scenario => {
       const userAnswer = answers[scenario.id];
       const correctOption = scenario.options.find(opt => opt.correct);
-      if (userAnswer === correctOption.id) {
+      if (userAnswer && correctOption && userAnswer === correctOption.id) {
         correct++;
       }
     });
     return correct;
   };
 
-  const getScoreColor = (score, total) => {
+  const getScoreColor = (score: number, total: number) => {
     const percentage = (score / total) * 100;
     if (percentage >= 80) return 'text-green-600';
     if (percentage >= 60) return 'text-yellow-600';
@@ -292,6 +474,7 @@ const GitLabPermissionsQuiz = () => {
     const score = getScore();
     const total = scenarios.length;
     const percentage = Math.round((score / total) * 100);
+    const timeSpent = startTime && completionTime ? Math.round((completionTime - startTime) / 1000 / 60) : null;
     
     return (
       <div className="max-w-4xl mx-auto p-6 bg-white">
@@ -304,14 +487,57 @@ const GitLabPermissionsQuiz = () => {
           <div className={`text-xl ${getScoreColor(score, total)}`}>
             {percentage}% - {percentage >= 80 ? "Permissions Expert! 🚀" : percentage >= 60 ? "Good Knowledge 👍" : "Needs Improvement 📚"}
           </div>
+          {timeSpent && (
+            <div className="text-gray-600 mt-2 flex items-center justify-center gap-2">
+              <Clock className="w-4 h-4" />
+              Completed in {timeSpent} minutes
+            </div>
+          )}
+        </div>
+
+        {/* Achievements Section */}
+        {achievements.length > 0 && (
+          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+            <div className="flex items-center gap-2 mb-2">
+              <Award className="w-5 h-5 text-yellow-600" />
+              <h3 className="font-semibold text-yellow-800">Achievements Unlocked!</h3>
+            </div>
+            <div className="flex gap-2 flex-wrap">
+              {achievements.map(achievement => (
+                <span key={achievement} className="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                  {achievement}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Performance Insights */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="bg-blue-50 p-4 rounded-lg text-center">
+            <div className="text-2xl font-bold text-blue-600">{score}</div>
+            <div className="text-sm text-blue-700">Correct Answers</div>
+          </div>
+          <div className="bg-green-50 p-4 rounded-lg text-center">
+            <div className="text-2xl font-bold text-green-600">
+              {Object.values(confidenceRatings).length > 0 ? 
+                Math.round(Object.values(confidenceRatings).reduce((a, b) => a + b, 0) / Object.values(confidenceRatings).length * 10) / 10 : 
+                'N/A'}
+            </div>
+            <div className="text-sm text-green-700">Avg Confidence</div>
+          </div>
+          <div className="bg-purple-50 p-4 rounded-lg text-center">
+            <div className="text-2xl font-bold text-purple-600">{achievements.length}</div>
+            <div className="text-sm text-purple-700">Achievements</div>
+          </div>
         </div>
 
         <div className="space-y-6">
-          {scenarios.map((scenario, index) => {
+          {scenarios.map((scenario) => {
             const userAnswer = answers[scenario.id];
             const correctOption = scenario.options.find(opt => opt.correct);
             const userOption = scenario.options.find(opt => opt.id === userAnswer);
-            const isCorrect = userAnswer === correctOption.id;
+            const isCorrect = correctOption && userAnswer === correctOption.id;
 
             return (
               <div key={scenario.id} className="bg-gray-50 rounded-lg p-6">
@@ -329,7 +555,7 @@ const GitLabPermissionsQuiz = () => {
                       <div className={`p-2 rounded ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
                         <strong>Your answer:</strong> {userOption?.text || "No answer selected"}
                       </div>
-                      {!isCorrect && (
+                      {!isCorrect && correctOption && (
                         <div className="p-2 rounded bg-green-100 text-green-800">
                           <strong>Correct answer:</strong> {correctOption.text}
                         </div>
@@ -360,13 +586,40 @@ const GitLabPermissionsQuiz = () => {
           })}
         </div>
 
-        <div className="mt-8 text-center">
+        <div className="mt-8 text-center space-y-4">
+          <div className="bg-gray-50 p-6 rounded-lg">
+            <h3 className="text-lg font-semibold text-gray-900 mb-4">📚 Continue Learning</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div className="text-left">
+                <h4 className="font-medium text-gray-800 mb-2">GitLab Documentation</h4>
+                <ul className="space-y-1 text-gray-600">
+                  <li>• <a href="https://docs.gitlab.com/ee/user/permissions.html" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">User permissions and access</a></li>
+                  <li>• <a href="https://docs.gitlab.com/ee/user/group/index.html" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Groups and project organization</a></li>
+                  <li>• <a href="https://docs.gitlab.com/ee/push_rules/push_rules.html" className="text-blue-600 hover:underline" target="_blank" rel="noopener noreferrer">Push rules and protection</a></li>
+                </ul>
+              </div>
+              <div className="text-left">
+                <h4 className="font-medium text-gray-800 mb-2">Best Practices</h4>
+                <ul className="space-y-1 text-gray-600">
+                  <li>• Always follow principle of least privilege</li>
+                  <li>• Document emergency access procedures</li>
+                  <li>• Regular permission audits and cleanup</li>
+                  <li>• Use groups for scalable permission management</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
           <button
             onClick={() => {
               setShowResults(false);
               setCurrentScenario(0);
               setAnswers({});
               setShowExplanation({});
+              setConfidenceRatings({});
+              setAchievements([]);
+              setStartTime(Date.now());
+              setCompletionTime(null);
             }}
             className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 font-medium"
           >
@@ -405,12 +658,12 @@ const GitLabPermissionsQuiz = () => {
             Question {currentScenario + 1} of {scenarios.length}
           </span>
           <div className="flex gap-2">
-            {scenarios.map((_, index) => (
+            {scenarios.map((_, scenarioIndex) => (
               <div
-                key={index}
+                key={scenarioIndex}
                 className={`w-3 h-3 rounded-full ${
-                  index === currentScenario ? 'bg-blue-600' : 
-                  answers[scenarios[index].id] ? 'bg-green-500' : 'bg-gray-300'
+                  scenarioIndex === currentScenario ? 'bg-blue-600' : 
+                  answers[scenarios[scenarioIndex].id] ? 'bg-green-500' : 'bg-gray-300'
                 }`}
               />
             ))}
@@ -424,7 +677,33 @@ const GitLabPermissionsQuiz = () => {
         </div>
       </div>
 
-      <div className="bg-white border rounded-lg p-6 shadow-lg mb-6">
+        <div className="bg-white border rounded-lg p-6 shadow-lg mb-6">
+        <div className="flex justify-between items-start mb-4">
+          <div className="flex items-center gap-4">
+            <span className={`px-3 py-1 rounded-full text-xs font-medium ${
+              getCurrentScenario().difficulty === 'Beginner' ? 'bg-green-100 text-green-800' :
+              getCurrentScenario().difficulty === 'Intermediate' ? 'bg-yellow-100 text-yellow-800' :
+              'bg-red-100 text-red-800'
+            }`}>
+              {getCurrentScenario().difficulty}
+            </span>
+            <span className="flex items-center gap-1 text-xs text-gray-600">
+              <Clock className="w-3 h-3" />
+              {getCurrentScenario().timeImpact}
+            </span>
+            <span className="flex items-center gap-1 text-xs text-gray-600">
+              <DollarSign className="w-3 h-3" />
+              {getCurrentScenario().costImpact}
+            </span>
+          </div>
+          {achievements.length > 0 && (
+            <div className="flex items-center gap-2">
+              <Award className="w-4 h-4 text-yellow-500" />
+              <span className="text-xs text-gray-600">{achievements.length} achievements</span>
+            </div>
+          )}
+        </div>
+        
         <div className="mb-6">
           <h2 className="text-xl font-bold text-gray-900 mb-3">
             {getCurrentScenario().title}
@@ -455,16 +734,48 @@ const GitLabPermissionsQuiz = () => {
                   name={`scenario-${getCurrentScenario().id}`}
                   value={option.id}
                   checked={userAnswer === option.id}
-                  onChange={() => handleAnswerSelect(String(getCurrentScenario().id), option.id)}
+                  onChange={() => handleAnswerSelect(getCurrentScenario().id, option.id)}
                   className="mt-1"
                 />
-                <span className="text-gray-800">{option.text}</span>
+                <div className="flex-1">
+                  <span className="text-gray-800">{option.text}</span>
+                  {'riskLevel' in option && option.riskLevel && (
+                    <span className={`ml-2 px-2 py-1 rounded text-xs font-medium ${
+                      option.riskLevel === 'High' ? 'bg-red-100 text-red-700' :
+                      option.riskLevel === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
+                      'bg-green-100 text-green-700'
+                    }`}>
+                      {option.riskLevel} Risk
+                    </span>
+                  )}
+                </div>
               </div>
             </label>
           ))}
         </div>
 
         {hasAnswered && (
+          <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+            <div className="flex justify-between items-center mb-3">
+              <span className="text-sm font-medium text-blue-800">How confident are you in this answer?</span>
+              <div className="flex gap-1">
+                {[1,2,3,4,5].map(rating => (
+                  <button
+                    key={rating}
+                    onClick={() => handleConfidenceRating(getCurrentScenario().id, rating)}
+                    className={`w-6 h-6 rounded ${
+                      confidenceRatings[getCurrentScenario().id] >= rating
+                        ? 'text-yellow-500'
+                        : 'text-gray-300'
+                    }`}
+                  >
+                    <Star className="w-full h-full fill-current" />
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}        {hasAnswered && (
           <button
             onClick={() => toggleExplanation(getCurrentScenario().id)}
             className="mb-4 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 text-sm font-medium"
@@ -478,9 +789,14 @@ const GitLabPermissionsQuiz = () => {
             <div className="whitespace-pre-line text-gray-700 mb-3">
               {getCurrentScenario().explanation}
             </div>
-            <div className="text-blue-800 font-medium">
+            <div className="text-blue-800 font-medium mb-3">
               {getCurrentScenario().impact}
             </div>
+            {getCurrentScenario().followUp && (
+              <div className="text-blue-700 bg-blue-100 p-3 rounded text-sm">
+                {getCurrentScenario().followUp}
+              </div>
+            )}
           </div>
         )}
       </div>
@@ -500,7 +816,10 @@ const GitLabPermissionsQuiz = () => {
 
         {currentScenario === scenarios.length - 1 ? (
           <button
-            onClick={() => setShowResults(true)}
+            onClick={() => {
+              setCompletionTime(Date.now());
+              setShowResults(true);
+            }}
             className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 font-medium"
           >
             View Results →
@@ -518,4 +837,4 @@ const GitLabPermissionsQuiz = () => {
   );
 };
 
-export default GitLabPermissionsQuiz
+export default GitLabPermissionsQuiz;
