@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { BookOpen, Rocket, Target, TrendingUp, Zap, BarChart3, Briefcase, DollarSign, Users } from "lucide-react";
+import { BookOpen, Rocket, Target, TrendingUp, Zap, BarChart3, Briefcase, DollarSign, Users, RefreshCw, Activity, Gauge } from "lucide-react";
 
 export default function ExercisesDashboard() {
   return (
@@ -101,6 +101,38 @@ export default function ExercisesDashboard() {
                     <span className="flex items-center gap-1">
                       <Users className="w-4 h-4" />
                       C-suite alignment
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </Link>
+
+          <Link href="/exercises/GitLabRetrospectiveLab" className="group">
+            <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-green-500">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
+                  <RefreshCw className="w-6 h-6 text-green-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
+                    GitLab Agile Retrospective & Process Improvement Lab
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Master continuous improvement through data-driven retrospectives, velocity analysis, workflow optimization, and GitLab analytics integration.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                    <span className="flex items-center gap-1">
+                      <BarChart3 className="w-4 h-4" />
+                      8 process scenarios
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Activity className="w-4 h-4" />
+                      Analytics-driven
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Gauge className="w-4 h-4" />
+                      Performance metrics
                     </span>
                   </div>
                 </div>
