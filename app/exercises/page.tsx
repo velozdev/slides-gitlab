@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { BookOpen } from "lucide-react";
+import { BookOpen, Rocket, Target, TrendingUp, Zap, BarChart3, Briefcase, DollarSign, Users } from "lucide-react";
 
 export default function ExercisesDashboard() {
   return (
@@ -44,10 +44,69 @@ export default function ExercisesDashboard() {
                 <span className="font-semibold text-teal-800">GitLab OKR Planning + Iterations</span>
                 <p className="text-sm text-gray-600">OKRs have been a game-changer in GitLab.</p>
               </Link>
-              <Link href="/exercises/GitLabReleaseQuiz" className="block p-4 rounded-lg bg-orange-50 hover:bg-orange-100 transition">
-                <span className="font-semibold text-orange-800">GitLab Release Planning & Deployment Strategy</span>
-                <p className="text-sm text-gray-600">Master critical release management scenarios from Black Friday launches to compliance deadlines.</p>
-              </Link>
+                        <Link href="/exercises/GitLabReleaseQuiz" className="group">
+            <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-orange-500">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-orange-100 rounded-lg group-hover:bg-orange-200 transition-colors">
+                  <Rocket className="w-6 h-6 text-orange-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors">
+                    GitLab Release Planning & Deployment Strategy Quiz
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Master critical release management scenarios including feature flags, database migrations, multi-platform coordination, emergency response, and global rollouts.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                    <span className="flex items-center gap-1">
+                      <Target className="w-4 h-4" />
+                      8 high-stakes scenarios
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <TrendingUp className="w-4 h-4" />
+                      Business impact focus
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Zap className="w-4 h-4" />
+                      Real deployment strategies
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </Link>
+
+          <Link href="/exercises/GitLabPortfolioWorkshop" className="group">
+            <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-purple-500">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
+                  <BarChart3 className="w-6 h-6 text-purple-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
+                    GitLab Portfolio Management Workshop
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Master strategic portfolio management including resource allocation, stakeholder alignment, budget optimization, crisis recovery, and scaling during growth.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                    <span className="flex items-center gap-1">
+                      <Briefcase className="w-4 h-4" />
+                      8 executive scenarios
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <DollarSign className="w-4 h-4" />
+                      ROI-focused decisions
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Users className="w-4 h-4" />
+                      C-suite alignment
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </Link>
             </div>
           </CardContent>
         </Card>
