@@ -15,34 +15,229 @@ export default function ExercisesDashboard() {
           </CardHeader>
           <CardContent>
             <p className="mb-4 text-gray-700">Practice project planning, communication, and GitLab skills with interactive exercises and quizzes.</p>
-            <div className="grid md:grid-cols-2 gap-6">
-              <Link href="/exercises/ProjectPlanning" className="block p-4 rounded-lg bg-blue-50 hover:bg-blue-100 transition">
-                <span className="font-semibold text-blue-800">Project Planning Workshop</span>
-                <p className="text-sm text-gray-600">Estimate stories, plan sprints, assess risks.</p>
+            <div className="grid gap-6">
+              <Link href="/exercises/ProjectPlanning" className="group">
+                <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-blue-500">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+                      <BookOpen className="w-6 h-6 text-blue-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                        Project Planning Workshop
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        Master essential project management skills including story estimation, sprint planning, risk assessment, and team capacity management in realistic project scenarios.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Target className="w-4 h-4" />
+                          Multiple scenarios
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <TrendingUp className="w-4 h-4" />
+                          Estimation skills
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Users className="w-4 h-4" />
+                          Risk management
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
               </Link>
-              <Link href="/exercises/GitLabCommunicationQuiz" className="block p-4 rounded-lg bg-indigo-50 hover:bg-indigo-100 transition">
-                <span className="font-semibold text-indigo-800">GitLab Communication Quiz</span>
-                <p className="text-sm text-gray-600">Test your collaboration and communication best practices.</p>
+
+              <Link href="/exercises/GitLabCommunicationQuiz" className="group">
+                <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-indigo-500">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-indigo-100 rounded-lg group-hover:bg-indigo-200 transition-colors">
+                      <Users className="w-6 h-6 text-indigo-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                        GitLab Communication & Collaboration Quiz
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        Test and improve your collaboration skills with scenarios covering merge request reviews, issue discussions, cross-team communication, and conflict resolution.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <BookOpen className="w-4 h-4" />
+                          Communication best practices
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Users className="w-4 h-4" />
+                          Team collaboration
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Target className="w-4 h-4" />
+                          Conflict resolution
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
               </Link>
-              <Link href="/exercises/GitLabQuiz" className="block p-4 rounded-lg bg-green-50 hover:bg-green-100 transition">
-                <span className="font-semibold text-green-800">GitLab Fundamentals Quiz</span>
-                <p className="text-sm text-gray-600">Core concepts and workflows in GitLab.</p>
+
+              <Link href="/exercises/GitLabQuiz" className="group">
+                <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-green-500">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
+                      <Rocket className="w-6 h-6 text-green-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
+                        GitLab Fundamentals Quiz
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        Master core GitLab concepts including projects, groups, merge requests, issues, CI/CD pipelines, and essential workflows for effective project management.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <BookOpen className="w-4 h-4" />
+                          Core concepts
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Rocket className="w-4 h-4" />
+                          Essential workflows
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Target className="w-4 h-4" />
+                          CI/CD basics
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
               </Link>
-              <Link href="/exercises/GitLabLabelQuiz" className="block p-4 rounded-lg bg-yellow-50 hover:bg-yellow-100 transition">
-                <span className="font-semibold text-yellow-800">Labeling & Filtering Quiz</span>
-                <p className="text-sm text-gray-600">Practice strategic labeling and filtering.</p>
+
+              <Link href="/exercises/GitLabLabelQuiz" className="group">
+                <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-yellow-500">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-yellow-100 rounded-lg group-hover:bg-yellow-200 transition-colors">
+                      <Target className="w-6 h-6 text-yellow-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors">
+                        GitLab Labeling & Filtering Mastery Quiz
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        Practice strategic labeling systems, advanced filtering techniques, and organizational strategies for managing complex projects with hundreds of issues.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Target className="w-4 h-4" />
+                          Strategic labeling
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <TrendingUp className="w-4 h-4" />
+                          Advanced filtering
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <BarChart3 className="w-4 h-4" />
+                          Organization systems
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
               </Link>
-              <Link href="/exercises/GitLabSearchQuiz" className="block p-4 rounded-lg bg-pink-50 hover:bg-pink-100 transition">
-                <span className="font-semibold text-pink-800">GitLab Search Quiz</span>
-                <p className="text-sm text-gray-600">Master search and navigation in GitLab.</p>
+
+              <Link href="/exercises/GitLabSearchQuiz" className="group">
+                <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-pink-500">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-pink-100 rounded-lg group-hover:bg-pink-200 transition-colors">
+                      <Activity className="w-6 h-6 text-pink-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-pink-600 transition-colors">
+                        GitLab Search & Navigation Mastery Quiz
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        Master advanced search techniques, global search patterns, code search optimization, and navigation strategies for large GitLab instances and repositories.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Activity className="w-4 h-4" />
+                          Advanced search
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Target className="w-4 h-4" />
+                          Code navigation
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Zap className="w-4 h-4" />
+                          Productivity boost
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
               </Link>
-              <Link href="/exercises/GitLabPermissions" className="block p-4 rounded-lg bg-purple-50 hover:bg-purple-100 transition">
-                <span className="font-semibold text-purple-800">GitLab Permissions & Access Control</span>
-                <p className="text-sm text-gray-600">Real-world permission scenarios every PM faces.</p>
+
+              <Link href="/exercises/GitLabPermissions" className="group">
+                <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-purple-500">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
+                      <Users className="w-6 h-6 text-purple-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
+                        GitLab Permissions & Access Control Workshop
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        Navigate complex permission scenarios including role assignments, access escalation, security compliance, and team onboarding challenges every PM encounters.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <Users className="w-4 h-4" />
+                          Role management
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Target className="w-4 h-4" />
+                          Security compliance
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <BarChart3 className="w-4 h-4" />
+                          Access strategies
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
               </Link>
-            <Link href="/exercises/GitLabOKRPlanningWorkshop" className="block p-4 rounded-lg bg-teal-50 hover:bg-teal-100 transition">
-                <span className="font-semibold text-teal-800">GitLab OKR Planning + Iterations</span>
-                <p className="text-sm text-gray-600">OKRs have been a game-changer in GitLab.</p>
+
+              <Link href="/exercises/GitLabOKRPlanningWorkshop" className="group">
+                <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-teal-500">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-teal-100 rounded-lg group-hover:bg-teal-200 transition-colors">
+                      <TrendingUp className="w-6 h-6 text-teal-600" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-teal-600 transition-colors">
+                        GitLab OKR Planning & Iterations Workshop
+                      </h3>
+                      <p className="text-gray-600 mb-4">
+                        Master strategic goal-setting with OKRs, iteration planning, milestone tracking, and performance measurement using GitLab's proven methodologies for scaling teams.
+                      </p>
+                      <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <span className="flex items-center gap-1">
+                          <TrendingUp className="w-4 h-4" />
+                          OKR methodology
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Target className="w-4 h-4" />
+                          Iteration planning
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <BarChart3 className="w-4 h-4" />
+                          Performance tracking
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </Card>
               </Link>
                         <Link href="/exercises/GitLabReleaseQuiz" className="group">
             <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-orange-500">
