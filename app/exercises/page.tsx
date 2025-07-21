@@ -36,8 +36,12 @@ export default function ExercisesDashboard() {
                 <span className="font-semibold text-pink-800">GitLab Search Quiz</span>
                 <p className="text-sm text-gray-600">Master search and navigation in GitLab.</p>
               </Link>
-            <Link href="/exercises/GitLabOKRPlanningWorkshop" className="block p-4 rounded-lg bg-pink-50 hover:bg-pink-100 transition">
-                <span className="font-semibold text-pink-800">GitLab OKR Planning + Iterations</span>
+              <Link href="/exercises/GitLabPermissions" className="block p-4 rounded-lg bg-purple-50 hover:bg-purple-100 transition">
+                <span className="font-semibold text-purple-800">GitLab Permissions & Access Control</span>
+                <p className="text-sm text-gray-600">Real-world permission scenarios every PM faces.</p>
+              </Link>
+            <Link href="/exercises/GitLabOKRPlanningWorkshop" className="block p-4 rounded-lg bg-teal-50 hover:bg-teal-100 transition">
+                <span className="font-semibold text-teal-800">GitLab OKR Planning + Iterations</span>
                 <p className="text-sm text-gray-600">OKRs have been a game-changer in GitLab.</p>
               </Link>
             </div>
