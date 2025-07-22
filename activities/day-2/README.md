@@ -6,9 +6,9 @@ This folder contains advanced project management activities with milestones, cap
 
 ### Milestone & Sprint Management Series
 1. **Activity 2.0**: [Milestone Simulator](/exercises/GitLabMilestoneSimulator) - Practice without GitLab access (15 min)
-2. **Activity 2.1**: Basic Milestone Creation (`01a-create-basic-milestone.md`) - Foundation skills (5 min)
-3. **Activity 2.2**: Sprint Capacity Planning (`01b-sprint-capacity-planning.md`) - Advanced calculations (8 min)
-4. **Activity 2.3**: Issue Management & Sprint Execution (`01c-issue-management-sprint-execution.md`) - Complete setup (7 min)
+2. **Activity 2.1**: Basic Milestone Creation (`04a-create-basic-milestone.md`) - Foundation skills (5 min)
+3. **Activity 2.2**: Sprint Capacity Planning (`04b-sprint-capacity-planning.md`) - Advanced calculations (8 min)
+4. **Activity 2.3**: Issue Management & Sprint Execution (`04c-issue-management-sprint-execution.md`) - Complete setup (7 min)
 
 ### Workflow & Strategic Management
 4. **Activity 2.4**: Configure Team Workflow Board (`06-configure-workflow-board.md`) - Customized boards (10 min)

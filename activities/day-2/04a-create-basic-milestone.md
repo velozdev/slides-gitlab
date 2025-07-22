@@ -116,6 +116,19 @@ Check your milestone:
 
 ---
 
-## 📚 **Additional Resources**
+## � **Navigation**
+
+### **Continue Your Learning:**
+- **⬅️ Previous**: [Activity 1A: Milestone Simulator](/activities/milestone-simulator) - Practice without GitLab access
+- **➡️ Next**: [Activity 1B: Sprint Capacity Planning](04b-sprint-capacity-planning.md) - Advanced planning techniques
+- **🏠 Home**: [Activities Dashboard](/activities) - All training activities
+
+### **Related Activities:**
+- [Activity 1C: Issue Management & Sprint Execution](04c-issue-management-sprint-execution.md)
+- [Activity 2: Configure Workflow Boards](06-configure-workflow-board.md)
+
+---
+
+## �📚 **Additional Resources**
 - [GitLab Milestones Documentation](https://docs.gitlab.com/ee/user/project/milestones/)
 - [Sprint Planning Basics](https://docs.gitlab.com/ee/topics/agile_delivery/)
