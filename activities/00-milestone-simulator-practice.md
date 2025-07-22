@@ -175,7 +175,7 @@ The simulator teaches core concepts, but real GitLab offers:
 ---
 
 ## 📚 **Related Resources**
-- **[Activity 1A: Create Your First Sprint Milestone](./01a-create-basic-milestone.md)** - Apply skills in real GitLab
-- **[Activity 1B: Sprint Capacity Planning](./01b-sprint-capacity-planning.md)** - Deep dive into capacity calculations
-- **[Activity 1C: Issue Management](./01c-issue-management-sprint-execution.md)** - Master issue assignment and validation
+- **[Activity 1A: Create Your First Sprint Milestone](./04a-create-basic-milestone.md)** - Apply skills in real GitLab
+- **[Activity 1B: Sprint Capacity Planning](./04b-sprint-capacity-planning.md)** - Deep dive into capacity calculations
+- **[Activity 1C: Issue Management](./04c-issue-management-sprint-execution.md)** - Master issue assignment and validation
 - **[GitLab Milestones Documentation](https://docs.gitlab.com/ee/user/project/milestones/)** - Official reference for real GitLab features

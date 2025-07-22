@@ -1,19 +1,18 @@
 import Link from "next/link";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { BookOpen, Calendar, Target, Users, GitBranch, Settings, Award, Clock, FileText } from "lucide-react";
 
 export default function ActivitiesDashboard() {
   return (
     <div className="min-h-screen bg-background text-foreground p-4 font-sans">
       <div className="max-w-6xl mx-auto">
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
+        <div className="mb-8 bg-white border border-gray-200 rounded-lg p-6">
+          <div className="mb-4">
+            <h1 className="flex items-center gap-2 text-2xl font-bold text-gray-900">
               <BookOpen className="w-6 h-6 text-blue-600" />
               GitLab Training Activities
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
+            </h1>
+          </div>
+          <div>
             <p className="mb-4 text-gray-700">
               Hands-on practice activities for real GitLab environments. Each day builds on previous skills with progressive complexity.
             </p>
@@ -33,21 +32,35 @@ export default function ActivitiesDashboard() {
                 </span>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
-        <div className="grid gap-8">
-          {/* Day 1: Foundations */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="w-6 h-6 text-green-600" />
-                Day 1: GitLab Foundations
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+        {/* Days Navigation */}
+        <div className="space-y-6">
+          {/* Day 1: GitLab Foundations */}
+          <details className="group" name="training-days">
+            <summary className="flex items-center justify-between p-6 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <BookOpen className="w-6 h-6 text-green-600" />
+                  <h2 className="text-xl font-bold text-gray-900">Day 1: GitLab Foundations</h2>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">✅ Complete</span>
+                  <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">85 minutes</span>
+                  <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">5 activities</span>
+                </div>
+              </div>
+              <div className="text-gray-400 group-open:rotate-180 transition-transform">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </summary>
+            
+            <div className="px-6 pb-6">
               <p className="text-gray-600 mb-6">
-                Introduction to GitLab basics, navigation, and core concepts. Perfect for beginners getting started with GitLab.
+                Master GitLab basics, navigation, issue creation, time tracking, labeling, and advanced search. Perfect foundation for project management.
               </p>
               
               <div className="grid gap-4">
@@ -262,18 +275,31 @@ export default function ActivitiesDashboard() {
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </details>
 
           {/* Day 2: Project Planning & Management */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Target className="w-6 h-6 text-blue-600" />
-                Day 2: Project Planning & Management
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+          <details className="group" name="training-days" open>
+            <summary className="flex items-center justify-between p-6 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <Target className="w-6 h-6 text-blue-600" />
+                  <h2 className="text-xl font-bold text-gray-900">Day 2: Project Planning & Management</h2>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">In Progress</span>
+                  <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">75 minutes</span>
+                  <span className="px-2 py-1 bg-blue-100 text-blue-800 text-xs font-medium rounded">6 activities</span>
+                </div>
+              </div>
+              <div className="text-gray-400 group-open:rotate-180 transition-transform">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </summary>
+            
+            <div className="px-6 pb-6">
               <p className="text-gray-600 mb-6">
                 Advanced project management with milestones, capacity planning, and workflow boards. Build professional project management skills.
               </p>
@@ -487,47 +513,97 @@ export default function ActivitiesDashboard() {
                   <strong>Day 2 Total:</strong> ~75 minutes • <strong>Skills:</strong> Sprint planning, capacity management, workflow boards, epic planning, strategic roadmaps
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </details>
 
           {/* Day 3: Advanced Workflows */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <GitBranch className="w-6 h-6 text-purple-600" />
-                Day 3: Advanced Workflows & Integration
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
+          <details className="group" name="training-days">
+            <summary className="flex items-center justify-between p-6 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <GitBranch className="w-6 h-6 text-purple-600" />
+                  <h2 className="text-xl font-bold text-gray-900">Day 3: Advanced Workflows & Integration</h2>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">Coming Soon</span>
+                  <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">~90 minutes</span>
+                  <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">7 activities</span>
+                </div>
+              </div>
+              <div className="text-gray-400 group-open:rotate-180 transition-transform">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </summary>
+            
+            <div className="px-6 pb-6">
               <p className="text-gray-600 mb-6">
                 Advanced GitLab features including merge requests, CI/CD pipelines, and epic planning. Master professional development workflows.
               </p>
               
               <div className="grid gap-4">
+                <div className="bg-purple-50 p-4 rounded-lg border-l-4 border-l-purple-500">
+                  <h3 className="font-semibold text-purple-800 mb-3">�️ Advanced Git Workflows</h3>
+                  <Link href="/activities/branch-naming-challenge" className="group block">
+                    <div className="p-3 bg-white rounded-lg border hover:shadow-md transition-shadow">
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
+                          <GitBranch className="w-4 h-4 text-purple-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900 group-hover:text-purple-600 transition-colors">
+                            Activity 3.1: The Branch Naming Challenge
+                          </h4>
+                          <p className="text-gray-600 mb-2">
+                            Master Git branch naming conventions using real issues from our slides-gitlab repository
+                          </p>
+                          <div className="flex items-center gap-4 text-xs text-gray-500">
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              25 minutes
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Target className="w-3 h-3" />
+                              Advanced level
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Users className="w-3 h-3" />
+                              Interactive challenge
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                  <div className="mt-3 text-xs text-purple-700">
+                    <strong>Focus:</strong> Professional conventions • Repository organization • Team collaboration
+                  </div>
+                </div>
+                
                 <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-l-gray-400">
-                  <h3 className="font-semibold text-gray-700 mb-2">🚧 Coming Soon</h3>
+                  <h3 className="font-semibold text-gray-700 mb-2">🚧 More Activities Coming Soon</h3>
                   <ul className="space-y-2 text-sm text-gray-600">
-                    <li>• <strong>Activity 3.1:</strong> Merge Request Best Practices (25 min)</li>
-                    <li>• <strong>Activity 3.2:</strong> Code Review Workflows & Approvals (20 min)</li>
-                    <li>• <strong>Activity 3.3:</strong> CI/CD Pipeline Configuration (30 min)</li>
-                    <li>• <strong>Activity 3.4:</strong> Epic and Roadmap Planning (35 min)</li>
-                    <li>• <strong>Activity 3.5:</strong> Advanced GitLab Integration (15 min)</li>
+                    <li>• <strong>Activity 3.2:</strong> Advanced Git Workflows & Merge Strategies (20 min)</li>
+                    <li>• <strong>Activity 3.3:</strong> Code Review Best Practices (25 min)</li>
+                    <li>• <strong>Activity 3.4:</strong> CI/CD Pipeline Fundamentals (30 min)</li>
+                    <li>• <strong>Activity 3.5:</strong> Advanced GitLab Integration (20 min)</li>
                   </ul>
                   <div className="mt-3 text-xs text-gray-500">
-                    <strong>Total Time:</strong> ~125 minutes • <strong>Prerequisites:</strong> Day 1 & 2 completion
+                    <strong>Additional Time:</strong> ~95 minutes • <strong>Prerequisites:</strong> Day 1 & 2 completion
                   </div>
                 </div>
               </div>
-            </CardContent>
-          </Card>
+            </div>
+          </details>
         </div>
 
         {/* Quick Links & Resources */}
-        <Card className="mt-8">
-          <CardHeader>
-            <CardTitle className="text-lg">🔗 Related Resources</CardTitle>
-          </CardHeader>
-          <CardContent>
+        <div className="mt-8 bg-white border border-gray-200 rounded-lg p-6">
+          <div className="mb-4">
+            <h2 className="text-lg font-bold text-gray-900">🔗 Related Resources</h2>
+          </div>
+          <div>
             <div className="grid md:grid-cols-3 gap-4">
               <Link href="/exercises" className="group">
                 <div className="p-4 bg-blue-50 rounded-lg border hover:shadow-md transition-shadow">
@@ -563,8 +639,8 @@ export default function ActivitiesDashboard() {
                 </p>
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       </div>
     </div>
   );

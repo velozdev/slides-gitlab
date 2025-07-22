@@ -40,6 +40,22 @@ export default function GitLabNavigation() {
                 Exploration focus
               </span>
             </div>
+            
+            {/* Start Activity Button */}
+            <div className="mt-6">
+              <a 
+                href="https://github.com/jsdev/slides-gitlab/blob/main/activities/day-1/01-gitlab-navigation-practice.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
+              >
+                <Compass className="w-5 h-5" />
+                Start Activity - View Instructions
+              </a>
+              <p className="text-sm text-gray-500 mt-2">
+                Opens the detailed step-by-step instructions in a new tab
+              </p>
+            </div>
           </CardHeader>
         </Card>
 

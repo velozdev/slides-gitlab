@@ -40,6 +40,22 @@ export default function RoadmapCommunication() {
                 Strategic planning
               </span>
             </div>
+            
+            {/* Start Activity Button */}
+            <div className="mt-6">
+              <a 
+                href="https://github.com/jsdev/slides-gitlab/blob/main/activities/day-2/07-building-communicating-roadmaps.md"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors"
+              >
+                <Map className="w-5 h-5" />
+                Start Activity - View Instructions
+              </a>
+              <p className="text-sm text-gray-500 mt-2">
+                Opens the detailed step-by-step instructions in a new tab
+              </p>
+            </div>
           </CardHeader>
         </Card>
 

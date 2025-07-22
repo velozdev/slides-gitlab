@@ -14,15 +14,15 @@ These activities are designed for trainees to practice GitLab skills in actual G
   - Perfect for training environments with limited GitLab availability
   - Safe practice environment with immediate feedback and achievements
 
-- **[Activity 1A: Create Your First Sprint Milestone](./01a-create-basic-milestone.md)** *(5 minutes)*
+- **[Activity 1A: Create Your First Sprint Milestone](./04a-create-basic-milestone.md)** *(5 minutes)*
   - Learn milestone fundamentals with proper naming conventions and basic setup
   - Foundation skills for GitLab milestone creation
   
-- **[Activity 1B: Sprint Capacity Planning & Team Setup](./01b-sprint-capacity-planning.md)** *(8 minutes)*
+- **[Activity 1B: Sprint Capacity Planning & Team Setup](./04b-sprint-capacity-planning.md)** *(8 minutes)*
   - Master capacity calculations, team coordination, and professional milestone descriptions
   - Real-world formulas and team scenarios for accurate sprint planning
   
-- **[Activity 1C: Issue Management & Sprint Execution](./01c-issue-management-sprint-execution.md)** *(7 minutes)*
+- **[Activity 1C: Issue Management & Sprint Execution](./04c-issue-management-sprint-execution.md)** *(7 minutes)*
   - Complete sprint setup with issue creation, story point allocation, and quality standards
   - Definition of Done and sprint validation techniques
 

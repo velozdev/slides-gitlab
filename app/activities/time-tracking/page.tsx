@@ -51,6 +51,22 @@ export default function TimeTrackingPracticePage() {
           </div>
         </div>
 
+        {/* Start Activity Button */}
+        <div className="mb-8 text-center">
+          <a 
+            href="https://github.com/jsdev/slides-gitlab/blob/main/activities/day-1/03-time-tracking-practice.md"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-orange-600 text-white font-medium rounded-lg hover:bg-orange-700 transition-colors"
+          >
+            <Clock className="w-5 h-5" />
+            Start Activity - View Instructions
+          </a>
+          <p className="text-sm text-gray-500 mt-2">
+            Opens the detailed step-by-step instructions in a new tab
+          </p>
+        </div>
+
         {/* Learning Objectives */}
         <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-lg border border-blue-200 mb-8">
           <h2 className="text-xl font-semibold text-blue-900 mb-4">🎯 What You'll Learn</h2>
