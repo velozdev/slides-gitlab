@@ -44,7 +44,7 @@ export default function WorkflowBoards() {
             {/* Start Activity Button */}
             <div className="mt-6">
               <a 
-                href="https://github.com/jsdev/slides-gitlab/blob/main/activities/day-2/06-configure-workflow-boards.md"
+                href="https://github.com/jsdev/slides-gitlab/blob/main/activities/day-2/06-configure-workflow-board.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors"
