@@ -51,6 +51,12 @@ export default function HomePage() {
                 Settings
               </Button>
             </Link>
+            <Link href="/activities">
+              <Button variant="outline" className="flex items-center gap-2 bg-transparent">
+                <BookOpen className="w-4 h-4" />
+                Activities
+              </Button>
+            </Link>
             <Link href="/exercises">
               <Button variant="outline" className="flex items-center gap-2 bg-transparent">
                 <BookOpen className="w-4 h-4" />

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { BookOpen, Rocket, Target, TrendingUp, Zap, BarChart3, Briefcase, DollarSign, Users, RefreshCw, Activity, Gauge, MessageSquare, Shield } from "lucide-react";
+import { BookOpen, Rocket, Target, TrendingUp, Zap, BarChart3, Briefcase, DollarSign, Users, RefreshCw, Activity, Gauge, MessageSquare, Shield, Calendar } from "lucide-react";
 
 export default function ExercisesDashboard() {
   return (
@@ -361,6 +361,70 @@ export default function ExercisesDashboard() {
                     <span className="flex items-center gap-1">
                       <Gauge className="w-4 h-4" />
                       Performance metrics
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </Link>
+
+          <Link href="/exercises/MilestonesAndEpics" className="group">
+            <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-purple-500">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-purple-100 rounded-lg group-hover:bg-purple-200 transition-colors">
+                  <Target className="w-6 h-6 text-purple-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors">
+                    GitLab Milestones & Epics Workshop
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Master milestone planning, sprint capacity management, and epic organization through interactive hands-on workshops with achievement tracking and realistic project scenarios.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-4 h-4" />
+                      Sprint planning
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Users className="w-4 h-4" />
+                      Capacity management
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Target className="w-4 h-4" />
+                      Goal setting
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </Card>
+          </Link>
+
+          <Link href="/exercises/GitLabMilestoneSimulator" className="group">
+            <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-indigo-500">
+              <div className="flex items-start gap-4">
+                <div className="p-3 bg-indigo-100 rounded-lg group-hover:bg-indigo-200 transition-colors">
+                  <Target className="w-6 h-6 text-indigo-600" />
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                    GitLab Milestone Creation Simulator
+                  </h3>
+                  <p className="text-gray-600 mb-4">
+                    Practice milestone creation without GitLab access! Interactive step-by-step simulator for learning sprint planning, capacity calculations, and issue management in a safe environment.
+                  </p>
+                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                    <span className="flex items-center gap-1">
+                      <Target className="w-4 h-4" />
+                      No GitLab needed
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Calendar className="w-4 h-4" />
+                      Step-by-step guidance
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Users className="w-4 h-4" />
+                      Safe practice environment
                     </span>
                   </div>
                 </div>
