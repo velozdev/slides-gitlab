@@ -43,10 +43,20 @@
 * Minor inconvenience if compromised
 * Basic security controls required
 
+# FIPS 199 Security Categorization
+## Understanding Impact Levels for Your Systems
+
+### Impact Classification System:
+
 **Moderate Impact** 
 * Serious impact on operations or individuals
 * Significant financial or operational consequences
 * Enhanced security controls required
+
+# FIPS 199 Security Categorization
+## Understanding Impact Levels for Your Systems
+
+### Impact Classification System:
 
 **High Impact**
 * Severe or catastrophic impact
@@ -54,6 +64,7 @@
 * Most stringent security controls required
 
 #### **Key Principle**: Higher categorization = More rigorous GitLab configuration
+
 
 
 # NIST Framework Integration
@@ -66,13 +77,17 @@
 * Choose appropriate controls based on system categorization
 * Technical implementation specifications
 
+# NIST Framework Integration
+## Your Implementation Roadmap
+
+### Critical NIST Publications:
+
 **NIST 800-37**: Risk Management Framework (RMF)
 * Step-by-step implementation process
 * Lifecycle approach to security management
 * Continuous authorization methodology
 
 #### **Remember**: FITSMA = Law | NIST = Implementation Guide
-
 
 # Risk Management Framework (RMF)
 ## Six-Step Security Lifecycle
@@ -83,6 +98,9 @@
 Define System   Choose      Deploy        Verify      Authorize    Continuous
 & Requirements  Controls    Controls      Effectiveness Operation   Monitoring
 ```
+
+# Risk Management Framework (RMF)
+## Six-Step Security Lifecycle
 
 ### GitLab Maps to Every RMF Step:
 * **Categorize**: System documentation and requirements tracking
@@ -103,10 +121,20 @@ Define System   Choose      Deploy        Verify      Authorize    Continuous
 * Built-in security patterns and standards
 * Developer security training and awareness
 
+# FITSMA Impact on Development
+## Shifting Security Left in the SDLC
+
+### Security Integration Requirements:
+
 **Access Control & Authentication**
 * Role-based access to sensitive resources
 * Multi-factor authentication requirements
 * Principle of least privilege implementation
+
+# FITSMA Impact on Development
+## Shifting Security Left in the SDLC
+
+### Security Integration Requirements:
 
 **Auditing & Logging**
 * Comprehensive activity tracking
@@ -139,6 +167,9 @@ Define System   Choose      Deploy        Verify      Authorize    Continuous
 * **Coverage**: Multiple programming languages supported
 * **Integration**: Automated pipeline execution
 
+# Static Application Security Testing (SAST)
+## Early Security Integration
+
 ### FITSMA Compliance Benefits:
 * ✅ **Secure Coding Practices** - Enforces coding standards
 * ✅ **Early Detection** - Catches vulnerabilities before deployment
@@ -156,6 +187,9 @@ Define System   Choose      Deploy        Verify      Authorize    Continuous
 * **Timing**: Requires deployed/running application
 * **Coverage**: Entire application including configuration
 * **Integration**: Staging and pre-production testing
+
+# Dynamic Application Security Testing (DAST)
+## Runtime Security Verification
 
 ### FITSMA Compliance Benefits:
 * ✅ **Runtime Verification** - Validates security in operational state
@@ -179,6 +213,9 @@ Define System   Choose      Deploy        Verify      Authorize    Continuous
 * Supply chain risk management
 * Known vulnerability tracking
 * Continuous dependency monitoring
+
+# Dependency & Container Scanning
+## Supply Chain Security
 
 ### Container Scanning:
 **What it Does:**
@@ -205,6 +242,9 @@ Define System   Choose      Deploy        Verify      Authorize    Continuous
 * Compliance with authentication requirements
 * Integration with enterprise identity systems
 
+# Access Controls & Audit Logs
+## Authentication and Accountability
+
 ### Comprehensive Audit Logging:
 * User actions and system events
 * Security-relevant operations
@@ -224,6 +264,9 @@ Multiple   Priority   Developer    Code Fix    Testing    Documentation
 Scanners   Rating     Assignment   & Deploy    & Verify   & Audit Trail
 ```
 
+# Vulnerability Management Workflow
+## Centralized Security Oversight
+
 ### GitLab Integration Benefits:
 * **Centralized Dashboard** - Single view of all security issues
 * **Automated Workflows** - Issue creation from scan results
@@ -241,12 +284,19 @@ Scanners   Rating     Assignment   & Deploy    & Verify   & Audit Trail
 * Set up access control policies
 * Enable comprehensive audit logging
 
+# FITSMA Implementation Strategy
+## Building Compliant GitLab Workflows
+
 ### Phase 2: Pipeline Integration (Weeks 3-4)
 **Automated Security Testing**
 * SAST integration in CI/CD pipelines
 * DAST testing in staging environments
 * Dependency and container scanning
 * Automated vulnerability reporting
+
+
+# FITSMA Implementation Strategy
+## Building Compliant GitLab Workflows
 
 ### Phase 3: Monitoring & Compliance (Weeks 5-6)
 **Continuous Monitoring**
@@ -266,11 +316,21 @@ Scanners   Rating     Assignment   & Deploy    & Verify   & Audit Trail
 * Configure vulnerability thresholds and blocking policies
 * Enable secret detection and credential scanning
 
+# Security Configuration Best Practices
+## Hardening Your GitLab Environment
+
+### Essential Security Settings:
+
 **Access Control Hardening:**
 * Implement least privilege access principles
 * Enable MFA for all users with write access
 * Configure IP allowlists for sensitive operations
 * Regular access reviews and cleanup
+
+# Security Configuration Best Practices
+## Hardening Your GitLab Environment
+
+### Essential Security Settings:
 
 **Pipeline Security:**
 * Secure CI/CD variable management
@@ -294,6 +354,9 @@ Scanners   Rating     Assignment   & Deploy    & Verify   & Audit Trail
 * Compliance status reporting
 * Risk assessment support materials
 
+# Compliance Reporting & Documentation
+## Meeting FITSMA Audit Requirements
+
 ### Audit Trail Maintenance:
 * Comprehensive activity logging
 * Immutable audit records
@@ -311,12 +374,20 @@ Scanners   Rating     Assignment   & Deploy    & Verify   & Audit Trail
 * Security metrics and trends
 * Compliance status monitoring
 
+# Advanced FITSMA Features
+## Enterprise-Grade Security Controls
+
+### GitLab Ultimate Security Features:
 **Advanced Scanning Capabilities**
 * License compliance scanning
 * Advanced SAST rule customization
 * Interactive Application Security Testing (IAST)
 * Security policy management
 
+# Advanced FITSMA Features
+## Enterprise-Grade Security Controls
+
+### GitLab Ultimate Security Features:
 **Enterprise Integration**
 * LDAP/Active Directory integration
 * SAML/SSO authentication
@@ -333,11 +404,17 @@ Scanners   Rating     Assignment   & Deploy    & Verify   & Audit Trail
 3. **Configure thresholds**: Set vulnerability blocking policies
 4. **Test pipeline**: Run security scans and review results
 
+# Hands-On Exercise: FITSMA Setup
+## Configure Your Compliance Environment
+
 ### Part 2: Access Control Setup (10 minutes)
 1. **Review permissions**: `Project → Settings → Members`
 2. **Enable MFA**: `User Settings → Account → Two-Factor Authentication`
 3. **Configure branch protection**: `Project → Settings → Repository → Push Rules`
 4. **Set approval rules**: Require security review for sensitive changes
+
+# Hands-On Exercise: FITSMA Setup
+## Configure Your Compliance Environment
 
 ### Part 3: Audit Configuration (10 minutes)
 1. **Enable audit logs**: `Admin → Settings → Audit Events`
@@ -356,6 +433,10 @@ Scanners   Rating     Assignment   & Deploy    & Verify   & Audit Trail
 * Incremental scanning strategies
 * Caching of scan results
 * Selective scanning based on changes
+
+
+# Common FITSMA Challenges & Solutions
+## Overcoming Implementation Obstacles
 
 ### Challenge 2: False Positives
 **Problem**: Security tools generate too many false alerts
@@ -377,12 +458,20 @@ Scanners   Rating     Assignment   & Deploy    & Verify   & Audit Trail
 * Vulnerability density trends
 * Security scan coverage percentage
 
+# Measuring FITSMA Compliance Success
+## Key Performance Indicators
+
+### Security Metrics:
 **Access Control Effectiveness**
 * Failed authentication attempts
 * Privileged access usage patterns
 * Access review completion rates
 * MFA adoption and compliance
 
+# Measuring FITSMA Compliance Success
+## Key Performance Indicators
+
+### Security Metrics:
 **Audit and Compliance**
 * Audit finding trends
 * Compliance assessment scores
@@ -400,10 +489,16 @@ Scanners   Rating     Assignment   & Deploy    & Verify   & Audit Trail
 3. ✅ **Configure access controls** and audit logging
 4. ✅ **Train team members** on secure development practices
 
+# Next Steps & Resources
+## Continuing Your FITSMA Journey
+
 ### Advanced Implementation:
 * **Security policy as code** - Version control your security configurations
 * **Custom security rules** - Develop organization-specific scanning rules
 * **Integration automation** - Connect GitLab with GRC and SIEM tools
+
+# Next Steps & Resources
+## Continuing Your FITSMA Journey
 
 ### Resources:
 * **NIST Cybersecurity Framework**: https://www.nist.gov/cyberframework

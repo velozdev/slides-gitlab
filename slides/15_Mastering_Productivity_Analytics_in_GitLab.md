@@ -12,6 +12,9 @@
 * **Remote Teams** - Distributed collaboration and communication challenges
 * **Resource Optimization** - Maximizing ROI on development investments
 
+# Why Productivity Analytics Matter
+## The Business Case for Data-Driven Development
+
 ### Analytics-Driven Solutions:
 * ✅ **Identify Bottlenecks** - Data reveals process inefficiencies
 * ✅ **Optimize Workflows** - Evidence-based process improvements
@@ -61,6 +64,9 @@
 | **Deployment Frequency** | How often code is deployed to production | Release velocity and team productivity |
 | **Merge Request Velocity** | Rate of MR creation and completion | Development throughput |
 
+# Key Productivity Metrics
+## Measuring What Matters Most
+
 ### Quality and Reliability Metrics:
 
 | Metric | Definition | Business Value |
@@ -83,16 +89,25 @@
 * Real-time data access with pagination
 * Strong typing and schema documentation
 
+# GitLab Data Sources
+## Understanding Your Analytics Foundation
+
 **GitLab REST API**
 * Traditional RESTful interface
 * Good for simple data retrieval
 * Well-documented endpoints
 * Suitable for basic automation
 
+# GitLab Data Sources
+## Understanding Your Analytics Foundation
+
 **GitLab UI Export**
 * Manual data extraction for ad-hoc analysis
 * Quick access to specific reports
 * Limited scalability and automation
+
+# GitLab Data Sources
+## Understanding Your Analytics Foundation
 
 ### Data Categories Available:
 * **Projects and Groups** - Organizational structure
@@ -111,6 +126,9 @@
 * **Reduced Network Overhead** - Single request for complex data
 * **Self-Documenting** - Built-in schema exploration
 * **Efficient Aggregation** - Combine related data in one query
+
+# Introduction to GitLab GraphQL
+## Powerful Query Capabilities
 
 ### Basic GraphQL Structure:
 ```graphql
@@ -173,6 +191,9 @@ query RecentActivity($since: Time!) {
 }
 ```
 
+# Advanced GraphQL Queries
+## Complex Data Retrieval Patterns
+
 ### Multi-Project Analytics:
 ```graphql
 query GroupAnalytics {
@@ -203,6 +224,9 @@ query GroupAnalytics {
 | **requests** | HTTP requests for API calls | Simple API interaction |
 | **matplotlib** | Basic plotting and visualization | Line charts, histograms, scatter plots |
 | **plotly** | Interactive visualizations | Dynamic charts, dashboards |
+
+# Setting Up Python Analytics
+## Tools and Environment
 
 ### Environment Setup:
 ```bash
@@ -503,6 +527,10 @@ class ProductivityMonitor:
 
 #### **Expected Output**: Basic metrics showing cycle time, velocity, and completion rates
 
+
+# Hands-On Exercise: Your First Analytics
+## Practice Implementation
+
 ### Exercise 2: Visualization (10 minutes)
 **Objective**: Create your first productivity chart
 
@@ -513,6 +541,10 @@ class ProductivityMonitor:
 4. Export charts as images
 
 #### **Expected Output**: Two clear charts showing productivity trends
+
+
+# Hands-On Exercise: Your First Analytics
+## Practice Implementation
 
 ### Exercise 3: Monitoring Setup (10 minutes)
 **Objective**: Set up basic performance monitoring
@@ -618,11 +650,17 @@ def calculate_analytics_roi(baseline_metrics, current_metrics, costs):
 * Create basic dashboards
 * Train team on analytics concepts
 
+# Implementation Roadmap
+## Building Sustainable Analytics
+
 ### Phase 2: Automation (Weeks 3-4)
 * Implement automated data collection
 * Set up monitoring and alerting
 * Create regular reporting processes
 * Integrate with existing workflows
+
+# Implementation Roadmap
+## Building Sustainable Analytics
 
 ### Phase 3: Advanced Analytics (Weeks 5-8)
 * Add predictive capabilities
@@ -641,15 +679,24 @@ def calculate_analytics_roi(baseline_metrics, current_metrics, costs):
 
 **Solution**: Start with 3-5 key metrics that drive decisions
 
+# Common Pitfalls & Solutions
+## Avoiding Analytics Mistakes
+
 ### Pitfall 2: Vanity Metrics
 **Problem**: Measuring outputs instead of outcomes
 
 **Solution**: Focus on metrics that reflect business value
 
+# Common Pitfalls & Solutions
+## Avoiding Analytics Mistakes
+
 ### Pitfall 3: Poor Data Quality
 **Problem**: Inconsistent or inaccurate data leads to wrong conclusions
 
 **Solution**: Invest in data validation and cleaning processes
+
+# Common Pitfalls & Solutions
+## Avoiding Analytics Mistakes
 
 ### Pitfall 4: No Action on Insights
 **Problem**: Creating reports that nobody acts on
@@ -668,11 +715,17 @@ def calculate_analytics_roi(baseline_metrics, current_metrics, costs):
 3. ✅ **Create simple visualizations** to share with your team
 4. ✅ **Define realistic thresholds** for performance monitoring
 
+# Next Steps & Best Practices
+## Building Your Analytics Practice
+
 ### Long-term Strategy:
 * **Automate data collection** to reduce manual effort
 * **Build team analytics skills** through training and practice
 * **Integrate with existing tools** for seamless workflows
 * **Measure and communicate ROI** to stakeholders
+
+# Next Steps & Best Practices
+## Building Your Analytics Practice
 
 ### Success Principles:
 * **Start Simple** - Begin with basic metrics and expand gradually
@@ -691,6 +744,9 @@ def calculate_analytics_roi(baseline_metrics, current_metrics, costs):
 * Which data sources are most accessible in your current environment?
 * How will you ensure analytics drive action rather than just reporting?
 * What tools and skills do you need to get started?
+
+# Questions & Discussion
+## Optimizing Your Analytics Strategy
 
 **Next Steps:**
 * Identify your first 3 metrics to track
