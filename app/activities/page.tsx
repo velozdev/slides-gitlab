@@ -317,7 +317,7 @@ export default function ActivitiesDashboard() {
                           </div>
                           <div className="flex-1">
                             <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
-                              Activity 2.0: Milestone Simulator
+                              Exercise 2.0: Milestone Simulator
                             </h4>
                             <p className="text-xs text-gray-600 mb-2">
                               Practice milestone creation without GitLab access (15 min)
@@ -506,11 +506,34 @@ export default function ActivitiesDashboard() {
                     <strong>Focus:</strong> Epic planning • Timeline visualization • Cross-functional coordination
                   </div>
                 </div>
+
+                 {/* Project */}
+                <div className="bg-indigo-50 p-4 rounded-lg border-l-4 border-l-indigo-500">
+                  <h3 className="font-semibold text-indigo-800 mb-3">🗺️ Project Planning</h3>
+                   <Link href="/exercises/ProjectPlanning" className="group">
+                      <div className="p-3 bg-white rounded-lg border hover:shadow-md transition-shadow">
+                        <div className="flex items-start gap-3">
+                          <div className="p-2 bg-indigo-100 rounded-lg group-hover:bg-indigo-200 transition-colors">
+                            <Target className="w-4 h-4 text-indigo-600" />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                              Exercise 2.7: Project Planning
+                            </h4>
+                            <p className="text-xs text-gray-600 mb-2">
+                              Story Point Estimation Workshop | Sprint Planning Simulation | Dependency Analysis | Risk Assessment Matrix
+                            </p>
+                            <div className="text-xs text-indigo-600">No GitLab needed • Interactive • Safe practice</div>
+                          </div>
+                        </div>
+                      </div>
+                    </Link>
+                </div>
               </div>
 
               <div className="mt-4 bg-blue-100 p-3 rounded-lg">
                 <div className="text-sm text-blue-800">
-                  <strong>Day 2 Total:</strong> ~75 minutes • <strong>Skills:</strong> Sprint planning, capacity management, workflow boards, epic planning, strategic roadmaps
+                  <strong>Day 2 Total:</strong> ~90 minutes • <strong>Skills:</strong> Sprint planning, capacity management, workflow boards, epic planning, strategic roadmaps
                 </div>
               </div>
             </div>
