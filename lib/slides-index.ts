@@ -10,6 +10,10 @@ import slide7 from '../slides/08_Advanced_Git_Branching_Workflows_with_GitLab.md
 import slide8 from '../slides/09_CI_Foundations_&_Best_Practices.md';
 import slide9 from '../slides/10_Leveraging_the_GitLab_Ecosystem_&_Integrations.md';
 import slide10 from '../slides/11_Implementation_Planning_Session.md';
+import slide11 from '../slides/12_GitLab_Design_Development_Integration_Workflows.md';
+import slide12 from '../slides/13_GitLab_FITSMA_Compliance_Secure_Development.md';
+import slide13 from '../slides/14_Simulating_Nested_Milestones_in_GitLab.md';
+import slide14 from '../slides/15_Mastering_Productivity_Analytics_in_GitLab.md';
 
 export const slidesIndex = [
   { name: '01_GitLab_Foundations_&_UI_Navigation', file: '01_GitLab_Foundations_&_UI_Navigation.md', import: slide0 },
@@ -22,5 +26,9 @@ export const slidesIndex = [
   { name: '08_Advanced_Git_Branching_Workflows_with_GitLab', file: '08_Advanced_Git_Branching_Workflows_with_GitLab.md', import: slide7 },
   { name: '09_CI_Foundations_&_Best_Practices', file: '09_CI_Foundations_&_Best_Practices.md', import: slide8 },
   { name: '10_Leveraging_the_GitLab_Ecosystem_&_Integrations', file: '10_Leveraging_the_GitLab_Ecosystem_&_Integrations.md', import: slide9 },
-  { name: '11_Implementation_Planning_Session', file: '11_Implementation_Planning_Session.md', import: slide10 }
+  { name: '11_Implementation_Planning_Session', file: '11_Implementation_Planning_Session.md', import: slide10 },
+  { name: '12_GitLab_Design_Development_Integration_Workflows', file: '12_GitLab_Design_Development_Integration_Workflows.md', import: slide11 },
+  { name: '13_GitLab_FITSMA_Compliance_Secure_Development', file: '13_GitLab_FITSMA_Compliance_Secure_Development.md', import: slide12 },
+  { name: '14_Simulating_Nested_Milestones_in_GitLab', file: '14_Simulating_Nested_Milestones_in_GitLab.md', import: slide13 },
+  { name: '15_Mastering_Productivity_Analytics_in_GitLab', file: '15_Mastering_Productivity_Analytics_in_GitLab.md', import: slide14 }
 ];

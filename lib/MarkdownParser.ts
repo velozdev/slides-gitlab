@@ -79,6 +79,8 @@ export class MarkdownParser {
       '<img src="$2" alt="$1" class="inline-block align-middle my-4 max-h-24" />');
 
     // Headers
+    html = html.replace(/^#### \*\*(.*?)\*\*$/gm, '<h4 class="text-lg font-semibold mb-3 text-foreground/90">$1</h4>');
+    html = html.replace(/^#### (.*$)/gm, '<h4 class="text-lg font-semibold mb-3 text-foreground/90">$1</h4>');
     html = html.replace(/^### \*\*(.*?)\*\*$/gm, '<h3 class="text-2xl font-semibold mb-4">$1</h3>');
     html = html.replace(/^### (.*$)/gm, '<h3 class="text-2xl font-semibold mb-4">$1</h3>');
     html = html.replace(/^## \*\*(.*?)\*\*$/gm, '<h2 class="text-3xl font-bold mb-6">$1</h2>');
@@ -88,9 +90,13 @@ export class MarkdownParser {
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-blue-400">$1</strong>');
     html = html.replace(/\*(.*?)\*/g, '<em class="italic text-blue-300">$1</em>');
 
+    // Code blocks (triple backticks)
+    html = html.replace(/```(\w+)?\n?([\s\S]*?)```/g, 
+      '<pre class="bg-muted border border-border rounded-lg p-4 my-4 overflow-x-auto"><code class="text-muted-foreground font-mono text-sm">$2</code></pre>');
+
     // Inline code
     html = html.replace(/`([^`]+)`/g, 
-      '<code class="bg-gray-800 text-blue-400 px-2 py-1 rounded font-mono text-sm">$1</code>');
+      '<code class="bg-muted text-muted-foreground px-2 py-1 rounded font-mono text-sm border border-border">$1</code>');
 
     // Lists
     html = html.replace(/^[*-] (.+)$/gm, '<li class="list-item unordered">$1</li>');
