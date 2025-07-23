@@ -17,7 +17,7 @@ export default function ExercisesDashboard() {
             <p className="mb-4 text-gray-700">Practice project planning, communication, and GitLab skills with interactive exercises and quizzes.</p>
             <div className="space-y-6">
               {/* Day 1: GitLab Foundations */}
-              <details className="group" name="training-days" open>
+              <details className="group" name="training-days">
                 <summary className="flex items-center justify-between p-6 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
@@ -180,7 +180,7 @@ export default function ExercisesDashboard() {
               </details>
 
               {/* Day 3: Advanced Workflows */}
-              <details className="group" name="training-days">
+              <details className="group" name="training-days" open>
                 <summary className="flex items-center justify-between p-6 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
                   <div className="flex items-center gap-4">
                     <div className="flex items-center gap-2">
@@ -195,7 +195,7 @@ export default function ExercisesDashboard() {
                   </div>
                 </summary>
                 <div className="px-6 pb-6">
-                  <Link href="/exercises/BranchNamingChallenge" className="group">
+                  <Link href="/exercises/MilestoneNamingConvention" className="group">
                     <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-green-500">
                       <div className="flex items-start gap-4">
                         <div className="p-3 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
@@ -203,10 +203,10 @@ export default function ExercisesDashboard() {
                         </div>
                         <div className="flex-1">
                           <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors">
-                            Branch Naming Challenge
+                            Milestone Naming Convention Practice
                           </h3>
                           <p className="text-gray-600 mb-4">
-                            Test your skills in creating consistent and descriptive branch names that enhance collaboration and code management.
+                            Master the art of creating hierarchical milestone structures using strategic naming conventions that enhance project organization and visibility.
                           </p>
                           <div className="flex items-center gap-4 text-sm text-gray-500">
                             <span className="flex items-center gap-1">
@@ -215,11 +215,11 @@ export default function ExercisesDashboard() {
                             </span>
                             <span className="flex items-center gap-1">
                               <Users className="w-4 h-4" />
-                              Team collaboration
+                              Project structure
                             </span>
                             <span className="flex items-center gap-1">
                               <Activity className="w-4 h-4" />
-                              Code management
+                              Milestone hierarchy
                             </span>
                           </div>
                         </div>
@@ -227,7 +227,7 @@ export default function ExercisesDashboard() {
                     </Card>
                   </Link>
 
-                  <Link href="/exercises/CreateFirstPipeline" className="group">
+                  <Link href="/exercises/DependencyMappingExercise" className="group">
                     <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-blue-500">
                       <div className="flex items-start gap-4">
                         <div className="p-3 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
@@ -235,23 +235,23 @@ export default function ExercisesDashboard() {
                         </div>
                         <div className="flex-1">
                           <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
-                            Create Your First CI/CD Pipeline
+                            Dependency Mapping Exercise
                           </h3>
                           <p className="text-gray-600 mb-4">
-                            Get hands-on experience in setting up a basic CI/CD pipeline, understanding pipeline stages, and configuring jobs for automated testing and deployment.
+                            Practice creating logical issue dependencies and relationship mapping to build effective hierarchical project management in GitLab.
                           </p>
                           <div className="flex items-center gap-4 text-sm text-gray-500">
                             <span className="flex items-center gap-1">
                               <Rocket className="w-4 h-4" />
-                              CI/CD fundamentals
+                              Issue dependencies
                             </span>
                             <span className="flex items-center gap-1">
                               <Gauge className="w-4 h-4" />
-                              Pipeline configuration
+                              Relationship mapping
                             </span>
                             <span className="flex items-center gap-1">
                               <RefreshCw className="w-4 h-4" />
-                              Automated deployment
+                              Project hierarchy
                             </span>
                           </div>
                         </div>
@@ -259,7 +259,7 @@ export default function ExercisesDashboard() {
                     </Card>
                   </Link>
 
-                  <Link href="/exercises/BrainstormIdealIntegration" className="group">
+                  <Link href="/exercises/GitLabStakeholderScenarios" className="group">
                     <Card className="p-6 hover:shadow-lg transition-shadow border-l-4 border-l-yellow-500">
                       <div className="flex items-start gap-4">
                         <div className="p-3 bg-yellow-100 rounded-lg group-hover:bg-yellow-200 transition-colors">
@@ -267,23 +267,23 @@ export default function ExercisesDashboard() {
                         </div>
                         <div className="flex-1">
                           <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-yellow-600 transition-colors">
-                            Brainstorm Ideal Integration
+                            GitLab Stakeholder Scenarios
                           </h3>
                           <p className="text-gray-600 mb-4">
-                            Collaborate with your team to design an ideal integration strategy for a sample project, considering factors like code quality, testing, and deployment.
+                            Practice managing complex stakeholder situations and communication strategies using GitLab's collaboration features and project management tools.
                           </p>
                           <div className="flex items-center gap-4 text-sm text-gray-500">
                             <span className="flex items-center gap-1">
                               <Shield className="w-4 h-4" />
-                              Integration strategy
+                              Stakeholder management
                             </span>
                             <span className="flex items-center gap-1">
                               <Users className="w-4 h-4" />
-                              Team collaboration
+                              Communication strategies
                             </span>
                             <span className="flex items-center gap-1">
                               <Activity className="w-4 h-4" />
-                              Code quality
+                              Project coordination
                             </span>
                           </div>
                         </div>

@@ -54,7 +54,7 @@ export default function LabelSystemPage() {
         {/* Start Activity Button */}
         <div className="mb-8 text-center">
           <a 
-            href="https://github.com/jsdev/slides-gitlab/blob/main/activities/day-1/04-design-label-system"
+            href="https://github.com/jsdev/slides-gitlab/blob/main/activities/day-1/04-design-label-system.md"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white font-medium rounded-lg hover:bg-purple-700 transition-colors"

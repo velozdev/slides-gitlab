@@ -279,7 +279,7 @@ export default function ActivitiesDashboard() {
           </details>
 
           {/* Day 2: Project Planning & Management */}
-          <details className="group" name="training-days" open>
+          <details className="group" name="training-days">
             <summary className="flex items-center justify-between p-6 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
@@ -540,7 +540,7 @@ export default function ActivitiesDashboard() {
           </details>
 
           {/* Day 3: Advanced Workflows */}
-          <details className="group" name="training-days">
+          <details className="group" name="training-days" open>
             <summary className="flex items-center justify-between p-6 bg-white border border-gray-200 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2">
@@ -548,9 +548,9 @@ export default function ActivitiesDashboard() {
                   <h2 className="text-xl font-bold text-gray-900">Day 3: Advanced Workflows & Integration</h2>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">Coming Soon</span>
-                  <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">~90 minutes</span>
-                  <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">7 activities</span>
+                  <span className="px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">✅ Available</span>
+                  <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-medium rounded">70 minutes</span>
+                  <span className="px-2 py-1 bg-purple-100 text-purple-800 text-xs font-medium rounded">3 activities</span>
                 </div>
               </div>
               <div className="text-gray-400 group-open:rotate-180 transition-transform">
@@ -604,16 +604,79 @@ export default function ActivitiesDashboard() {
                   </div>
                 </div>
                 
-                <div className="bg-gray-50 p-4 rounded-lg border-l-4 border-l-gray-400">
-                  <h3 className="font-semibold text-gray-700 mb-2">🚧 More Activities Coming Soon</h3>
-                  <ul className="space-y-2 text-sm text-gray-600">
-                    <li>• <strong>Activity 3.2:</strong> Advanced Git Workflows & Merge Strategies (20 min)</li>
-                    <li>• <strong>Activity 3.3:</strong> Code Review Best Practices (25 min)</li>
-                    <li>• <strong>Activity 3.4:</strong> CI/CD Pipeline Fundamentals (30 min)</li>
-                    <li>• <strong>Activity 3.5:</strong> Advanced GitLab Integration (20 min)</li>
-                  </ul>
-                  <div className="mt-3 text-xs text-gray-500">
-                    <strong>Additional Time:</strong> ~95 minutes • <strong>Prerequisites:</strong> Day 1 & 2 completion
+                <div className="bg-blue-50 p-4 rounded-lg border-l-4 border-l-blue-500">
+                  <h3 className="font-semibold text-blue-800 mb-3">� CI/CD Fundamentals</h3>
+                  <Link href="/activities/create-first-pipeline" className="group block">
+                    <div className="p-3 bg-white rounded-lg border hover:shadow-md transition-shadow">
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 bg-blue-100 rounded-lg group-hover:bg-blue-200 transition-colors">
+                          <Settings className="w-4 h-4 text-blue-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900 group-hover:text-blue-600 transition-colors">
+                            Activity 3.2: Create Your First CI/CD Pipeline
+                          </h4>
+                          <p className="text-gray-600 mb-2">
+                            Build automated workflows from scratch with GitLab CI/CD Pipeline Editor
+                          </p>
+                          <div className="flex items-center gap-4 text-xs text-gray-500">
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              30 minutes
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Target className="w-3 h-3" />
+                              Intermediate level
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Users className="w-3 h-3" />
+                              Hands-on practice
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                  <div className="mt-3 text-xs text-blue-700">
+                    <strong>Focus:</strong> Pipeline creation • YAML configuration • Automated testing
+                  </div>
+                </div>
+                
+                <div className="bg-green-50 p-4 rounded-lg border-l-4 border-l-green-500">
+                  <h3 className="font-semibold text-green-800 mb-3">🔗 Integration Strategy</h3>
+                  <Link href="/activities/brainstorm-ideal-integration" className="group block">
+                    <div className="p-3 bg-white rounded-lg border hover:shadow-md transition-shadow">
+                      <div className="flex items-start gap-3">
+                        <div className="p-2 bg-green-100 rounded-lg group-hover:bg-green-200 transition-colors">
+                          <Target className="w-4 h-4 text-green-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-medium text-gray-900 group-hover:text-green-600 transition-colors">
+                            Activity 3.3: Brainstorm Your Ideal Integration
+                          </h4>
+                          <p className="text-gray-600 mb-2">
+                            Identify high-impact integration opportunities for your team's workflows
+                          </p>
+                          <div className="flex items-center gap-4 text-xs text-gray-500">
+                            <span className="flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              15 minutes
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Target className="w-3 h-3" />
+                              Strategic level
+                            </span>
+                            <span className="flex items-center gap-1">
+                              <Users className="w-3 h-3" />
+                              Team brainstorming
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                  <div className="mt-3 text-xs text-green-700">
+                    <strong>Focus:</strong> Workflow analysis • Tool integration • Process optimization
                   </div>
                 </div>
               </div>

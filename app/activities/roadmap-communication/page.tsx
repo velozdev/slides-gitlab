@@ -44,7 +44,7 @@ export default function RoadmapCommunication() {
             {/* Start Activity Button */}
             <div className="mt-6">
               <a 
-                href="https://github.com/jsdev/slides-gitlab/blob/main/activities/day-2/07-building-communicating-roadmaps.md"
+                href="https://github.com/jsdev/slides-gitlab/blob/main/activities/day-2/07-building-roadmap-communication.md"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition-colors"
