@@ -199,7 +199,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
       <div className={`fixed inset-0 bg-background text-foreground flex flex-col ${fontFamily}`}
         style={{ fontFamily: `var(--font-family)` }}>
         <div className="flex-1 flex flex-col justify-center items-center p-8">
-          <div className="max-w-4xl w-full text-center">
+          <div className="max-w-4xl w-full text-left">
             <h1 className="text-4xl md:text-6xl font-bold mb-8 animate-in">{slides[currentSlide].title}</h1>
             <div
               className="text-xl md:text-2xl leading-relaxed"
@@ -241,7 +241,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
           <>
             <div className="flex justify-between items-center mb-6">
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">{slides[0]?.title}</h1>
+                <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">{slides[0]?.title}</h1>
                 <p className="text-gray-600">{slides.length} slides</p>
               </div>
               <Button onClick={startPresentation} className="flex items-center gap-2">

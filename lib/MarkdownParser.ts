@@ -83,8 +83,8 @@ export class MarkdownParser {
     html = html.replace(/^#### (.*$)/gm, '<h4 class="text-lg font-semibold mb-3 text-foreground/90">$1</h4>');
     html = html.replace(/^### \*\*(.*?)\*\*$/gm, '<h3 class="text-2xl font-semibold mb-4">$1</h3>');
     html = html.replace(/^### (.*$)/gm, '<h3 class="text-2xl font-semibold mb-4">$1</h3>');
-    html = html.replace(/^## \*\*(.*?)\*\*$/gm, '<h2 class="text-3xl font-bold mb-6">$1</h2>');
-    html = html.replace(/^## (.*$)/gm, '<h2 class="text-3xl font-bold mb-6">$1</h2>');
+    html = html.replace(/^## \*\*(.*?)\*\*$/gm, '<h2 class="text-3xl font-bold mb-6 text-center">$1</h2>');
+    html = html.replace(/^## (.*$)/gm, '<h2 class="text-3xl font-bold mb-6 text-center">$1</h2>');
 
     // Bold and italic
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-blue-400">$1</strong>');
@@ -104,10 +104,10 @@ export class MarkdownParser {
 
     // Wrap consecutive ordered list items
     html = html.replace(/(<li class="list-item ordered">.*?<\/li>)(\s*<li class="list-item ordered">.*?<\/li>)*/gs, 
-      (match: string) => `<ol class="space-y-3 my-4 list-decimal list-inside mx-auto text-left" style="max-width: 600px;">${match}</ol>`);
+      (match: string) => `<ol class="space-y-3 my-4 list-decimal list-inside text-left" style="max-width: 600px;">${match}</ol>`);
 
     html = html.replace(/(<li class="list-item unordered">.*?<\/li>)(\s*<li class="list-item unordered">.*?<\/li>)*/gs, 
-      (match: string) => `<ul class="space-y-3 my-4 list-disc list-inside mx-auto text-left" style="max-width: 600px;">${match}</ul>`);
+      (match: string) => `<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">${match}</ul>`);
 
     // Paragraphs (avoid wrapping tables, lists, headers, and code blocks)
     // Use flex centering for title slide (slide 0), normal styling for others
