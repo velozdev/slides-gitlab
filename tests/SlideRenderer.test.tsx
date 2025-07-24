@@ -26,7 +26,7 @@ describe('SlideRenderer', () => {
     ];
 
     const { container } = render(
-      <SlideRenderer currentSlide={0} slides={slides} />
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={0} />
     );
 
     expect(container.querySelector('.slide-container')).toBeInTheDocument();
@@ -34,28 +34,44 @@ describe('SlideRenderer', () => {
     expect(container.innerHTML).toContain('Item 2');
   });
 
-  it('should find and reset list items on mount', () => {
+  it('should show items up to currentItem', () => {
     const slides = [
-      '<ul><li class="list-item unordered">Item 1</li><li class="list-item unordered">Item 2</li></ul>'
+      '<ul><li class="list-item unordered">Item 1</li><li class="list-item unordered">Item 2</li><li class="list-item unordered">Item 3</li></ul>'
     ];
 
     const { container } = render(
-      <SlideRenderer currentSlide={0} slides={slides} />
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={1} />
     );
 
     const listItems = container.querySelectorAll('li.list-item');
-    expect(listItems).toHaveLength(2);
+    expect(listItems).toHaveLength(3);
 
-    // Verify that list items have been reset (opacity and transform)
-    listItems.forEach(item => {
-      const htmlItem = item as HTMLElement;
-      expect(htmlItem.style.opacity).toBe('0');
-      expect(htmlItem.style.transform).toBe('translateX(-20px)');
-      expect(htmlItem.classList.contains('animate-in')).toBe(false);
-    });
+    // First two items should be visible
+    expect((listItems[0] as HTMLElement).style.opacity).toBe('1');
+    expect((listItems[1] as HTMLElement).style.opacity).toBe('1');
+    // Third item should be hidden
+    expect((listItems[2] as HTMLElement).style.opacity).toBe('0');
   });
 
-  it('should handle nested list items correctly', () => {
+  it('should reset all items when currentSlide changes', () => {
+    const slides = [
+      '<ul><li class="list-item unordered">Slide 1 Item</li></ul>',
+      '<ul><li class="list-item unordered">Slide 2 Item</li></ul>'
+    ];
+
+    const { rerender, container } = render(
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={0} />
+    );
+
+    // Change to slide 1 with currentItem 0 (no items shown yet)
+    rerender(<SlideRenderer currentSlide={1} slides={slides} currentItem={-1} />);
+
+    const listItems = container.querySelectorAll('li.list-item');
+    expect(listItems).toHaveLength(1);
+    expect((listItems[0] as HTMLElement).style.opacity).toBe('0');
+  });
+
+  it('should handle nested list items correctly with currentItem', () => {
     const slides = [
       `<ul class="space-y-3 my-4 list-disc list-inside text-left">
         <li class="list-item unordered">Main Item 1
@@ -69,76 +85,18 @@ describe('SlideRenderer', () => {
     ];
 
     const { container } = render(
-      <SlideRenderer currentSlide={0} slides={slides} />
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={2} />
     );
 
     const listItems = container.querySelectorAll('li.list-item');
-    expect(listItems).toHaveLength(4); // Main Item 1, Sub Item 1.1, Sub Item 1.2, Main Item 2
+    expect(listItems).toHaveLength(4);
 
-    // Verify all list items are reset
-    listItems.forEach(item => {
-      const htmlItem = item as HTMLElement;
-      expect(htmlItem.style.opacity).toBe('0');
-      expect(htmlItem.style.transform).toBe('translateX(-20px)');
-    });
-  });
-
-  it('should set up animation timer on mount', () => {
-    const slides = [
-      '<ul><li class="list-item unordered">Item 1</li></ul>'
-    ];
-
-    render(<SlideRenderer currentSlide={0} slides={slides} />);
-
-    // Verify setTimeout was called for animation delay
-    expect(mockSetTimeout).toHaveBeenCalledWith(expect.any(Function), 100);
-  });
-
-  it('should clean up timer on unmount', () => {
-    const slides = [
-      '<ul><li class="list-item unordered">Item 1</li></ul>'
-    ];
-
-    // Mock timer ID that setTimeout should return
-    const mockTimerId = 123;
-    mockSetTimeout.mockReturnValue(mockTimerId);
-
-    const { unmount } = render(
-      <SlideRenderer currentSlide={0} slides={slides} />
-    );
-
-    // Verify setTimeout was called during mount
-    expect(mockSetTimeout).toHaveBeenCalledWith(expect.any(Function), 100);
-
-    // Clear previous calls to focus on unmount behavior
-    mockClearTimeout.mockClear();
-
-    // Unmount the component
-    unmount();
-
-    // Verify clearTimeout was called during unmount
-    expect(mockClearTimeout).toHaveBeenCalled();
-  });
-
-  it('should reset and re-animate when currentSlide changes', () => {
-    const slides = [
-      '<ul><li class="list-item unordered">Slide 1 Item</li></ul>',
-      '<ul><li class="list-item unordered">Slide 2 Item</li></ul>'
-    ];
-    const { rerender, container } = render(
-      <SlideRenderer currentSlide={0} slides={slides} />
-    );
-
-    // Clear previous calls
-    mockSetTimeout.mockClear();
-
-    // Change to slide 1
-    rerender(<SlideRenderer currentSlide={1} slides={slides} />);
-    // Verify content changed
-    expect(container.innerHTML).toContain('Slide 2 Item');
-    expect(container.innerHTML).not.toContain('Slide 1 Item');
-    // Verify animation timer was set up again
-    expect(mockSetTimeout).toHaveBeenCalledWith(expect.any(Function), 100);
+    // First 3 items should be visible (currentItem = 2, so items 0, 1, 2)
+    expect((listItems[0] as HTMLElement).style.opacity).toBe('1');
+    expect((listItems[1] as HTMLElement).style.opacity).toBe('1');
+    expect((listItems[2] as HTMLElement).style.opacity).toBe('1');
+    // Fourth item should be hidden
+    expect((listItems[3] as HTMLElement).style.opacity).toBe('0');
   });
 
   it('should handle slides with no list items gracefully', () => {
@@ -146,25 +104,23 @@ describe('SlideRenderer', () => {
       '<p>Just a paragraph with no lists</p>'
     ];
     const { container } = render(
-      <SlideRenderer currentSlide={0} slides={slides} />
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={0} />
     );
 
     expect(container.innerHTML).toContain('Just a paragraph with no lists');
-    // Should still set up timer even with no list items
-    expect(mockSetTimeout).toHaveBeenCalledWith(expect.any(Function), 100);
   });
 
   it('should handle empty slides array', () => {
     const slides: string[] = [];
     expect(() => {
-      render(<SlideRenderer currentSlide={0} slides={slides} />);
+      render(<SlideRenderer currentSlide={0} slides={slides} currentItem={0} />);
     }).not.toThrow();
   });
 
   it('should handle currentSlide index out of bounds', () => {
     const slides = ['<p>Only slide</p>'];
     expect(() => {
-      render(<SlideRenderer currentSlide={5} slides={slides} />);
+      render(<SlideRenderer currentSlide={5} slides={slides} currentItem={0} />);
     }).not.toThrow();
   });
 
@@ -173,7 +129,7 @@ describe('SlideRenderer', () => {
       '<ul><li class="list-item unordered transition-all duration-300 ease-in-out">Item with transitions</li></ul>'
     ];
     const { container } = render(
-      <SlideRenderer currentSlide={0} slides={slides} />
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={0} />
     );
     const listItem = container.querySelector('li.list-item');
     expect(listItem).toHaveClass('transition-all', 'duration-300', 'ease-in-out');
@@ -193,7 +149,7 @@ describe('SlideRenderer', () => {
       </ul>`
     ];
     const { container } = render(
-      <SlideRenderer currentSlide={0} slides={slides} />
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={0} />
     );
 
     const orderedItems = container.querySelectorAll('li.list-item.ordered');
@@ -205,7 +161,6 @@ describe('SlideRenderer', () => {
     allItems.forEach(item => {
       const htmlItem = item as HTMLElement;
       expect(htmlItem.style.opacity).toBe('0');
-      expect(htmlItem.style.transform).toBe('translateX(-20px)');
     });
   });
 });

@@ -52,15 +52,22 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
   const nextItem = useCallback(() => {
     if (!slides[currentSlide]) return;
     const currentSlideContent = slides[currentSlide].content;
-    // Count list items and table rows
-    const listItems = (currentSlideContent.match(/^[*-] /gm) || []).length;
-    // Count table rows in markdown, including last row at end of string
+    
+    // Convert to HTML to count actual list items (including nested ones)
+    const html = MarkdownParser.convertToHTML(currentSlideContent, currentSlide);
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(`<div>${html}</div>`, "text/html");
+    
+    // Count all list items (including nested ones)
+    const listItems = doc.querySelectorAll('li.list-item').length;
+    
+    // Count table rows
     const tableRowMatches = currentSlideContent.match(/\|[^\n]*\|[^\n]*(?:\n|$)/g) || [];
-    // Exclude header and separator rows
     let tableRows = 0;
     if (tableRowMatches.length >= 3) {
       tableRows = tableRowMatches.length - 2;
     }
+    
     const revealableItems = listItems + tableRows;
     if (currentItem < revealableItems - 1) {
       setCurrentItem(currentItem + 1);
@@ -76,7 +83,13 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
     } else if (currentSlide > 0) {
       setCurrentSlide(currentSlide - 1);
       const prevSlideContent = slides[currentSlide - 1].content;
-      const listItems = (prevSlideContent.match(/^[*-] /gm) || []).length;
+      
+      // Convert to HTML to count actual list items (including nested ones)
+      const html = MarkdownParser.convertToHTML(prevSlideContent, currentSlide - 1);
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(`<div>${html}</div>`, "text/html");
+      
+      const listItems = doc.querySelectorAll('li.list-item').length;
       const tableRowMatches = prevSlideContent.match(/\|[^\n]*\|[^\n]*(?:\n|$)/g) || [];
       let tableRows = 0;
       if (tableRowMatches.length >= 3) {
@@ -177,6 +190,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
               <SlideRenderer
                 currentSlide={currentSlide}
                 slides={slideHtmls}
+                currentItem={currentItem}
               />
             </div>
           </div>
