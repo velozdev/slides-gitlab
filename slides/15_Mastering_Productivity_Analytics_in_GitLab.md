@@ -30,24 +30,24 @@
 
 ### The Analytics Foundation:
 
-**1. Define Clear Objectives**
-* Start with specific, measurable business goals
-* Align metrics with organizational priorities
-* Focus on outcomes, not just outputs
+1. **Define Clear Objectives**
+   - Start with specific, measurable business goals  
+   - Align metrics with organizational priorities  
+   - Focus on outcomes, not just outputs  
 
-**2. Select Relevant Metrics**
-* Choose KPIs that directly reflect progress
-* Balance leading and lagging indicators
-* Avoid vanity metrics that don't drive decisions
+2. **Select Relevant Metrics**
+   - Choose KPIs that directly reflect progress  
+   - Balance leading and lagging indicators  
+   - Avoid vanity metrics that don't drive decisions  
 
-**3. Automate Data Collection**
-* Minimize manual effort and human error
-* Ensure consistent and timely data gathering
-* Focus human effort on analysis, not collection
+3. **Automate Data Collection**
+   - Minimize manual effort and human error  
+   - Ensure consistent and timely data gathering  
+   - Focus human effort on analysis, not collection  
 
-**4. Visualize and Interpret**
-* Transform raw data into actionable insights
-* Make data accessible to all stakeholders
+4. **Visualize and Interpret**
+   - Transform raw data into actionable insights  
+   - Make data accessible to all stakeholders
 
 #### **Success Factor**: Start simple, measure consistently, act on insights
 

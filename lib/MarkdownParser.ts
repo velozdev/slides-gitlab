@@ -1,11 +1,11 @@
 // MarkdownParser.ts
 export class MarkdownParser {
   static parseSlides(markdown: string) {
-    const sections = markdown.split(/^# /gm).filter(section => section.trim());
+    const sections = markdown.split(/(?=^# )/gm).filter(section => section.trim());
     return sections.map(section => {
       const lines = section.trim().split('\n');
       let title = lines[0] || 'Untitled Slide';
-      title = title.replace(/^\*\*(.*?)\*\*$/, '$1');
+      title = title.replace(/^#*\s*(.*?)\s*$/, '$1'); // Extract title without leading/trailing spaces or hashes
       const content = lines.slice(1).join('\n').trim();
       return { title, content };
     });
@@ -109,16 +109,23 @@ export class MarkdownParser {
     html = html.replace(/(<li class="list-item unordered">.*?<\/li>)(\s*<li class="list-item unordered">.*?<\/li>)*/gs, 
       (match: string) => `<ul class="space-y-3 my-4 list-disc list-inside mx-auto text-left" style="max-width: 600px;">${match}</ul>`);
 
-    // Paragraphs (avoid wrapping tables, lists, and headers)
+    // Paragraphs (avoid wrapping tables, lists, headers, and code blocks)
     // Use flex centering for title slide (slide 0), normal styling for others
     if (slideIndex === 0) {
-      html = html.replace(/^(?!<[uthol]|<li)(.+)$/gm, '<p class="mb-4 leading-relaxed flex items-center justify-center min-h-16 gap-4">$1</p>');
+      html = html.replace(/^(?!<[uthol]|<li|<pre|<code)(.+)$/gm, '<p class="mb-4 leading-relaxed flex items-center justify-center min-h-16 gap-4">$1</p>');
     } else {
-      html = html.replace(/^(?!<[uthol]|<li)(.+)$/gm, '<p class="mb-4 leading-relaxed">$1</p>');
+      html = html.replace(/^(?!<[uthol]|<li|<pre|<code)(.+)$/gm, '<p class="mb-4 leading-relaxed">$1</p>');
     }
 
     // Clean up empty paragraphs
     html = html.replace(/<p[^>]*><\/p>/g, '');
+
+    // Strip p tags inside code blocks
+    html = html.replace(/<pre[^>]*><code[^>]*>(.*?)<\/code><\/pre>/gs, (match, codeContent) => {
+      // Remove <p> tags from code content
+      const cleanedCode = codeContent.replace(/<p[^>]*>(.*?)<\/p>/gs, '$1');
+      return `<pre class="bg-muted border border-border rounded-lg p-4 my-4 overflow-x-auto"><code class="text-muted-foreground font-mono text-sm">${cleanedCode}</code></pre>`;
+    });
 
     return html;
   }
