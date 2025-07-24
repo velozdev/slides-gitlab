@@ -151,12 +151,8 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
 
   function flattenListItems(list: HTMLElement): HTMLElement[] {
     const items: HTMLElement[] = [];
-    list.querySelectorAll(":scope > li").forEach((li) => {
+    list.querySelectorAll("li").forEach((li) => {
       items.push(li);
-      const nestedList = li.querySelector("ul, ol");
-      if (nestedList) {
-        items.push(...flattenListItems(nestedList));
-      }
     });
     return items;
   }
