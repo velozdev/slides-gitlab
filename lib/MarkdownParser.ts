@@ -102,12 +102,69 @@ export class MarkdownParser {
     html = html.replace(/^[*-] (.+)$/gm, '<li class="list-item unordered">$1</li>');
     html = html.replace(/^\d+\. (.+)$/gm, '<li class="list-item ordered">$1</li>');
 
+    // Wrap consecutive unordered list items with sublists
+    html = html.replace(/((?:<li class="list-item unordered">.*?<\/li>\n?)+)/g, (match) => {
+      const lines = match.trim().split('\n');
+      let result = '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
+      let sublistOpen = false;
+
+      lines.forEach(line => {
+        if (line.startsWith('<li class="list-item unordered">  ')) {
+          if (!sublistOpen) {
+            result += '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
+            sublistOpen = true;
+          }
+          result += line.replace('<li class="list-item unordered">  ', '<li class="list-item unordered">');
+        } else {
+          if (sublistOpen) {
+            result += '</ul>';
+            sublistOpen = false;
+          }
+          result += line;
+        }
+      });
+
+      if (sublistOpen) {
+        result += '</ul>';
+      }
+
+      result += '</ul>';
+      return result;
+    });
+
+    // Wrap consecutive ordered list items with sublists
+    html = html.replace(/((?:<li class="list-item ordered">.*?<\/li>\n?)+)/g, (match) => {
+      const lines = match.trim().split('\n');
+      let result = '<ol class="space-y-3 my-4 list-decimal list-inside text-left" style="max-width: 600px;">';
+      let sublistOpen = false;
+
+      lines.forEach(line => {
+        if (line.startsWith('<li class="list-item unordered">  ')) {
+          if (!sublistOpen) {
+            result += '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
+            sublistOpen = true;
+          }
+          result += line.replace('<li class="list-item unordered">  ', '<li class="list-item unordered">');
+        } else if (line.startsWith('<li class="list-item ordered">')) {
+          if (sublistOpen) {
+            result += '</ul>';
+            sublistOpen = false;
+          }
+          result += line;
+        }
+      });
+
+      if (sublistOpen) {
+        result += '</ul>';
+      }
+
+      result += '</ol>';
+      return result;
+    });
+
     // Wrap consecutive ordered list items
     html = html.replace(/(<li class="list-item ordered">.*?<\/li>)(\s*<li class="list-item ordered">.*?<\/li>)*/gs, 
       (match: string) => `<ol class="space-y-3 my-4 list-decimal list-inside text-left" style="max-width: 600px;">${match}</ol>`);
-
-    html = html.replace(/(<li class="list-item unordered">.*?<\/li>)(\s*<li class="list-item unordered">.*?<\/li>)*/gs, 
-      (match: string) => `<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">${match}</ul>`);
 
     // Paragraphs (avoid wrapping tables, lists, headers, and code blocks)
     // Use flex centering for title slide (slide 0), normal styling for others
