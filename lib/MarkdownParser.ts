@@ -120,11 +120,14 @@ export class MarkdownParser {
     // Clean up empty paragraphs
     html = html.replace(/<p[^>]*><\/p>/g, '');
 
-    // Strip p tags inside code blocks
+    // Strip p tags inside code blocks and left-align text
+    // Note: This regex assumes code blocks are already wrapped in <pre><code> tags
+    // and that <p> tags inside code blocks are not needed.
+    // It also ensures that the code block is left-aligned.
     html = html.replace(/<pre[^>]*><code[^>]*>(.*?)<\/code><\/pre>/gs, (match, codeContent) => {
       // Remove <p> tags from code content
       const cleanedCode = codeContent.replace(/<p[^>]*>(.*?)<\/p>/gs, '$1');
-      return `<pre class="bg-muted border border-border rounded-lg p-4 my-4 overflow-x-auto"><code class="text-muted-foreground font-mono text-sm">${cleanedCode}</code></pre>`;
+      return `<pre class="bg-muted border border-border rounded-lg p-4 my-4 overflow-x-auto text-left"><code class="text-muted-foreground font-mono text-sm">${cleanedCode}</code></pre>`;
     });
 
     return html;
