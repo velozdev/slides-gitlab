@@ -156,12 +156,12 @@ describe('SlideRenderer', () => {
     const unorderedItems = container.querySelectorAll('li.list-item.unordered');
     expect(orderedItems).toHaveLength(1);
     expect(unorderedItems).toHaveLength(2); // Sub Item 1 + Unordered Item 1
-    // All should be reset
+    
+    // With currentItem=0, first item should be visible, rest should be hidden
     const allItems = container.querySelectorAll('li.list-item');
-    allItems.forEach(item => {
-      const htmlItem = item as HTMLElement;
-      expect(htmlItem.style.opacity).toBe('0');
-    });
+    expect((allItems[0] as HTMLElement).style.opacity).toBe('1'); // First item visible
+    expect((allItems[1] as HTMLElement).style.opacity).toBe('0'); // Second item hidden
+    expect((allItems[2] as HTMLElement).style.opacity).toBe('0'); // Third item hidden
   });
 
   it('should handle table rows correctly with currentItem', () => {

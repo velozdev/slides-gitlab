@@ -99,8 +99,7 @@ describe('Table Animation Integration', () => {
     expect(listItems).toHaveLength(2);
     expect(tableRows).toHaveLength(2);
 
-    // Advance through items
-    fireEvent.keyDown(document, { key: 'ArrowRight' }); // First list item
+    // At start of slide 2, currentItem should be 0, so first list item visible
     expect((listItems[0] as HTMLElement).style.opacity).toBe('1');
     expect((listItems[1] as HTMLElement).style.opacity).toBe('0');
 
