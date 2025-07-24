@@ -163,4 +163,111 @@ describe('SlideRenderer', () => {
       expect(htmlItem.style.opacity).toBe('0');
     });
   });
+
+  it('should handle table rows correctly with currentItem', () => {
+    const slides = [
+      `<table>
+        <thead>
+          <tr><th>Header 1</th><th>Header 2</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Row 1 Col 1</td><td>Row 1 Col 2</td></tr>
+          <tr><td>Row 2 Col 1</td><td>Row 2 Col 2</td></tr>
+          <tr><td>Row 3 Col 1</td><td>Row 3 Col 2</td></tr>
+        </tbody>
+      </table>`
+    ];
+
+    const { container } = render(
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={1} />
+    );
+
+    const tableRows = container.querySelectorAll('table tbody tr');
+    expect(tableRows).toHaveLength(3);
+
+    // First two rows should be visible
+    expect((tableRows[0] as HTMLElement).style.opacity).toBe('1');
+    expect((tableRows[1] as HTMLElement).style.opacity).toBe('1');
+    // Third row should be hidden
+    expect((tableRows[2] as HTMLElement).style.opacity).toBe('0');
+  });
+
+  it('should handle mixed lists and tables correctly', () => {
+    const slides = [
+      `<ul>
+        <li class="list-item unordered">List Item 1</li>
+        <li class="list-item unordered">List Item 2</li>
+      </ul>
+      <table>
+        <thead>
+          <tr><th>Header</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Table Row 1</td></tr>
+          <tr><td>Table Row 2</td></tr>
+        </tbody>
+      </table>`
+    ];
+
+    const { container } = render(
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={2} />
+    );
+
+    const listItems = container.querySelectorAll('li.list-item');
+    const tableRows = container.querySelectorAll('table tbody tr');
+
+    // First 2 list items should be visible
+    expect((listItems[0] as HTMLElement).style.opacity).toBe('1');
+    expect((listItems[1] as HTMLElement).style.opacity).toBe('1');
+
+    // First table row should be visible (currentItem=2, so list items 0,1 then table row 0)
+    expect((tableRows[0] as HTMLElement).style.opacity).toBe('1');
+    // Second table row should be hidden
+    expect((tableRows[1] as HTMLElement).style.opacity).toBe('0');
+  });
+
+  it('should reset table rows when slide changes', () => {
+    const slides = [
+      `<table><tbody><tr><td>Slide 1 Row</td></tr></tbody></table>`,
+      `<table><tbody><tr><td>Slide 2 Row</td></tr></tbody></table>`
+    ];
+
+    const { rerender, container } = render(
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={0} />
+    );
+
+    // Change to slide 1 with no items revealed yet
+    rerender(<SlideRenderer currentSlide={1} slides={slides} currentItem={-1} />);
+
+    const tableRows = container.querySelectorAll('table tbody tr');
+    expect(tableRows).toHaveLength(1);
+    expect((tableRows[0] as HTMLElement).style.opacity).toBe('0');
+  });
+
+  it('should not affect table headers during animation', () => {
+    const slides = [
+      `<table>
+        <thead>
+          <tr><th>Always Visible Header</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Animated Row</td></tr>
+        </tbody>
+      </table>`
+    ];
+
+    const { container } = render(
+      <SlideRenderer currentSlide={0} slides={slides} currentItem={-1} />
+    );
+
+    const headerRows = container.querySelectorAll('table thead tr');
+    const bodyRows = container.querySelectorAll('table tbody tr');
+
+    // Header should not be affected by animation
+    expect(headerRows).toHaveLength(1);
+    expect((headerRows[0] as HTMLElement).style.opacity).toBe('');
+
+    // Body row should be hidden
+    expect((bodyRows[0] as HTMLElement).style.opacity).toBe('0');
+  });
 });
