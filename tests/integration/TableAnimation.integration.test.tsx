@@ -85,10 +85,10 @@ describe('Table Animation Integration', () => {
 
     await screen.findByText('Slide 1 of 2');
 
-    // Navigate to second slide
-    fireEvent.keyDown(document, { key: 'ArrowRight' });
-    fireEvent.keyDown(document, { key: 'ArrowRight' });
-    fireEvent.keyDown(document, { key: 'ArrowRight' });
+    // Navigate to second slide by going through all items on first slide
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Table row 1
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Table row 2  
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Table row 3
     fireEvent.keyDown(document, { key: 'ArrowRight' }); // Should advance to slide 2
 
     expect(screen.getByText('Mixed Content')).toBeInTheDocument();
@@ -99,18 +99,19 @@ describe('Table Animation Integration', () => {
     expect(listItems).toHaveLength(2);
     expect(tableRows).toHaveLength(2);
 
-    // At start of slide 2, currentItem should be 0, so first list item visible
+    // When we arrive at slide 2, currentItem should be 0, so only first list item visible
     expect((listItems[0] as HTMLElement).style.opacity).toBe('1');
     expect((listItems[1] as HTMLElement).style.opacity).toBe('0');
 
-    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Second list item
-    expect((listItems[1] as HTMLElement).style.opacity).toBe('1');
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Advance to show second list item
+    expect((listItems[0] as HTMLElement).style.opacity).toBe('1'); // Still visible
+    expect((listItems[1] as HTMLElement).style.opacity).toBe('1'); // Now visible
 
-    fireEvent.keyDown(document, { key: 'ArrowRight' }); // First table row
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Advance to show first table row
     expect((tableRows[0] as HTMLElement).style.opacity).toBe('1');
     expect((tableRows[1] as HTMLElement).style.opacity).toBe('0');
 
-    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Second table row
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Advance to show second table row
     expect((tableRows[1] as HTMLElement).style.opacity).toBe('1');
   });
 
