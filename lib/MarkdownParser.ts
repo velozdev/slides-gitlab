@@ -103,24 +103,27 @@ export class MarkdownParser {
     html = html.replace(/^\d+\. (.+)$/gm, '<li class="list-item ordered">$1</li>');
 
     // Wrap consecutive unordered list items with sublists
-    html = html.replace(/((?:<li class="list-item unordered">.*?<\/li>\n?)+)/g, (match) => {
+    html = html.replace(/((?:^[*-]\s.*(?:\n|$))+)/gm, (match) => {
       const lines = match.trim().split('\n');
       let result = '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
       let sublistOpen = false;
 
       lines.forEach(line => {
-        if (line.startsWith('<li class="list-item unordered">  ')) {
-          if (!sublistOpen) {
-            result += '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
-            sublistOpen = true;
-          }
-          result += line.replace('<li class="list-item unordered">  ', '<li class="list-item unordered">');
-        } else {
+        const unorderedMatch = line.match(/^[*-]\s(.*)/);
+        const subUnorderedMatch = line.match(/^\s{2,}[-*]\s(.*)/);
+
+        if (unorderedMatch && !subUnorderedMatch) {
           if (sublistOpen) {
             result += '</ul>';
             sublistOpen = false;
           }
-          result += line;
+          result += `<li class="list-item unordered">${unorderedMatch[1]}</li>`;
+        } else if (subUnorderedMatch) {
+          if (!sublistOpen) {
+            result += '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
+            sublistOpen = true;
+          }
+          result += `<li class="list-item unordered">${subUnorderedMatch[1]}</li>`;
         }
       });
 
@@ -133,24 +136,27 @@ export class MarkdownParser {
     });
 
     // Wrap consecutive ordered list items with sublists
-    html = html.replace(/((?:<li class="list-item ordered">.*?<\/li>\n?)+)/g, (match) => {
+    html = html.replace(/((?:^\d+\.\s.*(?:\n|$))+)/gm, (match) => {
       const lines = match.trim().split('\n');
       let result = '<ol class="space-y-3 my-4 list-decimal list-inside text-left" style="max-width: 600px;">';
       let sublistOpen = false;
 
       lines.forEach(line => {
-        if (line.startsWith('<li class="list-item unordered">  ')) {
-          if (!sublistOpen) {
-            result += '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
-            sublistOpen = true;
-          }
-          result += line.replace('<li class="list-item unordered">  ', '<li class="list-item unordered">');
-        } else if (line.startsWith('<li class="list-item ordered">')) {
+        const orderedMatch = line.match(/^\d+\.\s(.*)/);
+        const unorderedMatch = line.match(/^\s*-\s(.*)/);
+
+        if (orderedMatch) {
           if (sublistOpen) {
             result += '</ul>';
             sublistOpen = false;
           }
-          result += line;
+          result += `<li class="list-item ordered"><strong class="font-bold text-blue-400">${orderedMatch[1]}</strong>`;
+        } else if (unorderedMatch) {
+          if (!sublistOpen) {
+            result += '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
+            sublistOpen = true;
+          }
+          result += `<li class="list-item unordered">${unorderedMatch[1]}</li>`;
         }
       });
 
@@ -158,7 +164,7 @@ export class MarkdownParser {
         result += '</ul>';
       }
 
-      result += '</ol>';
+      result += '</li></ol>';
       return result;
     });
 

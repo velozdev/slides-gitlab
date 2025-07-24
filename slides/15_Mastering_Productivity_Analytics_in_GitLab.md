@@ -253,7 +253,6 @@ import pandas as pd
 from datetime import datetime, timedelta
 import os
 
-# Configuration
 GITLAB_URL = "https://gitlab.com"
 ACCESS_TOKEN = os.getenv("GITLAB_ACCESS_TOKEN")
 PROJECT_ID = "your-project-id"
