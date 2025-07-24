@@ -13,7 +13,6 @@ interface SlideEntry {
 }
 
 // Markdown Parser Module
-// ...existing code...
 export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: SlideEntry[] }) {
   const params = useParams();
   const [slides, setSlides] = useState<Array<{ title: string; content: string }>>([]);
@@ -182,6 +181,22 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
         } else {
           item.classList.add("animate-out");
           item.classList.remove("animate-in");
+        }
+      });
+
+      // Animate table rows
+      const allTableRows: HTMLElement[] = [];
+      doc.querySelectorAll("table tr").forEach((row) => {
+        allTableRows.push(row);
+      });
+
+      allTableRows.forEach((row, index) => {
+        if (index <= currentItem - allListItems.length) {
+          row.classList.add("animate-in");
+          row.classList.remove("animate-out");
+        } else {
+          row.classList.add("animate-out");
+          row.classList.remove("animate-in");
         }
       });
 
