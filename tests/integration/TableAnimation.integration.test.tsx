@@ -99,20 +99,41 @@ describe('Table Animation Integration', () => {
     expect(listItems).toHaveLength(2);
     expect(tableRows).toHaveLength(2);
 
-    // When we arrive at slide 2, currentItem should be 0, so only first list item visible
+    // When we arrive at slide 2, currentItem is 0, so first list item is visiblesible
     expect((listItems[0] as HTMLElement).style.opacity).toBe('1');
-    expect((listItems[1] as HTMLElement).style.opacity).toBe('0');
-
-    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Advance to show second list item
+    expect((listItems[1] as HTMLElement).style.opacity).toBe('0');le.opacity;
+    const secondListItemOpacity = (listItems[1] as HTMLElement).style.opacity;
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Advance currentItem to 1
     expect((listItems[0] as HTMLElement).style.opacity).toBe('1'); // Still visible
     expect((listItems[1] as HTMLElement).style.opacity).toBe('1'); // Now visible
+      expect(secondListItemOpacity).toBe('0');
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Advance currentItem to 2 (first table row)
+    expect((tableRows[0] as HTMLElement).style.opacity).toBe('1');ce to show second list item
+    expect((tableRows[1] as HTMLElement).style.opacity).toBe('0');); // Still visible
+      expect((listItems[1] as HTMLElement).style.opacity).toBe('1'); // Now visible
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Advance currentItem to 3 (second table row)
+    expect((tableRows[1] as HTMLElement).style.opacity).toBe('1');ce to show first table row
+  }); expect((tableRows[0] as HTMLElement).style.opacity).toBe('1');
+      expect((tableRows[1] as HTMLElement).style.opacity).toBe('0');
+  it('should count table rows correctly for navigation', async () => {
+    render(<SlideshowViewerClient slidesIndex={mockSlidesIndex} />); to show second table row
+      expect((tableRows[1] as HTMLElement).style.opacity).toBe('1');
+    await screen.findByText('Slide 1 of 2');
+      // If no items are visible initially, advance step by step
+    // First slide has 3 table rows key: 'ArrowRight' }); // First list item
+    // Click through all rows HTMLElement).style.opacity).toBe('1');
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Row 10');
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Row 2
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Row 3ond list item
+    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Should advance to slide 2
 
-    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Advance to show first table row
-    expect((tableRows[0] as HTMLElement).style.opacity).toBe('1');
-    expect((tableRows[1] as HTMLElement).style.opacity).toBe('0');
-
-    fireEvent.keyDown(document, { key: 'ArrowRight' }); // Advance to show second table row
-    expect((tableRows[1] as HTMLElement).style.opacity).toBe('1');
+    expect(screen.getByText('Mixed Content')).toBeInTheDocument(); table row
+    expect(screen.getByText('Slide 2 of 2')).toBeInTheDocument();');
+  }); expect((tableRows[1] as HTMLElement).style.opacity).toBe('0');
+});
+      fireEvent.keyDown(document, { key: 'ArrowRight' }); // Second table row
+      expect((tableRows[1] as HTMLElement).style.opacity).toBe('1');
+    }
   });
 
   it('should count table rows correctly for navigation', async () => {

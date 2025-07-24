@@ -73,7 +73,7 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
       setCurrentItem(currentItem + 1);
     } else if (currentSlide < slides.length - 1) {
       setCurrentSlide(currentSlide + 1);
-      setCurrentItem(0);
+      setCurrentItem(0); // Reset to 0 when moving to next slide
     }
   }, [slides, currentSlide, currentItem]);
 
