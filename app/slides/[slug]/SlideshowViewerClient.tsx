@@ -150,15 +150,32 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
     loadSlideshow();
   }, [params, slidesIndex, parseMarkdown]);
 
+  function flattenListItems(list: HTMLElement): HTMLElement[] {
+    const items: HTMLElement[] = [];
+    list.querySelectorAll(":scope > li").forEach((li) => {
+      items.push(li);
+      const nestedList = li.querySelector("ul, ol");
+      if (nestedList) {
+        items.push(...flattenListItems(nestedList));
+      }
+    });
+    return items;
+  }
+
   const renderSlideContent = (content: string, slideIndex: number) => {
     const html = MarkdownParser.convertToHTML(content, slideIndex);
-    // If this is the current slide in presentation mode, handle animations
     if (isPresenting && slideIndex === currentSlide) {
       const parser = new DOMParser();
       const doc = parser.parseFromString(`<div>${html}</div>`, "text/html");
+
+      // Flatten nested lists
+      const allListItems: HTMLElement[] = [];
+      doc.querySelectorAll("ul, ol").forEach((list) => {
+        allListItems.push(...flattenListItems(list));
+      });
+
       // Animate list items
-      const listItems = doc.querySelectorAll("li.list-item");
-      listItems.forEach((item, index) => {
+      allListItems.forEach((item, index) => {
         if (index <= currentItem) {
           item.classList.add("animate-in");
           item.classList.remove("animate-out");
@@ -167,22 +184,12 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
           item.classList.remove("animate-in");
         }
       });
-      // Animate table rows
-      const tableRows = doc.querySelectorAll("tbody tr");
-      tableRows.forEach((row, index) => {
-        if (index <= currentItem) {
-          row.classList.add("animate-in");
-          row.classList.remove("animate-out");
-        } else {
-          row.classList.add("animate-out");
-          row.classList.remove("animate-in");
-        }
-      });
+
       return doc.body.innerHTML;
     }
     return html;
   };
-        // (removed stray reference to slug)
+
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
