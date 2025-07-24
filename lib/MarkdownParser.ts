@@ -81,8 +81,8 @@ export class MarkdownParser {
       '<img src="$2" alt="$1" class="inline-block align-middle my-4 max-h-24" />');
 
     // Headers
-    html = html.replace(/^#### \*\*(.*?)\*\*$/gm, '<h4 class="text-lg font-semibold mb-3 text-foreground/90">$1</h4>');
-    html = html.replace(/^#### (.*$)/gm, '<h4 class="text-lg font-semibold mb-3 text-foreground/90">$1</h4>');
+    html = html.replace(/^#### \*\*(.*?)\*\*$/gm, '<h4 class="mt-4 text-lg font-semibold mb-3 text-foreground/90">$1</h4>');
+    html = html.replace(/^#### (.*$)/gm, '<h4 class="mt-4 text-lg font-semibold mb-3 text-foreground/90">$1</h4>');
     html = html.replace(/^### \*\*(.*?)\*\*$/gm, '<h3 class="text-2xl font-semibold mb-4">$1</h3>');
     html = html.replace(/^### (.*$)/gm, '<h3 class="text-2xl font-semibold mb-4">$1</h3>');
     html = html.replace(/^## \*\*(.*?)\*\*$/gm, '<h2 class="text-3xl font-bold mb-6">$1</h2>');
