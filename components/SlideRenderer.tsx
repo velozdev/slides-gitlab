@@ -3,9 +3,10 @@ import React, { useEffect, useRef } from 'react';
 interface SlideRendererProps {
   currentSlide: number;
   slides: string[];
+  currentItem: number;
 }
 
-const SlideRenderer: React.FC<SlideRendererProps> = ({ currentSlide, slides }) => {
+const SlideRenderer: React.FC<SlideRendererProps> = ({ currentSlide, slides, currentItem }) => {
   const slideRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -20,22 +21,15 @@ const SlideRenderer: React.FC<SlideRendererProps> = ({ currentSlide, slides }) =
       item.style.transform = 'translateX(-20px)';
     });
 
-    // Animate items in sequence, including nested items
-    const animateListItems = (): void => {
-      listItems.forEach((item: HTMLLIElement, index: number) => {
-        setTimeout(() => {
-          item.style.opacity = '1';
-          item.style.transform = 'translateX(0)';
-          item.classList.add('animate-in');
-        }, index * 200); // Stagger animation by 200ms
-      });
-    };
-
-    // Start animation after a brief delay
-    const timer: NodeJS.Timeout = setTimeout(animateListItems, 100);
-
-    return () => clearTimeout(timer);
-  }, [currentSlide, slides]);
+    // Show items up to currentItem
+    listItems.forEach((item: HTMLLIElement, index: number) => {
+      if (index <= currentItem) {
+        item.style.opacity = '1';
+        item.style.transform = 'translateX(0)';
+        item.classList.add('animate-in');
+      }
+    });
+  }, [currentSlide, slides, currentItem]);
 
   return (
     <div ref={slideRef} className="slide-container">
