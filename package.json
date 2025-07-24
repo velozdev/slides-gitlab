@@ -8,7 +8,8 @@
     "deploy": "pnpm build && npx gh-pages -d out",
     "dev": "NEXT_PUBLIC_BASE_PATH= next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start",
+    "test": "vitest"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
