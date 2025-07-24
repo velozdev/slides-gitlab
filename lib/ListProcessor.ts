@@ -99,7 +99,7 @@ export class ListProcessor {
           const match = line.match(/^\d+\.\s(.*)$/);
           if (match) {
             const content = this.processContent(match[1], true);
-            result += `<li class="list-item ordered">${content}</li>`;
+            result += `<li class="list-item ordered transition-all duration-300 ease-in-out">${content}</li>`;
           }
         });
         result += '</ol>';
@@ -110,7 +110,7 @@ export class ListProcessor {
         lines.forEach(line => {
           const match = line.match(/^[-*]\s(.*)$/);
           if (match) {
-            result += `<li class="list-item unordered">${match[1]}</li>`;
+            result += `<li class="list-item unordered transition-all duration-300 ease-in-out">${match[1]}</li>`;
           }
         });
         result += '</ul>';
@@ -121,12 +121,12 @@ export class ListProcessor {
 
   private static generateOrderedItem(content: string, sublistItems: string[]): string {
     const processedContent = this.processContent(content, true);
-    let result = `<li class="list-item ordered">${processedContent}`;
+    let result = `<li class="list-item ordered transition-all duration-300 ease-in-out">${processedContent}`;
     
     if (sublistItems.length > 0) {
       result += '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
       sublistItems.forEach(item => {
-        result += `<li class="list-item unordered">${item}</li>`;
+        result += `<li class="list-item unordered transition-all duration-300 ease-in-out">${item}</li>`;
       });
       result += '</ul>';
     }
@@ -136,12 +136,12 @@ export class ListProcessor {
   }
 
   private static generateUnorderedItem(content: string, sublistItems: string[]): string {
-    let result = `<li class="list-item unordered">${content}`;
+    let result = `<li class="list-item unordered transition-all duration-300 ease-in-out">${content}`;
     
     if (sublistItems.length > 0) {
       result += '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
       sublistItems.forEach(item => {
-        result += `<li class="list-item unordered">${item}</li>`;
+        result += `<li class="list-item unordered transition-all duration-300 ease-in-out">${item}</li>`;
       });
       result += '</ul>';
     }

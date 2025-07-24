@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Play, Settings } from "lucide-react";
 import Link from "next/link";
+import SlideRenderer from "@/components/SlideRenderer";
 
 interface SlideEntry {
   name: string;
@@ -149,58 +150,6 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
     loadSlideshow();
   }, [params, slidesIndex, parseMarkdown]);
 
-  function flattenListItems(list: HTMLElement): HTMLElement[] {
-    const items: HTMLElement[] = [];
-    list.querySelectorAll("li").forEach((li) => {
-      items.push(li);
-    });
-    return items;
-  }
-
-  const renderSlideContent = (content: string, slideIndex: number) => {
-    const html = MarkdownParser.convertToHTML(content, slideIndex);
-    if (isPresenting && slideIndex === currentSlide) {
-      const parser = new DOMParser();
-      const doc = parser.parseFromString(`<div>${html}</div>`, "text/html");
-
-      // Flatten nested lists
-      const allListItems: HTMLElement[] = [];
-      doc.querySelectorAll("ul, ol").forEach((list) => {
-        allListItems.push(...flattenListItems(list));
-      });
-
-      // Animate list items
-      allListItems.forEach((item, index) => {
-        if (index <= currentItem) {
-          item.classList.add("animate-in");
-          item.classList.remove("animate-out");
-        } else {
-          item.classList.add("animate-out");
-          item.classList.remove("animate-in");
-        }
-      });
-
-      // Animate table rows
-      const allTableRows: HTMLElement[] = [];
-      doc.querySelectorAll("table tr").forEach((row) => {
-        allTableRows.push(row);
-      });
-
-      allTableRows.forEach((row, index) => {
-        if (index <= currentItem - allListItems.length) {
-          row.classList.add("animate-in");
-          row.classList.remove("animate-out");
-        } else {
-          row.classList.add("animate-out");
-          row.classList.remove("animate-in");
-        }
-      });
-
-      return doc.body.innerHTML;
-    }
-    return html;
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
@@ -213,18 +162,23 @@ export default function SlideshowViewerClient({ slidesIndex }: { slidesIndex: Sl
   }
 
   if ((isPresenting || new URLSearchParams(window.location.search).get("present") === "true") && slides.length > 0) {
+    // Convert slides to HTML strings for SlideRenderer
+    const slideHtmls = slides.map((slide, index) => 
+      MarkdownParser.convertToHTML(slide.content, index)
+    );
+
     return (
       <div className={`fixed inset-0 bg-background text-foreground flex flex-col ${fontFamily}`}
         style={{ fontFamily: `var(--font-family)` }}>
         <div className="flex-1 flex flex-col justify-center items-center p-8">
           <div className="max-w-4xl w-full text-left">
             <h1 className="text-4xl md:text-6xl font-bold mb-8 animate-in">{slides[currentSlide].title}</h1>
-            <div
-              className="text-xl md:text-2xl leading-relaxed"
-              dangerouslySetInnerHTML={{
-                __html: renderSlideContent(slides[currentSlide].content, currentSlide),
-              }}
-            />
+            <div className="text-xl md:text-2xl leading-relaxed">
+              <SlideRenderer
+                currentSlide={currentSlide}
+                slides={slideHtmls}
+              />
+            </div>
           </div>
         </div>
         <div className="flex justify-between items-center p-4 text-sm opacity-70">
