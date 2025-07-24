@@ -55,7 +55,7 @@ const SlideRenderer: React.FC<SlideRendererProps> = ({ currentSlide, slides, cur
   }, [currentSlide, slides, currentItem]);
 
   return (
-    <div ref={slideRef} className="slide-container"></div>
+    <div ref={slideRef} className="slide-container">
       <div dangerouslySetInnerHTML={{ __html: slides[currentSlide] }} />
     </div>
   );
