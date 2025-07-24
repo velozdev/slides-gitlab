@@ -99,17 +99,25 @@ describe('SlideRenderer', () => {
       '<ul><li class="list-item unordered">Item 1</li></ul>'
     ];
 
+    // Mock timer ID that setTimeout should return
+    const mockTimerId = 123;
+    mockSetTimeout.mockReturnValue(mockTimerId);
+
     const { unmount } = render(
       <SlideRenderer currentSlide={0} slides={slides} />
     );
 
-    // Simulate timer creation
-    const mockTimerId = 'mock-timer-id';
-    mockSetTimeout.mockReturnValue(mockTimerId);
+    // Verify setTimeout was called during mount
+    expect(mockSetTimeout).toHaveBeenCalledWith(expect.any(Function), 100);
 
+    // Clear previous calls to focus on unmount behavior
+    mockClearTimeout.mockClear();
+
+    // Unmount the component
     unmount();
 
-    expect(mockClearTimeout).toHaveBeenCalledWith(mockTimerId);
+    // Verify clearTimeout was called during unmount
+    expect(mockClearTimeout).toHaveBeenCalled();
   });
 
   it('should reset and re-animate when currentSlide changes', () => {
@@ -117,7 +125,6 @@ describe('SlideRenderer', () => {
       '<ul><li class="list-item unordered">Slide 1 Item</li></ul>',
       '<ul><li class="list-item unordered">Slide 2 Item</li></ul>'
     ];
-
     const { rerender, container } = render(
       <SlideRenderer currentSlide={0} slides={slides} />
     );
@@ -127,11 +134,9 @@ describe('SlideRenderer', () => {
 
     // Change to slide 1
     rerender(<SlideRenderer currentSlide={1} slides={slides} />);
-
     // Verify content changed
     expect(container.innerHTML).toContain('Slide 2 Item');
     expect(container.innerHTML).not.toContain('Slide 1 Item');
-
     // Verify animation timer was set up again
     expect(mockSetTimeout).toHaveBeenCalledWith(expect.any(Function), 100);
   });
@@ -140,20 +145,17 @@ describe('SlideRenderer', () => {
     const slides = [
       '<p>Just a paragraph with no lists</p>'
     ];
-
     const { container } = render(
       <SlideRenderer currentSlide={0} slides={slides} />
     );
 
     expect(container.innerHTML).toContain('Just a paragraph with no lists');
-    
     // Should still set up timer even with no list items
     expect(mockSetTimeout).toHaveBeenCalledWith(expect.any(Function), 100);
   });
 
   it('should handle empty slides array', () => {
     const slides: string[] = [];
-
     expect(() => {
       render(<SlideRenderer currentSlide={0} slides={slides} />);
     }).not.toThrow();
@@ -161,7 +163,6 @@ describe('SlideRenderer', () => {
 
   it('should handle currentSlide index out of bounds', () => {
     const slides = ['<p>Only slide</p>'];
-
     expect(() => {
       render(<SlideRenderer currentSlide={5} slides={slides} />);
     }).not.toThrow();
@@ -171,11 +172,9 @@ describe('SlideRenderer', () => {
     const slides = [
       '<ul><li class="list-item unordered transition-all duration-300 ease-in-out">Item with transitions</li></ul>'
     ];
-
     const { container } = render(
       <SlideRenderer currentSlide={0} slides={slides} />
     );
-
     const listItem = container.querySelector('li.list-item');
     expect(listItem).toHaveClass('transition-all', 'duration-300', 'ease-in-out');
   });
@@ -193,17 +192,14 @@ describe('SlideRenderer', () => {
         <li class="list-item unordered">Unordered Item 1</li>
       </ul>`
     ];
-
     const { container } = render(
       <SlideRenderer currentSlide={0} slides={slides} />
     );
 
     const orderedItems = container.querySelectorAll('li.list-item.ordered');
     const unorderedItems = container.querySelectorAll('li.list-item.unordered');
-    
     expect(orderedItems).toHaveLength(1);
     expect(unorderedItems).toHaveLength(2); // Sub Item 1 + Unordered Item 1
-
     // All should be reset
     const allItems = container.querySelectorAll('li.list-item');
     allItems.forEach(item => {

@@ -8,8 +8,8 @@ describe('ListProcessor', () => {
     
     const result = ListProcessor.processLists(markdown);
     expect(result).toContain('<ul class="space-y-3 my-4 list-disc list-inside text-left"');
-    expect(result).toContain('<li class="list-item unordered">Item 1</li>');
-    expect(result).toContain('<li class="list-item unordered">Item 2</li>');
+    expect(result).toContain('<li class="list-item unordered transition-all duration-300 ease-in-out">Item 1</li>');
+    expect(result).toContain('<li class="list-item unordered transition-all duration-300 ease-in-out">Item 2</li>');
   });
 
   it('should process simple ordered lists', () => {
@@ -18,8 +18,8 @@ describe('ListProcessor', () => {
     
     const result = ListProcessor.processLists(markdown);
     expect(result).toContain('<ol class="space-y-3 my-4 list-decimal list-inside text-left"');
-    expect(result).toContain('<li class="list-item ordered">First item</li>');
-    expect(result).toContain('<li class="list-item ordered">Second item</li>');
+    expect(result).toContain('<li class="list-item ordered transition-all duration-300 ease-in-out">First item</li>');
+    expect(result).toContain('<li class="list-item ordered transition-all duration-300 ease-in-out">Second item</li>');
   });
 
   it('should process nested unordered lists', () => {
@@ -36,6 +36,7 @@ describe('ListProcessor', () => {
     expect(normalized).toContain('Sub Item 1.1');
     expect(normalized).toContain('Sub Item 1.2');
     expect(normalized).toContain('Main Item 2');
+    expect(normalized).toContain('transition-all duration-300 ease-in-out');
     
     // Verify nested structure
     const openingUls = (normalized.match(/<ul/g) || []).length;
@@ -57,6 +58,7 @@ describe('ListProcessor', () => {
     expect(normalized).toContain('<strong class="font-bold text-blue-400">Main Item</strong>');
     expect(normalized).toContain('Sub Item 1');
     expect(normalized).toContain('Sub Item 2');
+    expect(normalized).toContain('transition-all duration-300 ease-in-out');
   });
 
   it('should handle complex nested structures', () => {
@@ -74,6 +76,7 @@ describe('ListProcessor', () => {
     expect(normalized).toContain('Start with specific, measurable business goals');
     expect(normalized).toContain('Another Main Item');
     expect(normalized).toContain('Another sub item');
+    expect(normalized).toContain('transition-all duration-300 ease-in-out');
   });
 
   it('should not process non-list content', () => {
