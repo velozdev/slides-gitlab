@@ -83,8 +83,8 @@ export class MarkdownParser {
     html = html.replace(/^#### (.*$)/gm, '<h4 class="text-lg font-semibold mb-3 text-foreground/90">$1</h4>');
     html = html.replace(/^### \*\*(.*?)\*\*$/gm, '<h3 class="text-2xl font-semibold mb-4">$1</h3>');
     html = html.replace(/^### (.*$)/gm, '<h3 class="text-2xl font-semibold mb-4">$1</h3>');
-    html = html.replace(/^## \*\*(.*?)\*\*$/gm, '<h2 class="text-3xl font-bold mb-6 text-center">$1</h2>');
-    html = html.replace(/^## (.*$)/gm, '<h2 class="text-3xl font-bold mb-6 text-center">$1</h2>');
+    html = html.replace(/^## \*\*(.*?)\*\*$/gm, '<h2 class="text-3xl font-bold mb-6">$1</h2>');
+    html = html.replace(/^## (.*$)/gm, '<h2 class="text-3xl font-bold mb-6">$1</h2>');
 
     // Bold and italic
     html = html.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-blue-400">$1</strong>');
