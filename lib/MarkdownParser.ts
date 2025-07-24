@@ -1,4 +1,6 @@
 // MarkdownParser.ts
+import { ListProcessor } from './ListProcessor';
+
 export class MarkdownParser {
   static parseSlides(markdown: string) {
     const sections = markdown.split(/(?=^# )/gm).filter(section => section.trim());
@@ -98,79 +100,8 @@ export class MarkdownParser {
     html = html.replace(/`([^`]+)`/g, 
       '<code class="bg-muted text-muted-foreground px-2 py-1 rounded font-mono text-sm border border-border">$1</code>');
 
-    // Lists
-    html = html.replace(/^[*-] (.+)$/gm, '<li class="list-item unordered">$1</li>');
-    html = html.replace(/^\d+\. (.+)$/gm, '<li class="list-item ordered">$1</li>');
-
-    // Wrap consecutive unordered list items with sublists
-    html = html.replace(/((?:^[*-]\s.*(?:\n|$))+)/gm, (match) => {
-      const lines = match.trim().split('\n');
-      let result = '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
-      let sublistOpen = false;
-
-      lines.forEach(line => {
-        const unorderedMatch = line.match(/^[*-]\s(.*)/);
-        const subUnorderedMatch = line.match(/^\s{2,}[-*]\s(.*)/);
-
-        if (unorderedMatch && !subUnorderedMatch) {
-          if (sublistOpen) {
-            result += '</ul>';
-            sublistOpen = false;
-          }
-          result += `<li class="list-item unordered">${unorderedMatch[1]}</li>`;
-        } else if (subUnorderedMatch) {
-          if (!sublistOpen) {
-            result += '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
-            sublistOpen = true;
-          }
-          result += `<li class="list-item unordered">${subUnorderedMatch[1]}</li>`;
-        }
-      });
-
-      if (sublistOpen) {
-        result += '</ul>';
-      }
-
-      result += '</ul>';
-      return result;
-    });
-
-    // Wrap consecutive ordered list items with sublists
-    html = html.replace(/((?:^\d+\.\s.*(?:\n|$))+)/gm, (match) => {
-      const lines = match.trim().split('\n');
-      let result = '<ol class="space-y-3 my-4 list-decimal list-inside text-left" style="max-width: 600px;">';
-      let sublistOpen = false;
-
-      lines.forEach(line => {
-        const orderedMatch = line.match(/^\d+\.\s(.*)/);
-        const unorderedMatch = line.match(/^\s*-\s(.*)/);
-
-        if (orderedMatch) {
-          if (sublistOpen) {
-            result += '</ul>';
-            sublistOpen = false;
-          }
-          result += `<li class="list-item ordered"><strong class="font-bold text-blue-400">${orderedMatch[1]}</strong>`;
-        } else if (unorderedMatch) {
-          if (!sublistOpen) {
-            result += '<ul class="space-y-3 my-4 list-disc list-inside text-left" style="max-width: 600px;">';
-            sublistOpen = true;
-          }
-          result += `<li class="list-item unordered">${unorderedMatch[1]}</li>`;
-        }
-      });
-
-      if (sublistOpen) {
-        result += '</ul>';
-      }
-
-      result += '</li></ol>';
-      return result;
-    });
-
-    // Wrap consecutive ordered list items
-    html = html.replace(/(<li class="list-item ordered">.*?<\/li>)(\s*<li class="list-item ordered">.*?<\/li>)*/gs, 
-      (match: string) => `<ol class="space-y-3 my-4 list-decimal list-inside text-left" style="max-width: 600px;">${match}</ol>`);
+    // Lists - Process all list types together with proper nesting
+    html = ListProcessor.processLists(html);
 
     // Paragraphs (avoid wrapping tables, lists, headers, and code blocks)
     // Use flex centering for title slide (slide 0), normal styling for others
